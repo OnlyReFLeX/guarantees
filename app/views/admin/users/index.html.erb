@@ -1,0 +1,25 @@
+<div class="container">
+  <br>
+  <%= link_to "Новый пользователь", new_user_registration_path, class: "btn btn-info" %>
+  <br><br>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <td>Пользователь</td>
+        <td>Администратор</td>
+        <td>Эл. Почта</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.username, admin_user_path(user), style: 'text-decoration:none' %></td>
+          <td><%= user.admin? ? "Да" : "Нет"%> </td>
+          <td><%= user.email %></td>
+          <td><%= link_to '', admin_user_path(user), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить пользователя #{user.username}?"}, style: 'text-decoration:none' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

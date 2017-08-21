@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-5">
+      <a onClick="javascript:CallPrint('print-content');" title="Распечатать вызов" class="fa fa-print">Печать</a>
+      <div id="print-content">
+
+
+    <h2>Вызов №<%= @called.id %> <% if current_user.admin? %><%= link_to "",edit_admin_order_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h2>
+    <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
+    <tr class="even"> <th> Имя: <%= @called.username %></th></tr>
+    <tr class="odd"> <th> Котел: <%= @called.kotel %></th></tr>
+    <tr class="even"> <th> Телефон: <%= @called.phone %></th></tr>
+    <tr class="odd"> <th> Адрес: <%= @called.adress %></th></tr>
+    <tr class="even"> <th> Неисправность: <%= @called.error %></th></tr>
+    <tr class="odd"> <th> Дата звонка клиента: <%= @called.date %></th></tr>
+    <tr class="even"> <th> Дата создание записи: <%= @called.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></th>
+    <tr class="odd"> <th> Мастер: <%= if @called.master.length == 0 then "Неизвестен" else @called.master end %></th></tr>
+    <tr class="even"><th>Гарантийный: <%= @called.guarantee %></th></tr>
+    <tr class="odd"> <th> Регистратор вызова: <%= @called.currentuser %></th></tr>
+    </table>
+          </div>
+          Статус: <%= success_check(@called.success) %>
+<% if current_user.admin? %>
+          <% if @called.success == "no" %>
+                       <%= success_check(@called.success) %><span style="color:#FF0000;">Не выполнен</span>
+                 <%= form_for :call, url: admin_order_path(@called), method: :put do |f| %>
+                 <input type="hidden" name="call[success]" value="work"><br>
+                 		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %> <a align ="right">  <%= link_to ' Удалить', admin_order_path(@called), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"}, style: 'text-decoration:none' %></a>
+                 <% end %>
+           <% elsif @called.success == "work" %>
+                       <%= success_check(@called.success) %><span style="color:#f0ad4e;">В процессе</span>
+                 <%= form_for :call, url: admin_order_path(@called), method: :put do |f| %>
+                 <input type="hidden" name="call[success]" value="yes"><br>
+                    <%= f.submit 'Выполнен', class: "btn btn-success" %>
+                 <% end %>
+          <% else %>
+                       <%= success_check(@called.success) %>
+          <% end %><br>
+<% end %>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+function CallPrint(strid) {
+var prtContent = document.getElementById(strid);
+var prtCSS = '';
+var WinPrint = window.open('','','left=50,top=50,width=800,height =640,toolbar=0,scrollbars=1,status=0');
+
+var print = document.createElement("div");
+print.className = "contentpane";
+print.setAttribute("id", "print");
+print.appendChild(prtContent.cloneNode(true));
+
+WinPrint.document.body.appendChild(print);
+
+WinPrint.focus();
+WinPrint.print();
+WinPrint.close();
+}
+
+</script>

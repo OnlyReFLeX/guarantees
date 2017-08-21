@@ -1,0 +1,16 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: eurodom_development
+  pool: 5
+  timeout: 5000
+  username: ubuntu
+  password: skefj3q9-fuj9qawf3q2
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: eurodom_test
+  pool: 5
+  timeout: 5000
+  username: ubuntu
+  password: skefj3q9-fuj9qawf3q2

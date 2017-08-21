@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6"><br>
+    <h3>Редактирование гарантийного котла</h3>
+
+    <%= form_for :warranty, url: admin_guarantee_path(@warranty), method: :put, html: {class: "form-group"}  do |f| %>
+
+          <%= f.label :kotel, "Производитель*" %>
+          <%= f.collection_select :kotel, Model.order(:kotel), :kotel , :kotel, { include_blank: true }, class: "form-control" %>
+
+          <%= f.label :model, "Модель*" %>
+          <%= f.text_field :model, class: "form-control" %>
+
+          <%= f.label :name, "Фамилия Имя владельца*" %>
+          <%= f.text_field :name, class: "form-control" %>
+
+          <%= f.label :adress, "Адрес установленного котла*" %>
+          <%= f.text_field :adress, class: "form-control" %>
+
+          <%= f.label :phone, "Телефон*" %>
+          <%= f.text_field :phone, class: "form-control" %>
+
+          <%= f.label :serial, "Серийный номер котла*" %>
+          <%= f.text_field :serial, class: "form-control" %>
+
+          <%= f.label :datebuyed, "Дата покупки котла*" %>
+          <%= f.text_field :datebuyed, class: "form-control" %>
+
+          <%= f.label :started, "Был ли первый запуск котла*" %>
+          <%= f.select :started, [['Да', 'Да'],['Нет', 'Нет']], { include_blank: true }, class: "form-control" %>
+
+<div id="hidden_div" style="display: none;">
+            <%= f.label :whodidfirststart, "Кто делал запуск котла" %>
+          <%= f.collection_select :whodidfirststart, Masster.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
+
+          <%= f.label :datefirststart, "Дата первого запуска котла" %>
+          <%= f.text_field :datefirststart, class: "form-control" %>
+</div>
+
+          <br /><%= f.submit "Изменить", class: "btn btn-primary" %>
+    <% end %>
+      </div>
+  </div>
+</div>
+<script>
+$(function() {
+  $("#warranty_phone").mask("+7(000)000-00-00", {
+    placeholder: "+7(___)___-__-__",
+    clearIfNotMatch: true
+  });
+});
+  $(document).ready(function(){
+    $('#warranty_datebuyed').datepicker({
+    format: "dd.mm.yy",
+    todayBtn: "linked",
+    language: "ru"
+  });
+});
+$(document).ready(function(){
+  $('#warranty_datefirststart').datepicker({
+  format: "dd.mm.yy",
+  todayBtn: "linked",
+  language: "ru"
+});
+});
+
+document.getElementById('warranty_started').addEventListener('change', function () {
+    var style = this.value == "Да" ? 'block' : 'none';
+    document.getElementById('hidden_div').style.display = style;
+});
+</script>

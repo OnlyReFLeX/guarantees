@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+              <table class="table table-hover orders">
+               <thead>
+                 <tr>
+                   <th><%= sortable "id", "#" %></th>
+                   <th><%= sortable "name", "Клиент" %></th>
+                   <th><%= sortable "kotel", "Котел"%></th>
+                   <th>Дата покупки</th>
+                   <th><%= sortable "started", "Первый пуск"%></th>
+                 </tr>
+               </thead>
+               <tbody>
+               <% @warranties.each do |kotel| %>
+               <tr>
+                 <td><%= kotel.id %></td>
+                 <td><%= link_to "#{kotel.name}", guarantee_path(kotel) %></td>
+                 <td><%= kotel.kotel %> <%= kotel.model %> </td>
+                 <td><%= kotel.datebuyed %></td>
+                 <td><%= kotel.started %></td>
+               </tr>
+              <% end %>
+               </tbody>
+              </table>
+              <div class="container">
+                <%= will_paginate @warranties, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>

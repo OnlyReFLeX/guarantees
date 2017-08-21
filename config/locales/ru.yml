@@ -1,0 +1,4 @@
+ru:
+  will_paginate:
+    previous_label: 'Пред'
+    next_label: 'След'

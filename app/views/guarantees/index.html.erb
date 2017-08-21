@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-8">
+
+
+    <%= form_tag guarantees_path, :method => 'get', :id => "ws_search", class: "form-inline" do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+    <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Поиск" %>
+    <%= submit_tag "Найти",class: "btn btn-outline-success my-2 my-sm-0" , :name => nil %>
+    <% end %><br>
+    </div>
+    <div class="col-sm-4">
+    Общее количество гарантийных котлов: <%= Warranty.all.size %>
+    </div>
+  </div>
+</div>
+
+<div id="warranties"><%= render 'warranties' %></div>
+<!-- <script type="text/javascript">
+$(function() {
+  //СОРТИРОВКА и ПРОЛИСТЫВАНИЕ ТОВАРОВ ПО ЗАПРОСУ AJAX (Для работы расскоментировать)
+  $("body").on('click', "#warranties th a, #warranties .pagination a", function() {
+    $.getScript(this.href);
+    return false;
+  });
+
+  //ПОИСК С ПОМОЩЬЮ ЗАПРОСА AJAX (Для работы расскоментировать)
+  $("#ws_search input").keyup(function() {
+    $.get($("#ws_search").attr("action"), $("#ws_search").serialize(), null, "script");
+    return false;
+  });
+});
+</script> -->

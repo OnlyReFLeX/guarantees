@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="table-responsive">
+          <table class="table table-hover orders">
+           <thead>
+             <tr>
+               <th><%= sortable "id", "#" %></th>
+               <th >Дата звонка</th>
+               <th><%= sortable "username", "Имя" %></th>
+               <th><%= sortable "phone", "Телефон" %></th>
+               <th><%= sortable "adress", "Адрес" %></th>
+               <th><%= sortable "kotel", "Котел" %></th>
+               <th><%= sortable "error", "Неисправность" %></th>
+               <th><%= sortable "master", "Мастер" %></th>
+               <th><%= sortable "created_at", "Создание записи" %></th>
+               <th><%= sortable "success", "Статус" %></th>
+               <th><%= sortable "guarantee", "Г" %></th>
+               <% if current_user.admin? %>
+               <th></th>
+               <% end %>
+             </tr>
+           </thead>
+           <tbody>
+           <% @orders.each do |kotel| %>
+           <tr>
+             <td><%= kotel.id %></td>
+             <td><%= kotel.date %></td>
+             <td><%= link_to "#{kotel.username}", order_path(kotel) %></a></td>
+             <td><%= kotel.phone %></td>
+             <td ><%= kotel.adress %></td>
+             <td><%= kotel.kotel %></td>
+             <td><%= kotel.error %></td>
+             <td><%= kotel.master %></td>
+             <td><%= kotel.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></td>
+             <td><%= success_check(kotel.success) %></td>
+             <td><%= kotel.guarantee %></td>
+             <% if current_user.admin? %>
+             <td><%= link_to '', admin_order_path(kotel), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить вызов #{kotel.username}?"}, style: 'text-decoration:none' %></td>
+             <% end %>
+           </tr>
+          <% end %>
+           </tbody>
+          </table>
+          <div class="container">
+            <%= will_paginate @orders, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+          </div>
+        </div>
+    </div>
+  <div class="col-sm-1"></div>
+</div>

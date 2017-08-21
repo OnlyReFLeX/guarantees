@@ -2,9 +2,6 @@
   <div class="row">
 
     <div class="col-xs-5">
-      <a onClick="javascript:CallPrint('print-content');" title="Распечатать вызов" class="fa fa-print">Печать</a>
-      <div id="print-content">
-
 
     <h2>Вызов №<%= @called.id %> <% if current_user.admin? %><%= link_to "",edit_admin_order_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h2>
     <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
@@ -19,7 +16,6 @@
     <tr class="even"><th>Гарантийный: <%= @called.guarantee %></th></tr>
     <tr class="odd"> <th> Регистратор вызова: <%= @called.currentuser %></th></tr>
     </table>
-          </div>
           Статус: <%= success_check(@called.success) %>
 <% if current_user.admin? %>
           <% if @called.success == "no" %>
@@ -41,22 +37,3 @@
     </div>
   </div>
 </div>
-<script language="javascript">
-function CallPrint(strid) {
-var prtContent = document.getElementById(strid);
-var prtCSS = '';
-var WinPrint = window.open('','','left=50,top=50,width=800,height =640,toolbar=0,scrollbars=1,status=0');
-
-var print = document.createElement("div");
-print.className = "contentpane";
-print.setAttribute("id", "print");
-print.appendChild(prtContent.cloneNode(true));
-
-WinPrint.document.body.appendChild(print);
-
-WinPrint.focus();
-WinPrint.print();
-WinPrint.close();
-}
-
-</script>

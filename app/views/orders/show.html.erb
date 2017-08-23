@@ -19,13 +19,13 @@
           Статус: <%= success_check(@called.success) %>
 <% if current_user.admin? %>
           <% if @called.success == "no" %>
-                       <%= success_check(@called.success) %><span style="color:#FF0000;">Не выполнен</span>
+                       <span style="color:#FF0000;">Не выполнен</span>
                  <%= form_for :call, url: admin_order_path(@called), method: :put do |f| %>
                  <input type="hidden" name="call[success]" value="work"><br>
                  		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %> <a align ="right">  <%= link_to ' Удалить', admin_order_path(@called), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"}, style: 'text-decoration:none' %></a>
                  <% end %>
            <% elsif @called.success == "work" %>
-                       <%= success_check(@called.success) %><span style="color:#f0ad4e;">В процессе</span>
+                       <span style="color:#f0ad4e;">В процессе</span>
                  <%= form_for :call, url: admin_order_path(@called), method: :put do |f| %>
                  <input type="hidden" name="call[success]" value="yes"><br>
                     <%= f.submit 'Выполнен', class: "btn btn-success" %>

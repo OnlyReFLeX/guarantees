@@ -1,14 +1,6 @@
 class Warranty < ApplicationRecord
-  validates :name, presence: true
-  validates :kotel, presence: true
-  validates :adress, presence: true
-  validates :serial, presence: true
-  validates :phone, presence: true
-  validates :model, presence: true
-  validates :started, presence: true
-  validates :datebuyed, presence: true
-  validates :whodidfirststart, presence: true, if: -> { started == 'Да' }
-  validates :datefirststart, presence: true, if: -> { started == 'Да' }
+  validates :name, :kotel, :adress, :serial, :phone, :model, :started, :datebuyed, presence: true
+  validates :whodidfirststart, :datefirststart, presence: true, if: -> { started == 'Да' }
 
   def self.search(search)
     if search

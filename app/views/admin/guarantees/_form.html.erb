@@ -54,13 +54,20 @@ $(function() {
     todayBtn: "linked",
     language: "ru"
   });
-});
-$(document).ready(function(){
-  $('#warranty_datefirststart').datepicker({
-  format: "dd.mm.yy",
-  todayBtn: "linked",
-  language: "ru"
-});
+    $('#warranty_datefirststart').datepicker({
+    format: "dd.mm.yy",
+    todayBtn: "linked",
+    language: "ru"
+  });
+  var value = $('#warranty_started').val();
+  var hidden_div = $('#hidden_div')
+
+  if (value == 'Да') {
+    hidden_div.show();
+  } else {
+    hidden_div.hide();
+  }
+
 });
 
 document.getElementById('warranty_started').addEventListener('change', function () {

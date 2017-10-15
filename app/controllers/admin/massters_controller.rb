@@ -1,6 +1,7 @@
 class Admin::MasstersController < Admin::AdminController
 
     def new
+      @masster = Masster.new
       @massters = Masster.all
     end
 

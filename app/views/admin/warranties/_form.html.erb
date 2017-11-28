@@ -40,8 +40,6 @@ $(function() {
     placeholder: "+7(___)___-__-__",
     clearIfNotMatch: true
   });
-});
-  $(document).ready(function(){
     $('#warranty_datebuyed').datepicker({
     format: "dd.mm.yy",
     todayBtn: "linked",
@@ -52,19 +50,18 @@ $(function() {
     todayBtn: "linked",
     language: "ru"
   });
-  var value = $('#warranty_started').val();
-  var hidden_div = $('#hidden_div')
 
-  if (value == 'Да') {
+  var hidden_div = $('#hidden_div')
+  if ($('#warranty_started').val() == 'Да') {
     hidden_div.show();
   } else {
     hidden_div.hide();
   }
-
+  document.getElementById('warranty_started').addEventListener('change', function () {
+      var style = this.value == "Да" ? 'block' : 'none';
+      document.getElementById('hidden_div').style.display = style;
+  });
 });
 
-document.getElementById('warranty_started').addEventListener('change', function () {
-    var style = this.value == "Да" ? 'block' : 'none';
-    document.getElementById('hidden_div').style.display = style;
-});
+
 </script>

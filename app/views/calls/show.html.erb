@@ -3,7 +3,7 @@
 
     <div class="col-xs-5">
 
-    <h2>Вызов №<%= @called.id %> <% if current_user.admin? %><%= link_to "",edit_admin_order_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h2>
+    <h2>Вызов №<%= @called.id %> <% if current_user.admin? %><%= link_to "",edit_admin_call_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h2>
     <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
     <tr class="even"> <th> Имя: <%= @called.username %></th></tr>
     <tr class="odd"> <th> Котел: <%= @called.kotel %></th></tr>
@@ -20,13 +20,13 @@
 <% if current_user.admin? %>
           <% if @called.success == "no" %>
                        <span style="color:#FF0000;">Не выполнен</span>
-                 <%= form_for :call, url: admin_order_path(@called), method: :put do |f| %>
+                 <%= form_for :call, url: admin_call_path(@called), method: :put do |f| %>
                  <input type="hidden" name="call[success]" value="work"><br>
-                 		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %> <a align ="right">  <%= link_to ' Удалить', admin_order_path(@called), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"}, style: 'text-decoration:none' %></a>
+                 		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %> <a align ="right">  <%= link_to ' Удалить', admin_call_path(@called), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"}, style: 'text-decoration:none' %></a>
                  <% end %>
            <% elsif @called.success == "work" %>
                        <span style="color:#f0ad4e;">В процессе</span>
-                 <%= form_for :call, url: admin_order_path(@called), method: :put do |f| %>
+                 <%= form_for :call, url: admin_call_path(@called), method: :put do |f| %>
                  <input type="hidden" name="call[success]" value="yes"><br>
                     <%= f.submit 'Выполнен', class: "btn btn-success" %>
                  <% end %>

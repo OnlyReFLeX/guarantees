@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations'}
 
   root to: "home#index"
-  resources :orders, only: [:show, :index]
-  resources :guarantees, only: [:show, :index]
+  resources :calls, only: [:show, :index]
+  resources :warranties, only: [:show, :index]
 
 
   namespace :admin do
-    resources :guarantees, except: [:show, :index]
-    resources :orders, except: [:show, :index]
+    resources :warranties, except: [:show, :index]
+    resources :calls, except: [:show, :index]
     resources :models
     resources :massters
     resources :users

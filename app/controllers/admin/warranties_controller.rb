@@ -1,4 +1,4 @@
-class Admin::GuaranteesController < Admin::AdminController
+class Admin::WarrantiesController < Admin::AdminController
   before_action :find_id, only: [:update, :edit]
   def new
     @warranty = Warranty.new
@@ -6,9 +6,10 @@ class Admin::GuaranteesController < Admin::AdminController
 
   def create
     @warranty = Warranty.new(warranty_params)
+    @warranty.currentuser = current_user.username
     if @warranty.valid?
       @warranty.save
-      redirect_to guarantees_path
+      redirect_to warranties_path
     else
       render action: 'new'
     end
@@ -19,7 +20,7 @@ class Admin::GuaranteesController < Admin::AdminController
 
   def update
     if @warranty.update(warranty_params)
-      redirect_to guarantees_path
+      redirect_to warranties_path
     else
       render action: 'edit'
     end
@@ -34,6 +35,6 @@ class Admin::GuaranteesController < Admin::AdminController
     @warranty = Warranty.find(params[:id])
   end
   def warranty_params
-    params.require(:warranty).permit(:name, :kotel, :phone, :adress, :datebuyed, :datefirststart, :whodidfirststart, :serial, :model, :started, :search, :page, :sort, :utf8, :direction, :allfields, :currentuser)
+    params.require(:warranty).permit(:name, :kotel, :phone, :adress, :datebuyed, :datefirststart, :whodidfirststart, :serial, :model, :started, :search, :page, :sort, :utf8, :direction, :allfields)
   end
 end

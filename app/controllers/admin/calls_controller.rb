@@ -1,18 +1,21 @@
-class Admin::OrdersController < Admin::AdminController
+class Admin::CallsController < Admin::AdminController
   include ApplicationHelper
   helper_method :sort_column, :sort_direction
 
   def new
+    @call = Call.new
     @models = Model.all
   end
 
   def create
     @call = Call.new(call_params)
+    @call.success = "no"
+    @call.currentuser = current_user.username
     @models = Model.all
 
     if @call.valid?
       @call.save
-      redirect_to orders_path
+      redirect_to calls_path
     else
       render action: 'new'
     end
@@ -27,7 +30,7 @@ class Admin::OrdersController < Admin::AdminController
     @call = Call.find(params[:id])
 
     if @call.update(call_params)
-      redirect_to order_path
+      redirect_to call_path
     else
       render action: 'edit'
     end
@@ -36,12 +39,12 @@ class Admin::OrdersController < Admin::AdminController
 
   def destroy
     Call.find(params[:id]).destroy
-    redirect_to orders_path
+    redirect_to calls_path
   end
 
   private
   def call_params
-    params.require(:call).permit(:username, :kotel, :phone, :adress, :date, :success, :master, :error, :search, :page, :sort, :utf8, :direction, :allfields, :guarantee, :currentuser)
+    params.require(:call).permit(:username, :kotel, :phone, :adress, :date, :success, :master, :error, :search, :page, :sort, :utf8, :direction, :allfields, :guarantee)
   end
 
 

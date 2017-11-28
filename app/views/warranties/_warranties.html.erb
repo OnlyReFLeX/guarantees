@@ -16,7 +16,7 @@
                <% @warranties.each do |kotel| %>
                <tr>
                  <td><%= kotel.id %></td>
-                 <td><%= link_to "#{kotel.name}", guarantee_path(kotel) %></td>
+                 <td><%= link_to "#{kotel.name}", warranty_path(kotel) %></td>
                  <td><%= kotel.kotel %> <%= kotel.model %> </td>
                  <td><%= kotel.datebuyed %></td>
                  <td><%= kotel.started %></td>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-5">
-      <h3>Гаранийный котел №<%= @warranty.id %> <% if current_user.admin? %><%= link_to "",edit_admin_guarantee_path(@warranty), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h3>
+      <h3>Гарантийный котел №<%= @warranty.id %> <% if current_user.admin? %><%= link_to "",edit_admin_warranty_path(@warranty), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h3>
       <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
       <tr class="odd"> <th> Клиент: <%= @warranty.name %></th></tr>
       <tr class="even"> <th> Котел: <%= @warranty.kotel %> <%= @warranty.model %></th></tr>
@@ -11,8 +11,8 @@
       <tr class="even"> <th> Серийный номер: <%= @warranty.serial %></th></tr>
       <tr class="odd"><th>Первый пуск: <%= @warranty.started %></th></tr>
       <% if @warranty.started == "Да" %>
-      <tr class="even"> <th> Дата первого пуска: <%= @warranty.datefirststart %></th></tr>
-      <tr class="odd"> <th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
+        <tr class="even"> <th> Дата первого пуска: <%= @warranty.datefirststart %></th></tr>
+        <tr class="odd"> <th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
       <% end %>
       <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></th>
       <tr class="odd"> <th> Регистратор гарантии: <%= @warranty.currentuser %></th></tr>

@@ -1,9 +1,9 @@
-class OrdersController < ApplicationController
+class CallsController < ApplicationController
   include ApplicationHelper
   helper_method :sort_column, :sort_direction
 
   def index
-    @orders = Call.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 10, :page => params[:page])
+    @calls = Call.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 10, :page => params[:page])
   end
 
   def show

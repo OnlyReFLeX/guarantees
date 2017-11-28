@@ -1,4 +1,4 @@
-class GuaranteesController < ApplicationController
+class WarrantiesController < ApplicationController
   include ApplicationHelper
   helper_method :sort_column, :sort_direction
 

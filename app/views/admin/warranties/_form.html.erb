@@ -1,7 +1,7 @@
 <%= form_for [:admin, @warranty], html: {class: "form-group"}  do |f| %>
 
-  <%= f.label :kotel, "Производитель*" %>
-  <%= f.collection_select :kotel, Model.order(:kotel), :kotel , :kotel, { include_blank: true }, class: "form-control" %>
+  <%= f.label :boiler, "Производитель*" %>
+  <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
 
   <%= f.label :model, "Модель*" %>
   <%= f.text_field :model, class: "form-control" %>
@@ -26,7 +26,7 @@
 
   <div id="hidden_div" style="display: none;">
     <%= f.label :whodidfirststart, "Кто делал запуск котла" %>
-    <%= f.collection_select :whodidfirststart, Masster.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
+    <%= f.collection_select :whodidfirststart, Master.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
 
     <%= f.label :datefirststart, "Дата первого запуска котла" %>
     <%= f.text_field :datefirststart, class: "form-control" %>

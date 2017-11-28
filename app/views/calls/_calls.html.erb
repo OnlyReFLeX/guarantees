@@ -10,7 +10,7 @@
                <th><%= sortable "username", "Имя" %></th>
                <th><%= sortable "phone", "Телефон" %></th>
                <th><%= sortable "adress", "Адрес" %></th>
-               <th><%= sortable "kotel", "Котел" %></th>
+               <th><%= sortable "boiler", "Котел" %></th>
                <th><%= sortable "error", "Неисправность" %></th>
                <th><%= sortable "master", "Мастер" %></th>
                <th><%= sortable "created_at", "Создание записи" %></th>
@@ -22,21 +22,21 @@
              </tr>
            </thead>
            <tbody>
-           <% @calls.each do |kotel| %>
+           <% @calls.each do |call| %>
            <tr>
-             <td><%= kotel.id %></td>
-             <td><%= kotel.date %></td>
-             <td><%= link_to "#{kotel.username}", call_path(kotel) %></a></td>
-             <td><%= kotel.phone %></td>
-             <td ><%= kotel.adress %></td>
-             <td><%= kotel.kotel %></td>
-             <td><%= kotel.error %></td>
-             <td><%= kotel.master %></td>
-             <td><%= kotel.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></td>
-             <td><%= success_check(kotel.success) %></td>
-             <td><%= kotel.guarantee %></td>
+             <td><%= call.id %></td>
+             <td><%= call.date %></td>
+             <td><%= link_to "#{call.username}", call_path(call) %></a></td>
+             <td><%= call.phone %></td>
+             <td ><%= call.adress %></td>
+             <td><%= call.boiler %></td>
+             <td><%= call.error %></td>
+             <td><%= call.master %></td>
+             <td><%= call.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></td>
+             <td><%= success_check(call.success) %></td>
+             <td><%= call.guarantee %></td>
              <% if current_user.admin? %>
-             <td><%= link_to '', admin_call_path(kotel), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить вызов #{kotel.username}?"}, style: 'text-decoration:none' %></td>
+             <td><%= link_to '', admin_call_path(call), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить вызов #{call.username}?"}, style: 'text-decoration:none' %></td>
              <% end %>
            </tr>
           <% end %>

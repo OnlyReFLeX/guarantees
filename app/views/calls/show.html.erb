@@ -6,7 +6,7 @@
     <h2>Вызов №<%= @called.id %> <% if current_user.admin? %><%= link_to "",edit_admin_call_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h2>
     <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
     <tr class="even"> <th> Имя: <%= @called.username %></th></tr>
-    <tr class="odd"> <th> Котел: <%= @called.kotel %></th></tr>
+    <tr class="odd"> <th> Котел: <%= @called.boiler %></th></tr>
     <tr class="even"> <th> Телефон: <%= @called.phone %></th></tr>
     <tr class="odd"> <th> Адрес: <%= @called.adress %></th></tr>
     <tr class="even"> <th> Неисправность: <%= @called.error %></th></tr>
@@ -14,7 +14,7 @@
     <tr class="even"> <th> Дата создание записи: <%= @called.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></th>
     <tr class="odd"> <th> Мастер: <%= if @called.master.length == 0 then "Неизвестен" else @called.master end %></th></tr>
     <tr class="even"><th>Гарантийный: <%= @called.guarantee %></th></tr>
-    <tr class="odd"> <th> Регистратор вызова: <%= @called.currentuser %></th></tr>
+    <tr class="odd"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>
     </table>
           Статус: <%= success_check(@called.success) %>
 <% if current_user.admin? %>

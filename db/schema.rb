@@ -10,34 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714211136) do
+ActiveRecord::Schema.define(version: 20170713162749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "calls", force: :cascade do |t|
-    t.string "kotel"
-    t.string "username"
-    t.text "phone"
-    t.text "adress"
-    t.text "date"
-    t.text "success"
-    t.text "master"
-    t.text "error"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "guarantee"
-    t.string "currentuser"
-  end
-
-  create_table "massters", force: :cascade do |t|
+  create_table "boilers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "models", force: :cascade do |t|
-    t.string "kotel"
+  create_table "calls", force: :cascade do |t|
+    t.string "boiler"
+    t.string "username"
+    t.string "who_created"
+    t.string "phone"
+    t.text "adress"
+    t.text "date"
+    t.string "success"
+    t.string "master"
+    t.string "error"
+    t.string "guarantee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "masters", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,17 +65,17 @@ ActiveRecord::Schema.define(version: 20170714211136) do
   create_table "warranties", force: :cascade do |t|
     t.string "name"
     t.string "phone"
-    t.string "kotel"
+    t.string "boiler"
     t.string "model"
     t.string "adress"
     t.string "serial"
     t.string "datefirststart"
     t.string "whodidfirststart"
     t.string "datebuyed"
+    t.string "who_created"
+    t.string "started"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "started"
-    t.string "currentuser"
   end
 
 end

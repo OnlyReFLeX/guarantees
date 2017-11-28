@@ -7,19 +7,19 @@
                  <tr>
                    <th><%= sortable "id", "#" %></th>
                    <th><%= sortable "name", "Клиент" %></th>
-                   <th><%= sortable "kotel", "Котел"%></th>
+                   <th><%= sortable "boiler", "Котел"%></th>
                    <th>Дата покупки</th>
                    <th><%= sortable "started", "Первый пуск"%></th>
                  </tr>
                </thead>
                <tbody>
-               <% @warranties.each do |kotel| %>
+               <% @warranties.each do |warranty| %>
                <tr>
-                 <td><%= kotel.id %></td>
-                 <td><%= link_to "#{kotel.name}", warranty_path(kotel) %></td>
-                 <td><%= kotel.kotel %> <%= kotel.model %> </td>
-                 <td><%= kotel.datebuyed %></td>
-                 <td><%= kotel.started %></td>
+                 <td><%= warranty.id %></td>
+                 <td><%= link_to "#{warranty.name}", warranty_path(warranty) %></td>
+                 <td><%= warranty.boiler %> <%= warranty.model %> </td>
+                 <td><%= warranty.datebuyed %></td>
+                 <td><%= warranty.started %></td>
                </tr>
               <% end %>
                </tbody>

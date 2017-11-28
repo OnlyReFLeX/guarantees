@@ -4,14 +4,14 @@ class Admin::CallsController < Admin::AdminController
 
   def new
     @call = Call.new
-    @models = Model.all
+    @boilers = Boiler.all
   end
 
   def create
     @call = Call.new(call_params)
     @call.success = "no"
-    @call.currentuser = current_user.username
-    @models = Model.all
+    @call.who_created = current_user.username
+    @boilers = Boiler.all
 
     if @call.valid?
       @call.save
@@ -44,7 +44,7 @@ class Admin::CallsController < Admin::AdminController
 
   private
   def call_params
-    params.require(:call).permit(:username, :kotel, :phone, :adress, :date, :success, :master, :error, :search, :page, :sort, :utf8, :direction, :allfields, :guarantee)
+    params.require(:call).permit(:username, :boiler, :phone, :adress, :date, :success, :master, :error, :search, :page, :sort, :utf8, :direction, :allfields, :guarantee)
   end
 
 

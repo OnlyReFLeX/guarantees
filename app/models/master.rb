@@ -1,3 +1,3 @@
-class Masster < ApplicationRecord
+class Master < ApplicationRecord
   validates :name, presence: true
 end

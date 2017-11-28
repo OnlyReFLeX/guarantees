@@ -3,24 +3,24 @@
       <div class="col-sm-6">
       <h3>Добавить мастера</h3>
 
-      <%= form_for :masster, url: admin_massters_path, html: {class: "form-group"}  do |f| %>
+      <%= form_for :master, url: admin_masters_path, html: {class: "form-group"}  do |f| %>
 
             <%= f.label :name, "Мастер" %>
             <%= f.text_field :name, class: "form-control" %>
 
             <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
       <% end %>
-  <% if @massters.size > 0 %>
+  <% if @masters.size > 0 %>
       <table class="table toble-responsive">
         <thead>
           <th>Существующие мастера</th>
           <th></th>
         </thead>
         <tbody>
-          <% @massters.each do |master| %>
+          <% @masters.each do |master| %>
           <tr>
               <td><%= master.name %></td>
-              <td><%= link_to '', admin_masster_path(master), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить котел #{master.name}?"}, style: 'text-decoration:none' %></td>
+              <td><%= link_to '', admin_master_path(master), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить котел #{master.name}?"}, style: 'text-decoration:none' %></td>
           </tr>
           <% end %>
         </tbody>

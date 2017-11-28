@@ -1,7 +1,7 @@
 <%= form_for [:admin, @call], html: {class: "form-group"}  do |f| %>
 
-  <%= f.label :kotel, "Котел" %>
-  <%= f.collection_select :kotel, Model.order(:kotel), :kotel , :kotel, { include_blank: true }, class: "form-control" %>
+  <%= f.label :boiler, "Котел" %>
+  <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
 
   <%= f.label :username, "Имя" %>
   <%= f.text_field :username, class: "form-control" %>
@@ -16,7 +16,7 @@
   <%= f.text_field :date, class: "form-control" %>
 
   <%= f.label :master, "Мастер" %>
-  <%= f.collection_select :master, Masster.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
+  <%= f.collection_select :master, Master.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
 
   <%= f.label :error, "Неисправность" %>
   <%= f.text_field :error, class: "form-control" %>

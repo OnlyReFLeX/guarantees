@@ -1,2 +1,0 @@
-module MasstersHelper
-end

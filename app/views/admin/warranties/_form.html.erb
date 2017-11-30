@@ -22,7 +22,7 @@
   <%= f.text_field :datebuyed, class: "form-control" %>
 
   <%= f.label :started, "Был ли первый запуск котла*" %>
-  <%= f.select :started, [['Да', 'Да'],['Нет', 'Нет']], { include_blank: true }, class: "form-control" %>
+  <%= f.select :started, [['Да', true],['Нет', false]], { include_blank: true }, class: "form-control" %>
 
   <div id="hidden_div" style="display: none;">
     <%= f.label :whodidfirststart, "Кто делал запуск котла" %>
@@ -41,24 +41,24 @@ $(function() {
     clearIfNotMatch: true
   });
     $('#warranty_datebuyed').datepicker({
-    format: "dd.mm.yy",
+    format: "dd.mm.yyyy",
     todayBtn: "linked",
     language: "ru"
   });
     $('#warranty_datefirststart').datepicker({
-    format: "dd.mm.yy",
+    format: "dd.mm.yyyy",
     todayBtn: "linked",
     language: "ru"
   });
 
   var hidden_div = $('#hidden_div')
-  if ($('#warranty_started').val() == 'Да') {
+  if ($('#warranty_started').val() == "true") {
     hidden_div.show();
   } else {
     hidden_div.hide();
   }
   document.getElementById('warranty_started').addEventListener('change', function () {
-      var style = this.value == "Да" ? 'block' : 'none';
+      var style = this.value == "true" ? 'block' : 'none';
       document.getElementById('hidden_div').style.display = style;
   });
 });

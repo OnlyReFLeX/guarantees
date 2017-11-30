@@ -7,11 +7,11 @@
       <tr class="even"> <th> Котел: <%= @warranty.boiler %> <%= @warranty.model %></th></tr>
       <tr class="odd"> <th> Телефон: <%= @warranty.phone %></th></tr>
       <tr class="even"> <th> Адрес: <%= @warranty.adress %></th></tr>
-      <tr class="odd"> <th> Дата покупки: <%= @warranty.datebuyed %></th></tr>
+      <tr class="odd"> <th> Дата покупки: <%= @warranty.datebuyed.strftime("%d.%m.%Y") %></th></tr>
       <tr class="even"> <th> Серийный номер: <%= @warranty.serial %></th></tr>
-      <tr class="odd"><th>Первый пуск: <%= @warranty.started %></th></tr>
-      <% if @warranty.started == "Да" %>
-        <tr class="even"> <th> Дата первого пуска: <%= @warranty.datefirststart %></th></tr>
+      <tr class="odd"><th>Первый пуск: <%= @warranty.started ? 'Да' : 'Нет' %></th></tr>
+      <% if @warranty.started == true %>
+        <tr class="even"> <th> Дата первого пуска: <%= @warranty.datefirststart.strftime("%d.%m.%Y") %></th></tr>
         <tr class="odd"> <th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
       <% end %>
       <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></th>

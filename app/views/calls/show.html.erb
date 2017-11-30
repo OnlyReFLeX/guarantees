@@ -10,8 +10,8 @@
     <tr class="even"> <th> Телефон: <%= @called.phone %></th></tr>
     <tr class="odd"> <th> Адрес: <%= @called.adress %></th></tr>
     <tr class="even"> <th> Неисправность: <%= @called.error %></th></tr>
-    <tr class="odd"> <th> Дата звонка клиента: <%= @called.date %></th></tr>
-    <tr class="even"> <th> Дата создание записи: <%= @called.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></th>
+    <tr class="odd"> <th> Дата звонка клиента: <%= @called.date.strftime("%d.%m.%Y") %></th></tr>
+    <tr class="even"> <th> Дата создание записи: <%= @called.created_at.strftime("%d.%m.%Y %H:%M") %></th>
     <tr class="odd"> <th> Мастер: <%= if @called.master.length == 0 then "Неизвестен" else @called.master end %></th></tr>
     <tr class="even"><th>Гарантийный: <%= @called.guarantee %></th></tr>
     <tr class="odd"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>

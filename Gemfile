@@ -59,3 +59,4 @@ gem 'popper_js', '~> 1.9.9'
 gem "font-awesome-rails"
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg'
+gem 'jquery-rails'

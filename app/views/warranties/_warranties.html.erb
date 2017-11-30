@@ -8,7 +8,7 @@
                    <th><%= sortable "id", "#" %></th>
                    <th><%= sortable "name", "Клиент" %></th>
                    <th><%= sortable "boiler", "Котел"%></th>
-                   <th>Дата покупки</th>
+                   <th><%= sortable "datebuyed", "Дата покупки"%></th>
                    <th><%= sortable "started", "Первый пуск"%></th>
                  </tr>
                </thead>
@@ -18,8 +18,8 @@
                  <td><%= warranty.id %></td>
                  <td><%= link_to "#{warranty.name}", warranty_path(warranty) %></td>
                  <td><%= warranty.boiler %> <%= warranty.model %> </td>
-                 <td><%= warranty.datebuyed %></td>
-                 <td><%= warranty.started %></td>
+                 <td><%= warranty.datebuyed.strftime("%d.%m.%Y") %></td>
+                 <td><%= warranty.started ? 'Да' : 'Нет' %></td>
                </tr>
               <% end %>
                </tbody>

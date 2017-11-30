@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170713162749) do
     t.string "who_created"
     t.string "phone"
     t.text "adress"
-    t.text "date"
+    t.datetime "date"
     t.string "success"
     t.string "master"
     t.string "error"
@@ -69,11 +69,11 @@ ActiveRecord::Schema.define(version: 20170713162749) do
     t.string "model"
     t.string "adress"
     t.string "serial"
-    t.string "datefirststart"
+    t.datetime "datefirststart"
     t.string "whodidfirststart"
-    t.string "datebuyed"
+    t.datetime "datebuyed"
     t.string "who_created"
-    t.string "started"
+    t.boolean "started"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

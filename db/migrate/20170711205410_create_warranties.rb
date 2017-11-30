@@ -7,11 +7,11 @@ class CreateWarranties < ActiveRecord::Migration[5.1]
       t.string :model
       t.string :adress
       t.string :serial
-      t.string :datefirststart
+      t.datetime :datefirststart
       t.string :whodidfirststart
-      t.string :datebuyed
+      t.datetime :datebuyed
       t.string :who_created
-      t.string :started
+      t.boolean :started
 
       t.timestamps
     end

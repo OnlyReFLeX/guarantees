@@ -6,7 +6,7 @@ class CreateCalls < ActiveRecord::Migration[5.1]
       t.string :who_created
       t.string :phone
       t.text :adress
-      t.text :date
+      t.datetime :date
       t.string :success
       t.string :master
       t.string :error

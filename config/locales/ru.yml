@@ -13,6 +13,7 @@ ru:
           current_password: 'Текущий пароль'
           password: 'Пароль'
           password_confirmation: 'Подтверждения пароля'
+          username: 'Пользователь'
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'

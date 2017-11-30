@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::AdminController
-  before_action :find, only: [:show, :update, :destroy]
+  before_action :find_id, only: [:show, :update, :destroy]
   def index
     @users = User.all.order('created_at DESC')
   end

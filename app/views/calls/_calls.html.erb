@@ -25,7 +25,7 @@
             <% @calls.each do |call| %>
               <tr>
                 <td><%= call.id %></td>
-                <td><%= call.date.strftime("%d.%m.%Y") %></td>
+                <td><%= call.call_date.strftime("%d.%m.%Y") %></td>
                 <td><%= link_to "#{call.username}", call_path(call) %></a></td>
                 <td><%= call.phone %></td>
                 <td ><%= call.adress %></td>

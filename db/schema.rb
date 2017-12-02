@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170713162749) do
     t.string "who_created"
     t.string "phone"
     t.text "adress"
-    t.datetime "date"
+    t.datetime "call_date"
     t.string "success"
     t.string "master"
     t.string "error"

@@ -38,7 +38,7 @@ class Admin::CallsController < Admin::AdminController
   private
 
   def call_params
-    params.require(:call).permit(:boiler, :username, :who_created, :phone, :adress, :date, :success, :master, :error, :guarantee)
+    params.require(:call).permit(:boiler, :username, :who_created, :phone, :adress, :call_date, :success, :master, :error, :guarantee)
   end
   def find_id
     @call = Call.find(params[:id])

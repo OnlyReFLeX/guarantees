@@ -1,5 +1,5 @@
 class Call < ApplicationRecord
-  validates :username, :boiler, :adress, :date, :phone, :error, :guarantee, presence: true
+  validates :username, :boiler, :adress, :call_date, :phone, :error, :guarantee, presence: true
 
 
   def self.search(search)

@@ -26,7 +26,7 @@ class Admin::BoilersController < Admin::AdminController
     @boiler = Boiler.find(params[:id])
   end
   def boilers_all
-    @boilers = Boiler.all
+    @boilers = Boiler.all.paginate(:per_page => 10, :page => params[:page])
   end
   def call_params
     params.require(:boiler).permit(:name)

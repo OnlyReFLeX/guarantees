@@ -1,12 +1,10 @@
 class Admin::MastersController < Admin::AdminController
-
+    before_action :masters_all, only: [:new, :create]
     def new
       @master = Master.new
-      @masters = Master.all
     end
 
     def create
-      @masters = Master.all
       @master = Master.new(master_params)
 
       if @master.valid?
@@ -22,6 +20,9 @@ class Admin::MastersController < Admin::AdminController
       redirect_to :action => 'new'
     end
 
+    def masters_all
+      @masters = Master.all.paginate(:per_page => 10, :page => params[:page])
+    end
 
     private
     def master_params

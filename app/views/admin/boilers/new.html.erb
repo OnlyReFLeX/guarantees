@@ -17,16 +17,20 @@
         <th>Существующие модели котлов</th>
         <th></th>
       </thead>
-      <tbody>
-      <% @boilers.each do |boiler| %>
-      <tr>
-          <td><%= boiler.name %></td>
-          <td><%= link_to '', admin_boiler_path(boiler), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, style: 'text-decoration:none' %></td>
-      </tr>
-      </tbody>
-      <% end %>
-      </table>
+        <tbody>
+          <% @boilers.each do |boiler| %>
+          <tr>
+              <td><%= boiler.name %></td>
+              <td><%= link_to '', admin_boiler_path(boiler), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, style: 'text-decoration:none' %></td>
+          </tr>
 
+
+          <% end %>
+        </tbody>
+      </table>
+      <div class="container">
+        <%= will_paginate @boilers, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+      </div>
 <% end %>
   </div>
 </div>

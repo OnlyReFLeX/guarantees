@@ -25,7 +25,9 @@
           <% end %>
         </tbody>
       </table>
-
+      <div class="container">
+        <%= will_paginate @masters, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+      </div>
     <% end %>
       </div>
   </div>

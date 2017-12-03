@@ -7,14 +7,34 @@
     <%= form_tag calls_path, :method => 'get', :id => "qs_search", class: "form-inline" do %>
     <%= hidden_field_tag :direction, params[:direction] %>
     <%= hidden_field_tag :sort, params[:sort] %>
+    <%= hidden_field_tag :call_date, params[:call_date] %>
+    <%= hidden_field_tag :created_at, params[:created_at] %>
     <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Поиск" %>
     <%= submit_tag "Найти",class: "btn btn-outline-success my-2 my-sm-0" , :name => nil %>
     <% end %><br>
+    <%= form_tag calls_path, :method => 'get', class: "form-inline" do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+    <%= hidden_field_tag :search, params[:search] %>
+    <%= hidden_field_tag :call_date, params[:call_date] %>
+    <%= text_field_tag :created_at, params[:created_at], class: "form-control mr-sm-2", placeholder: "Выставить " %>
+    <%= submit_tag "Определить создание",class: "btn btn-outline-success my-2 my-sm-0" , :name => nil %>
+    <% end %><br>
+    <%= form_tag calls_path, :method => 'get', class: "form-inline" do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+    <%= hidden_field_tag :search, params[:search] %>
+    <%= hidden_field_tag :created_at, params[:created_at] %>
+    <%= text_field_tag :call_date, params[:call_date], class: "form-control mr-sm-2", placeholder: "Выставить" %>
+    <%= submit_tag "Определить звонок",class: "btn btn-outline-success my-2 my-sm-0" , :name => nil %>
+    <% end %><br>
     </div>
+
+
+
     <div class="col-sm-4">
     Общее число вызовов: <%= Call.all.size %><br>
     В процессе: <%= Call.where(:success => 'work').size %>
-
 
     </div>
   </div>

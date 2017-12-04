@@ -14,7 +14,7 @@ class Call < ApplicationRecord
     if date =~ /\A\d{4}(-)\d{2}(-)\d{2}\s(-)\s\d{4}(-)\d{2}(-)\d{2}$/ && date != ""
       date = date.split(%r{\s\S\s})
       if parsed_date(date[0]) && parsed_date(date[1])
-        where("#{column} BETWEEN ? AND ?", date[0], date[1])
+        where("#{column} BETWEEN ? AND ?", Date.parse(date[0]).prev_day, date[1])
       else
         self.where(nil)
       end

@@ -55,8 +55,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap-datepicker-rails'
 gem 'devise'
 gem 'bootstrap', '>= 4.0.0.alpha3.1'
-gem 'popper_js', '~> 1.9.9'
+gem 'popper_js', '~> 1.12.3'
 gem "font-awesome-rails"
 gem 'will_paginate', '~> 3.1.0'
 gem 'pg'
 gem 'jquery-rails'
+gem "rails-bootstrap-daterangepicker"

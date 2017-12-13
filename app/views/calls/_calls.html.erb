@@ -7,13 +7,15 @@
             <tr>
               <th><%= sortable "id", "#" %></th>
               <th><%= sortable "call_date", "Дата звонка" %> <br>
+
                 <%= form_tag calls_path, :method => 'get', id: 'form_call_date' do %>
                 <%= hidden_field_tag :direction, params[:direction] %>
                 <%= hidden_field_tag :sort, params[:sort] %>
                 <%= hidden_field_tag :search, params[:search] %>
                 <%= hidden_field_tag :created_at, params[:created_at] %>
-                <%= text_field_tag :call_date, params[:call_date], class: "form-control form-control-sm col-sm-8", placeholder: "Выберите время", style: "font-size:11px;" %>
+                <%= text_field_tag :call_date, params[:call_date], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
                 <% end %>
+
               </th>
               <th><%= sortable "username", "Имя" %></th>
               <th><%= sortable "phone", "Телефон" %></th>
@@ -23,12 +25,12 @@
               <th><%= sortable "master", "Мастер" %></th>
               <th><%= sortable "created_at", "Создание записи" %><br>
 
-                <%= form_tag calls_path, :method => 'get', id: 'form_call_date' do %>
+                <%= form_tag calls_path, :method => 'get', id: 'form_created_at' do %>
                 <%= hidden_field_tag :direction, params[:direction] %>
                 <%= hidden_field_tag :sort, params[:sort] %>
                 <%= hidden_field_tag :search, params[:search] %>
                 <%= hidden_field_tag :call_date, params[:call_date] %>
-                <%= text_field_tag :created_at, params[:created_at], class: "form-control form-control-sm col-sm-8", placeholder: "Выберите время", style: "font-size:11px;" %>
+                <%= text_field_tag :created_at, params[:created_at], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
                 <% end %>
 
               </th>
@@ -44,7 +46,7 @@
               <tr>
                 <td><%= call.id %></td>
                 <td><%= call.call_date.strftime("%d.%m.%Y") %></td>
-                <td><%= link_to "#{call.username}", call_path(call) %></a></td>
+                <td><%= link_to call.username, call_path(call) %></a></td>
                 <td><%= call.phone %></td>
                 <td><%= call.adress %></td>
                 <td><%= call.boiler %></td>
@@ -67,11 +69,3 @@
     </div>
   <div class="col-sm-1"></div>
 </div>
-<!-- <script type="text/javascript">
-  $(function() {
-    $("#call_date").on('input',function () {
-      $('#form_call_date').submit();
-    });
-  });
-</script>
- -->

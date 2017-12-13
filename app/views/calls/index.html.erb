@@ -40,3 +40,43 @@ $(function() {
   });
 });
 </script> -->
+
+
+
+<script type="text/javascript">
+  $(function() {
+      $('input[name="call_date"], input[name="created_at"]').daterangepicker({
+        'format': 'YYYY-MM-DD',
+        'autoApply': true,
+        'locale': {
+            'fromLabel': 'От',
+            'toLabel': 'До',
+            'weekLabel': 'Н',
+            'customRangeLabel': 'Задать даты',
+            'firstDay': 1,
+            'cancelLabel': 'Очистить',
+            'applyLabel': 'Применить',
+            'daysOfWeek': ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            'monthNames': ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+        },
+        'language': 'ru'
+      });
+
+
+      $('input[name="call_date"]').on('apply.daterangepicker', function(ev, picker) {
+        $('#form_call_date').submit()
+      });
+      $('input[name="call_date"]').on('cancel.daterangepicker', function(ev, picker) {
+        $('#form_call_date #call_date').val('');
+        $('#form_call_date').submit()
+      });
+      $('input[name="created_at"]').on('apply.daterangepicker', function(ev, picker) {
+        $('#form_created_at').submit()
+      });
+      $('input[name="created_at"]').on('cancel.daterangepicker', function(ev, picker) {
+        $('#form_created_at #created_at').val('');
+        $('#form_created_at').submit()
+      });
+  });
+</script>
+

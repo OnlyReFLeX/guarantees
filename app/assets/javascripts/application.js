@@ -19,4 +19,5 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 //= require bootstrap-sprockets
 //= require popper
-//= require_tree .
+//= require moment
+//= require bootstrap-daterangepicker

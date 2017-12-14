@@ -80,21 +80,20 @@
       <div>
 
         <div class="container">
+          <%if @error && @error.length > 0 then %>
+              <br><div class="alert alert-danger"><%=@error%></div>
+          <% end %>
+          <% if notice && notice.length > 0 then %>
+          <br><p class="notice alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert && alert.length > 0 then %>
+          <br><p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+        </div>
 
-            <%if @error && @error.length > 0 then %>
-                <br><div class="alert alert-danger"><%=@error%></div>
-            <% end %>
-            <% if notice && notice.length > 0 then %>
-            <br><p class="notice alert alert-success"><%= notice %></p>
-            <% end %>
-            <% if alert && alert.length > 0 then %>
-            <br><p class="alert alert-danger"><%= alert %></p>
-            <% end %>
+        <%= yield %>
 
-          </div>
-            <%= yield %>
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP-L2RSMado3N_tgp20D7pn9OqJf2WeSs&libraries=places&callback=initAutocomplete" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP-L2RSMado3N_tgp20D7pn9OqJf2WeSs&libraries=places&callback=initAutocomplete" async defer></script>
       </div>
   </body>
 </html>

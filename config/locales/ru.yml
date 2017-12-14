@@ -14,6 +14,24 @@ ru:
           password: 'Пароль'
           password_confirmation: 'Подтверждения пароля'
           username: 'Пользователь'
+        warranty:
+          name: 'Имя'
+          boiler: 'Котел'
+          adress: 'Адрес'
+          phone: 'Телефон'
+          model: 'Модель'
+          started: 'Дата запуска'
+          datebuyed: 'Дата покупки'
+          whodidfirststart: 'Кто делал запуск'
+          datefirststart: 'Дата первого запуска'
+        call:
+          username: 'Имя'
+          boiler: 'Котел'
+          adress: 'Адрес'
+          call_date: 'Дата звонка'
+          phone: 'Телефон'
+          error: 'Неисправность'
+          guarantee: 'Гарантийность'
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'

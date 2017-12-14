@@ -1,3 +1,14 @@
+<% if @warranty.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger" role="alert">
+    <strong>Ошибки</strong>
+    <ul>
+      <% @warranty.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for [:admin, @warranty], html: {class: "form-group"}  do |f| %>
 
   <%= f.label :boiler, "Производитель*" %>

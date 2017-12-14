@@ -35,3 +35,7 @@ th .asc {
 th .desc {
   background-image: url(/images/down_arrow.gif);
 }
+.pac-container:after {
+    background-image: none !important;
+    height: 0px;
+}

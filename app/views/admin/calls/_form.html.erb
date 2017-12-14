@@ -7,7 +7,7 @@
   <%= f.text_field :username, class: "form-control" %>
 
   <%= f.label :adress, "Адрес" %>
-  <%= f.text_field :adress, class: "form-control" %>
+  <%= f.text_field :adress, class: "form-control", onFocus: "geolocate()" %>
 
   <%= f.label :phone, "Телефон" %>
   <%= f.text_field :phone, class: "form-control" %>
@@ -40,6 +40,10 @@ $(function() {
     language: "ru"
   });
 });
+
+function initAutocomplete() {
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('call_adress')),
+      {types: ['geocode']});
+}
 </script>
-
-

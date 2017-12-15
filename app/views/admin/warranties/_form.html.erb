@@ -21,7 +21,7 @@
   <%= f.text_field :name, class: "form-control" %>
 
   <%= f.label :adress, "Адрес установленного котла*" %>
-  <%= f.text_field :adress, class: "form-control" %>
+  <%= f.text_field :adress, class: "form-control", onFocus: "geolocate()"  %>
 
   <%= f.label :phone, "Телефон*" %>
   <%= f.text_field :phone, class: "form-control" %>

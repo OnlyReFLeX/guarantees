@@ -20,7 +20,7 @@ ru:
           adress: 'Адрес'
           phone: 'Телефон'
           model: 'Модель'
-          started: 'Дата запуска'
+          started: 'Пуск'
           datebuyed: 'Дата покупки'
           whodidfirststart: 'Кто делал запуск'
           datefirststart: 'Дата первого запуска'

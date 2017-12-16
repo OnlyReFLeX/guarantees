@@ -9,11 +9,11 @@ module ApplicationHelper
 
   def success_check(status, size = "1")
      if status == 'no'
-     x = "<span style='color:#FF0000;' class='fa fa-times fa-#{size}x'></span>".html_safe
+     "<span style='color:#FF0000;' class='fa fa-times fa-#{size}x'></span>".html_safe
     elsif status == "work"
-     x = "<span style='color:#f0ad4e;' class='fa fa-cog fa-spin fa-#{size}x'></span>".html_safe
+     "<span style='color:#f0ad4e;' class='fa fa-cog fa-spin fa-#{size}x'></span>".html_safe
     else
-     x = "<span style='color:#008000;' class='fa fa-check fa-#{size}x'></span>".html_safe
+     "<span style='color:#008000;' class='fa fa-check fa-#{size}x'></span>".html_safe
     end
   end
 

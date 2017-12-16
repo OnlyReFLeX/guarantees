@@ -14,7 +14,7 @@
         <tr class="even"> <th> Дата первого пуска: <%= @warranty.datefirststart.strftime("%d.%m.%Y") %></th></tr>
         <tr class="odd"> <th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
       <% end %>
-      <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d-%m-%Y %H:%M") %></th>
+      <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d.%m.%Y %H:%M") %></th>
       <tr class="odd"> <th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
       </table>
     </div>

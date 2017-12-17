@@ -1,7 +1,3 @@
-source 'https://rails-assets.org' do
-  gem 'rails-assets-tether', '>= 1.1.0'
-end
-
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -53,6 +49,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+  gem 'rubocop', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -66,3 +63,4 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'pg'
 gem 'jquery-rails'
 gem "rails-bootstrap-daterangepicker"
+gem 'tether-rails'

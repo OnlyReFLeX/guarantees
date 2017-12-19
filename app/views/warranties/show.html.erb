@@ -18,5 +18,29 @@
       <tr class="odd"> <th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
       </table>
     </div>
+
+    <div class="col-xs-5">
+      <h2>Вызовы которые были </h2>
+      <div class="table-responsive">
+        <table class="table table-hover orders">
+         <thead>
+           <tr>
+             <th>#</th>
+             <th>Имя</th>
+             <th>Дата</th>
+           </tr>
+         </thead>
+         <tbody>
+           <% @warranty.calls.each do |call| %>
+           <tr>
+             <td><%= call.id %></td>
+             <td><%= link_to "#{call.username}", call_path(call) %></td>
+             <td><%= call.created_at.strftime("%d.%m.%Y") %></td>
+           </tr>
+          <% end %>
+         </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ class Warranty < ApplicationRecord
   validates :started, inclusion: { in: [ true, false ] }
   validates :whodidfirststart, :datefirststart, presence: true, if: -> { started == true }
   validates :serial, uniqueness: true
+  has_many :calls
 
   def self.search(search)
     if search

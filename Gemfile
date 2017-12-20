@@ -64,3 +64,4 @@ gem 'pg'
 gem 'jquery-rails'
 gem "rails-bootstrap-daterangepicker"
 gem 'tether-rails'
+gem 'jquery-ui-rails'

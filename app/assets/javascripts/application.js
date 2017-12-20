@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require jquery3
+//= require jquery-ui
+//= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//= require jquery3
-//= require jquery_ujs
 //= require tether
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js

@@ -33,10 +33,10 @@
   <%= f.text_field :error, class: "form-control" %>
 
   <%= f.label :guarantee, "Гарантийный" %>
-  <%= f.select :guarantee, [['Да', 'Да'],['Нет', 'Нет']], { include_blank: true }, class: "form-control" %>
+  <%= f.select :guarantee, [['Да', true],['Нет', false]], { include_blank: true }, class: "form-control" %>
 
-  <%= f.label :warranty_id, "Серийный номер" %>
-  <%= f.collection_select :warranty_id, Warranty.order(:id), :id, :serial, { include_blank: true }, class: "form-control"  %>
+  <%= f.label :serial_code, "Серийный номер" %>
+  <%= f.text_field :serial_code, class: "form-control", data: { autocomplete_source: Warranty.order(:id).map(&:serial)}   %>
 
   <br /><%= f.submit @call.new_record? ? 'Создать' : 'Сохранить', class: "btn btn-primary"%>
 
@@ -52,6 +52,10 @@ $(function() {
     format: "dd.mm.yyyy",
     todayBtn: "linked",
     language: "ru"
+  });
+
+  return $('#call_serial_code').autocomplete({
+    source: $('#call_serial_code').data('autocomplete-source')
   });
 });
 

@@ -10,7 +10,7 @@ class CreateCalls < ActiveRecord::Migration[5.1]
       t.string :success
       t.string :master
       t.string :error
-      t.string :guarantee
+      t.boolean :guarantee
 
       t.timestamps
     end

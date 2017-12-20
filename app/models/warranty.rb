@@ -1,7 +1,7 @@
 class Warranty < ApplicationRecord
   validates :name, :boiler, :adress, :phone, :model, :datebuyed, presence: true
   validates :started, inclusion: { in: [ true, false ] }
-  validates :whodidfirststart, :datefirststart, presence: true, if: -> { started == true }
+  validates :whodidfirststart, :datefirststart, presence: true, if: -> { started? }
   validates :serial, uniqueness: true
   has_many :calls
 

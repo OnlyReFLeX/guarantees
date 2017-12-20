@@ -1,7 +1,15 @@
 class Call < ApplicationRecord
-  validates :username, :boiler, :adress, :call_date, :phone, :error, :guarantee, presence: true
-
+  validates :username, :boiler, :adress, :call_date, :phone, :error, presence: true
+  validates :guarantee, inclusion: { in: [ true, false ] }
+  validates :serial_code, presence: true, if: -> { guarantee? }
   belongs_to :warranty, optional: true
+
+  def serial_code
+    warranty.try(:serial)
+  end
+  def serial_code=(serial)
+    self.warranty = Warranty.find_by(serial: serial) if serial.present?
+  end
 
   def self.search(search)
     if search
@@ -33,6 +41,8 @@ class Call < ApplicationRecord
     date = Date.parse(date)
     if date > Date.parse('0001-01-01') && date < Date.parse('9999-12-31')
       date
+    else
+      return false
     end
   rescue ArgumentError, TypeError
     return false

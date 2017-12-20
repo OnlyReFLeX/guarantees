@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20171219170926) do
     t.string "success"
     t.string "master"
     t.string "error"
-    t.string "guarantee"
+    t.boolean "guarantee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "warranty_id"

@@ -32,6 +32,7 @@ ru:
           phone: 'Телефон'
           error: 'Неисправность'
           guarantee: 'Гарантийность'
+          serial_code: 'Серийный номер'
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'

@@ -16,5 +16,4 @@ module ApplicationHelper
      "<span style='color:#008000;' class='fa fa-check fa-#{size}x'></span>".html_safe
     end
   end
-
 end

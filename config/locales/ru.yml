@@ -24,6 +24,7 @@ ru:
           datebuyed: 'Дата покупки'
           whodidfirststart: 'Кто делал запуск'
           datefirststart: 'Дата первого запуска'
+          serial: 'Серийный номер'
         call:
           username: 'Имя'
           boiler: 'Котел'

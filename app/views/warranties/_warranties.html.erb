@@ -9,10 +9,27 @@
                    <th><%= sortable "name", "Клиент" %></th>
                    <th><%= sortable "boiler", "Котел" %></th>
                    <th><%= sortable "adress", "Адрес" %></th>
-                   <th><%= sortable "datebuyed", "Дата покупки"%></th>
+                   <th><%= sortable "datebuyed", "Дата покупки"%><br>
+                    <%= form_tag warranties_path, :method => 'get', id: 'form_datebuyed' do %>
+                    <%= hidden_field_tag :direction, params[:direction] %>
+                    <%= hidden_field_tag :sort, params[:sort] %>
+                    <%= hidden_field_tag :search, params[:search] %>
+                    <%= hidden_field_tag :created_at, params[:created_at] %>
+                    <%= text_field_tag :datebuyed, params[:datebuyed], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
+                    <% end %>
+                  </th>
                    <th><%= sortable "started", "Первый пуск"%></th>
                    <th><%= sortable "whodidfirststart", "Кто запускал"%></th>
                    <th><%= sortable "datefirststart", "Дата пуска"%></th>
+                   <th><%= sortable "created_at", "Дата создание"%>
+                    <%= form_tag warranties_path, :method => 'get', id: 'form_created_at' do %>
+                    <%= hidden_field_tag :direction, params[:direction] %>
+                    <%= hidden_field_tag :sort, params[:sort] %>
+                    <%= hidden_field_tag :search, params[:search] %>
+                    <%= hidden_field_tag :datebuyed, params[:datebuyed] %>
+                    <%= text_field_tag :created_at, params[:created_at], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
+                    <% end %>
+                   </th>
                  </tr>
                </thead>
                <tbody>
@@ -26,6 +43,7 @@
                  <td><%= warranty.started ? 'Да' : 'Нет' %></td>
                  <td><%= warranty.whodidfirststart %></td>
                  <td><%= warranty.datefirststart ? warranty.datefirststart.strftime("%d.%m.%Y") : '' %></td>
+                 <td><%= warranty.created_at.strftime("%d.%m.%Y") %></td>
                </tr>
               <% end %>
                </tbody>

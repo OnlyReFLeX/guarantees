@@ -34,6 +34,10 @@ ru:
           error: 'Неисправность'
           guarantee: 'Гарантийность'
           serial_code: 'Серийный номер'
+        master:
+          name: 'Мастер'
+        boiler:
+          name: 'Котел'
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'

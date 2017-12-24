@@ -15,18 +15,29 @@
                     <%= hidden_field_tag :sort, params[:sort] %>
                     <%= hidden_field_tag :search, params[:search] %>
                     <%= hidden_field_tag :created_at, params[:created_at] %>
+                    <%= hidden_field_tag :datefirststart, params[:datefirststart] %>
                     <%= text_field_tag :datebuyed, params[:datebuyed], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
                     <% end %>
                   </th>
                    <th><%= sortable "started", "Первый пуск"%></th>
                    <th><%= sortable "whodidfirststart", "Кто запускал"%></th>
-                   <th><%= sortable "datefirststart", "Дата пуска"%></th>
+                   <th><%= sortable "datefirststart", "Дата пуска"%>
+                    <%= form_tag warranties_path, :method => 'get', id: 'form_datefirststart' do %>
+                    <%= hidden_field_tag :direction, params[:direction] %>
+                    <%= hidden_field_tag :sort, params[:sort] %>
+                    <%= hidden_field_tag :search, params[:search] %>
+                    <%= hidden_field_tag :datebuyed, params[:datebuyed] %>
+                    <%= hidden_field_tag :created_at, params[:created_at] %>
+                    <%= text_field_tag :datefirststart, params[:datefirststart], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
+                    <% end %>
+                   </th>
                    <th><%= sortable "created_at", "Дата создание"%>
                     <%= form_tag warranties_path, :method => 'get', id: 'form_created_at' do %>
                     <%= hidden_field_tag :direction, params[:direction] %>
                     <%= hidden_field_tag :sort, params[:sort] %>
                     <%= hidden_field_tag :search, params[:search] %>
                     <%= hidden_field_tag :datebuyed, params[:datebuyed] %>
+                    <%= hidden_field_tag :datefirststart, params[:datefirststart] %>
                     <%= text_field_tag :created_at, params[:created_at], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
                     <% end %>
                    </th>

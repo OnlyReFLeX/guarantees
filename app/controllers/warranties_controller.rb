@@ -5,6 +5,7 @@ class WarrantiesController < ApplicationController
   def index
     @warranties = Warranty.date_period(params[:datebuyed], 'datebuyed')
                           .date_period(params[:created_at], 'created_at')
+                          .date_period(params[:datefirststart], 'datefirststart')
                           .search(params[:search])
                           .order(sort_column + " " + sort_direction)
                           .paginate(:per_page => 10, :page => params[:page])

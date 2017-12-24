@@ -5,9 +5,7 @@ class Warranty < ApplicationRecord
   validates :serial, :uniqueness => {:case_sensitive => false}
   has_many :calls
 
-
   extend Models::DatePeriod
-
   def self.search(search)
     if search
       where('name ILIKE ? OR phone ILIKE ? OR boiler ILIKE ? OR model ILIKE ? OR adress ILIKE ? OR serial ILIKE ?',

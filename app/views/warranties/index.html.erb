@@ -36,7 +36,7 @@ $(function() {
 
 <script type="text/javascript">
   $(function() {
-      $('input[name="datebuyed"], input[name="created_at"]').daterangepicker({
+      $('input[name="datebuyed"], input[name="created_at"], input[name="datefirststart"]').daterangepicker({
         'format': 'YYYY-MM-DD',
         'autoApply': true,
         'locale': {
@@ -67,6 +67,13 @@ $(function() {
       $('input[name="created_at"]').on('cancel.daterangepicker', function(ev, picker) {
         $('#form_created_at #created_at').val('');
         $('#form_created_at').submit()
+      });
+      $('input[name="datefirststart"]').on('apply.daterangepicker', function(ev, picker) {
+        $('#form_datefirststart').submit()
+      });
+      $('input[name="datefirststart"]').on('cancel.daterangepicker', function(ev, picker) {
+        $('#form_datefirststart #datefirststart').val('');
+        $('#form_datefirststart').submit()
       });
   });
 </script>

@@ -54,8 +54,13 @@ $(function() {
     language: "ru"
   });
 
-  return $('#call_serial_code').autocomplete({
-    source: $('#call_serial_code').data('autocomplete-source')
+  $("#call_serial_code").autocomplete({
+      maxResults: 6,
+      source: function(request, response) {
+          var results = $.ui.autocomplete.filter($('#call_serial_code').data('autocomplete-source'), request.term);
+
+          response(results.slice(0, this.options.maxResults));
+      }
   });
 });
 
@@ -64,5 +69,7 @@ function initAutocomplete() {
       /** @type {!HTMLInputElement} */(document.getElementById('call_adress')),
       {types: ['geocode']});
 }
+
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP-L2RSMado3N_tgp20D7pn9OqJf2WeSs&libraries=places&callback=initAutocomplete" async defer></script>

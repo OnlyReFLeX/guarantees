@@ -9,7 +9,6 @@ class Admin::CallsController < Admin::AdminController
 
   def create
     @call = Call.new(call_params)
-    @call.success = "no"
     @call.who_created = current_user.username
 
     if @call.save

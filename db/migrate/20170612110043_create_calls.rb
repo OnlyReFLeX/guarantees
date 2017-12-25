@@ -7,7 +7,7 @@ class CreateCalls < ActiveRecord::Migration[5.1]
       t.string :phone
       t.text :adress
       t.datetime :call_date
-      t.string :success
+      t.string :success, default: "no"
       t.string :master
       t.string :error
       t.boolean :guarantee

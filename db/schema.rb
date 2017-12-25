@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20171219170926) do
     t.string "phone"
     t.text "adress"
     t.datetime "call_date"
-    t.string "success"
+    t.string "success", default: "no"
     t.string "master"
     t.string "error"
     t.boolean "guarantee"

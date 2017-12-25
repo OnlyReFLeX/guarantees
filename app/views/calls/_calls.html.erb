@@ -54,7 +54,7 @@
                 <td><%= call.master %></td>
                 <td><%= call.created_at.strftime("%d.%m.%Y %H:%M") %></td>
                 <td><%= success_check(call.success) %></td>
-                <td><%= call.guarantee %></td>
+                <td><%= call.guarantee ? 'Да' : 'Нет'  %></td>
                 <% if current_user.admin? %>
                   <td><%= link_to '', admin_call_path(call), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить вызов #{call.username}?"}, style: 'text-decoration:none' %></td>
                 <% end %>

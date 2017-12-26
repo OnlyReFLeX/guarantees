@@ -17,26 +17,22 @@
         <tr class="odd"><th>Серия: <%= link_to @called.warranty.serial, warranty_path(@called.warranty) %></th></tr>
       <% end %>
       <tr class="even"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>
+      <tr class="odd"> <th> Статус: <%= status_check(@called.status) %></th></tr>
       </table>
-            Статус: <%= success_check(@called.success) %>
           <% if current_user.admin? %>
-            <% if @called.success == "no" %>
-                         <span style="color:#FF0000;">Не выполнен</span>
+            <% if @called.status == "expect" %>
                    <%= form_for :call, url: admin_call_path(@called), method: :put do |f| %>
-                   <input type="hidden" name="call[success]" value="work"><br>
-                   		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %> <a align ="right">  <%= link_to ' Удалить', admin_call_path(@called), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"}, style: 'text-decoration:none' %></a>
+                   <input type="hidden" name="call[status]" value="in_progress"><br>
+                   		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %>
                    <% end %>
-             <% elsif @called.success == "work" %>
+             <% elsif @called.status == "in_progress" %>
                    <span style="color:#f0ad4e;">В процессе</span>
                    <%= form_for :call, url: admin_call_path(@called), method: :put do |f| %>
-                   <input type="hidden" name="call[success]" value="yes"><br>
+                   <input type="hidden" name="call[status]" value="success"><br>
                       <%= f.submit 'Выполнен', class: "btn btn-success" %>
                    <% end %>
-            <% else %>
-                         <%= success_check(@called.success) %>
-            <% end %><br>
+            <% end %>
           <% end %>
     </div>
   </div>
 </div>
-

@@ -19,7 +19,7 @@
 
     <div class="col-sm-4">
     Общее число вызовов: <%= Call.all.size %><br>
-    В процессе: <%= Call.where(:success => 'work').size %>
+    В процессе: <%= Call.where(:status => 'in_progress').size %>
 
     </div>
   </div>

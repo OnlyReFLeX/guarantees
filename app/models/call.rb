@@ -1,6 +1,7 @@
 class Call < ApplicationRecord
   validates :username, :boiler, :adress, :call_date, :phone, :error, presence: true
   validates :guarantee, inclusion: { in: [ true, false ] }
+  validates :status, inclusion: { in: [ "success", "canceled", "in_progress", "expect" ] }
   validates :serial_code, presence: true, if: -> { guarantee? }
   belongs_to :warranty, optional: true
 

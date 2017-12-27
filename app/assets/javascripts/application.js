@@ -40,3 +40,6 @@ function geolocate() {
   }
 }
 
+$('#MyModal').on('shown.bs.modal', function () {
+ $('#myInput').focus()
+})

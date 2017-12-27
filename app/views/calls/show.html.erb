@@ -17,22 +17,27 @@
         <tr class="odd"><th>Серия: <%= link_to @called.warranty.serial, warranty_path(@called.warranty) %></th></tr>
       <% end %>
       <tr class="even"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>
-      <tr class="odd"> <th> Статус: <%= status_check(@called.status) %></th></tr>
-      </table>
-          <% if current_user.admin? %>
-            <% if @called.status == "expect" %>
-                   <%= form_for :call, url: admin_call_path(@called), method: :put do |f| %>
-                   <input type="hidden" name="call[status]" value="in_progress"><br>
-                   		<%= f.submit 'Сделать в процессе', class: "btn btn-warning"  %>
-                   <% end %>
-             <% elsif @called.status == "in_progress" %>
-                   <span style="color:#f0ad4e;">В процессе</span>
-                   <%= form_for :call, url: admin_call_path(@called), method: :put do |f| %>
-                   <input type="hidden" name="call[status]" value="success"><br>
-                      <%= f.submit 'Выполнен', class: "btn btn-success" %>
-                   <% end %>
-            <% end %>
+
+      <tr class="odd button_choose"> <th>Статус:
+      <% if current_user.admin? %>
+          <%= button_to admin_call_path(@called), class: "btn btn-outline-danger", method: :put, params: {call: { status: "expect"}}, form_class: "form_inline", disabled: @called.status == "expect" do %>
+          <span class='fa fa-hourglass-start fa-1x'></span>
           <% end %>
+          <%= button_to admin_call_path(@called), class: "btn btn-outline-warning", method: :put, params: {call: { status: "in_progress"}}, form_class: "form_inline", disabled: @called.status == "in_progress" do %>
+          <span class='fa fa-cog fa-1x'></span>
+          <% end %>
+          <%= button_to admin_call_path(@called), class: "btn btn-outline-secondary", method: :put, params: {call: { status: "canceled"}}, form_class: "form_inline", disabled: @called.status == "canceled" do %>
+          <span class='fa fa-times fa-1x'></span>
+          <% end %>
+          <%= button_to admin_call_path(@called), class: "btn btn-outline-success", method: :put, params: {call: { status: "success"}}, form_class: "form_inline", disabled: @called.status == "success" do %>
+          <span class='fa fa-check fa-1x'></span>
+          <% end %>
+      <% else %>
+        <%= status_check(@called.status) %>
+      <% end %>
+      </th></tr>
+      </table>
+
     </div>
   </div>
 </div>

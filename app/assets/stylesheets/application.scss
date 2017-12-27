@@ -90,3 +90,28 @@ th .desc {
     background-image: none;
 }
 .ui-helper-hidden-accessible { display:none; }
+.form_inline {
+    display: inline
+}
+.button_choose {
+    .btn-outline-danger.disabled, .btn-outline-danger:disabled {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d9534f;
+    }
+    .btn-outline-warning:disabled {
+        color: #fff;
+        background-color: #f0ad4e;
+        border-color: #f0ad4e;
+    }
+    .btn-outline-secondary:disabled {
+        color: #fff;
+        background-color: #ccc;
+        border-color: #ccc;
+    }
+    .btn-outline-success:disabled {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+    }
+}

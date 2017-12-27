@@ -24,7 +24,7 @@
           <span class='fa fa-hourglass-start fa-1x'></span>
           <% end %>
           <%= button_to admin_call_path(@called), class: "btn btn-outline-warning", method: :put, params: {call: { status: "in_progress"}}, form_class: "form_inline", disabled: @called.status == "in_progress" do %>
-          <span class='fa fa-cog fa-1x'></span>
+          <span class='fa fa-cog fa-1x <%= if @called.status == "in_progress" then "fa-spin" end %>'></span>
           <% end %>
           <%= button_to admin_call_path(@called), class: "btn btn-outline-secondary", method: :put, params: {call: { status: "canceled"}}, form_class: "form_inline", disabled: @called.status == "canceled" do %>
           <span class='fa fa-times fa-1x'></span>

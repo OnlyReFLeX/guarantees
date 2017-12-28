@@ -20,24 +20,23 @@
 
       <tr class="odd button_choose"> <th>Статус:
       <% if current_user.admin? %>
-          <%= button_to admin_call_path(@called), class: "btn btn-outline-danger", method: :put, params: {call: { status: "expect"}}, form_class: "form_inline", disabled: @called.status == "expect" do %>
+          <%= button_to admin_call_path(@called), class: "btn btn-outline-danger popovers_hover", method: :put, params: {call: { status: "expect"}}, form_class: "form_inline", data: {content: "Вызов не рассмотрен и ждет рассмотрения"}, title: "Ожидает", disabled: @called.status == "expect" do %>
           <span class='fa fa-hourglass-start fa-1x'></span>
           <% end %>
-          <%= button_to admin_call_path(@called), class: "btn btn-outline-warning", method: :put, params: {call: { status: "in_progress"}}, form_class: "form_inline", disabled: @called.status == "in_progress" do %>
+          <%= button_to admin_call_path(@called), class: "btn btn-outline-warning popovers_hover", method: :put, params: {call: { status: "in_progress"}}, form_class: "form_inline", disabled: @called.status == "in_progress", title: "В процессе", data: {content: "Мастер уже выехал на выполнение вызова."} do %>
           <span class='fa fa-cog fa-1x <%= if @called.status == "in_progress" then "fa-spin" end %>'></span>
           <% end %>
-          <%= button_tag(type: 'button', class: "btn btn-outline-secondary", data: {toggle: 'modal', target: '#modalCanceled'}, disabled: @called.status == "canceled") do %>
+          <%= button_tag(type: 'button', class: "btn btn-outline-secondary popovers_hover", data: {toggle: 'modal', target: '#modalCanceled', content: "Вызов был по каким то причинам не выполнен."}, title: "Отменен", disabled: @called.status == "canceled") do %>
             <span class='fa fa-times fa-1x'></span>
           <% end %>
-          <%= button_to admin_call_path(@called), class: "btn btn-outline-success", method: :put, params: {call: { status: "success"}}, form_class: "form_inline", disabled: @called.status == "success" do %>
-          <span class='fa fa-check fa-1x'></span>
+          <%= button_tag(type: 'button', class: "btn btn-outline-success popovers_hover", data: {toggle: 'modal', target: '#modalSuccess', content: "Вызов был успешно выполнен"}, title: "Выполнен", disabled: @called.status == "success") do %>
+            <span class='fa fa-check fa-1x'></span>
           <% end %>
       <% else %>
         <%= status_check(@called.status) %>
       <% end %>
       </th></tr>
       </table>
-
     </div>
   </div>
 </div>
@@ -56,6 +55,29 @@
           <%= f.label :whycanceled, "Почему?", class: "form-control-label"%>
           <%= f.text_area :whycanceled, class: "form-control" %>
           <%= f.hidden_field :status, value: 'canceled' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+        <%= f.submit 'Сохранить', class: "btn btn-primary"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Выполнен <span style="color: green;" class='fa fa-check fa-1x'></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
+          <%= f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?", class: "form-control-label"%>
+          <%= f.text_area :infosuccess, class: "form-control" %>
+          <%= f.hidden_field :status, value: 'success' %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>

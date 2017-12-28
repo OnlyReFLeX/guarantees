@@ -11,6 +11,7 @@ class CreateCalls < ActiveRecord::Migration[5.1]
       t.string :master
       t.string :error
       t.text :whycanceled
+      t.text :infosuccess
       t.boolean :guarantee
 
       t.timestamps

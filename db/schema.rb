@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171219170926) do
     t.string "master"
     t.string "error"
     t.text "whycanceled"
+    t.text "infosuccess"
     t.boolean "guarantee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -39,7 +39,12 @@ function geolocate() {
     });
   }
 }
-
-$('#MyModal').on('shown.bs.modal', function () {
- $('#myInput').focus()
-})
+$(function() {
+  $(".popovers_hover").popover({
+    trigger: 'hover',
+    placement: 'top'
+  });
+  $('#MyModal').on('shown.bs.modal', function () {
+   $('#myInput').focus()
+  })
+});

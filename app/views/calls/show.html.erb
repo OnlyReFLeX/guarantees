@@ -40,7 +40,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="modalCanceled" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -50,8 +49,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
       <div class="modal-body">
-        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
           <%= f.label :whycanceled, "Почему?", class: "form-control-label"%>
           <%= f.text_area :whycanceled, class: "form-control" %>
           <%= f.hidden_field :status, value: 'canceled' %>
@@ -59,8 +58,8 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
         <%= f.submit 'Сохранить', class: "btn btn-primary"%>
-        <% end %>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -73,8 +72,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
       <div class="modal-body">
-        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
           <%= f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?", class: "form-control-label"%>
           <%= f.text_area :infosuccess, class: "form-control" %>
           <%= f.hidden_field :status, value: 'success' %>
@@ -82,8 +81,17 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
         <%= f.submit 'Сохранить', class: "btn btn-primary"%>
-        <% end %>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(".popovers_hover").popover({
+    trigger: 'hover',
+    placement: 'top'
+  });
+  $('#MyModal').on('shown.bs.modal', function () {
+   $('#myInput').focus()
+  })
+</script>

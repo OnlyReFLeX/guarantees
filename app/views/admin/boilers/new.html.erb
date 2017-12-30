@@ -21,27 +21,44 @@
             <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
       <% end %>
 <% if @boilers.size > 0 %>
-
-      <table class="table toble-responsive">
-      <thead>
-        <th>Существующие марки и модели котлов</th>
-        <th></th>
-      </thead>
-        <tbody>
-          <% @boilers.each do |boiler| %>
-          <tr>
-            <td><%= boiler.name %></td>
-            <td><%= link_to '', admin_boiler_path(boiler), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, style: 'text-decoration:none' %></td>
-          </tr>
-          <tr>
-            <% boiler.product_models.each do |product_model| %>
-            <td><%= product_model.name %></td>
-            <td><%= link_to '', admin_product_model_path(product_model), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, style: 'text-decoration:none' %></td>
-          </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+        <% @boilers.each do |boiler| %>
+          <div class="card">
+            <div class="card-header" role="tab" id="heading<%= boiler.id %>">
+              <h5 class="mb-0" style="text-align: center;">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= boiler.id %>" aria-expanded="false" aria-controls="collapse<%= boiler.id %>">
+                  <%= boiler.name %> (<%= boiler.product_models.size %>)
+                </a>
+              </h5>
+            </div>
+            <div id="collapse<%= boiler.id %>" class="collapse" role="tabpanel" aria-labelledby="heading<%= boiler.id %>">
+              <div class="card-block">
+                <table class="table toble-responsive">
+                  <tbody>
+                        <tr>
+                          <td>
+                            <%= form_for :product_model, url: admin_product_models_path, html: {class: "form-inline"}  do |f| %>
+                                  <%= f.label :name, "Модель", class: "sr-only" %>
+                                  <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название" %>
+                                  <%= f.hidden_field :boiler_id, value: boiler.id %>
+                                  <%= f.submit "Добавить", class: "btn btn-primary" %>
+                            <% end %>
+                          </td>
+                        </tr>
+                      <% boiler.product_models.each do |product_model| %>
+                        <tr>
+                          <td><%= product_model.name %></td>
+                          <td><%= link_to '', admin_product_model_path(product_model), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, style: 'text-decoration:none;' %></td>
+                        </tr>
+                      <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <br>
       <div class="container">
         <%= will_paginate @boilers, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
       </div>

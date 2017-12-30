@@ -3,6 +3,7 @@ class Admin::BoilersController < Admin::AdminController
   before_action :boilers_all, only: [:new, :create]
   def new
     @boiler = Boiler.new
+    @product_model = ProductModel.new
   end
 
   def create
@@ -17,7 +18,7 @@ class Admin::BoilersController < Admin::AdminController
 
   def destroy
     @boiler.destroy
-    redirect_to :action => 'new'
+    redirect_to action: 'new'
   end
 
 

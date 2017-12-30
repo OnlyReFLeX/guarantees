@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :boilers
     resources :masters
     resources :users
+    resources :product_models
   end
 
 

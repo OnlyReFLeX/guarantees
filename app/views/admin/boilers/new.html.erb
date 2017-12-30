@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
       <div class="col-sm-6">
-      <h3>Добавить котел</h3>
+      <h3>Добавить марку</h3>
       <% if @boiler.errors.any? %>
         <div id="error_explanation" class="alert alert-danger" role="alert">
           <strong>Ошибка</strong>
@@ -15,7 +15,7 @@
 
       <%= form_for :boiler, url: admin_boilers_path, html: {class: "form-group"}  do |f| %>
 
-            <%= f.label :name, "Котел" %>
+            <%= f.label :name, "Марка" %>
             <%= f.text_field :name, class: "form-control" %>
 
             <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
@@ -24,17 +24,21 @@
 
       <table class="table toble-responsive">
       <thead>
-        <th>Существующие модели котлов</th>
+        <th>Существующие марки и модели котлов</th>
         <th></th>
       </thead>
         <tbody>
           <% @boilers.each do |boiler| %>
           <tr>
-              <td><%= boiler.name %></td>
-              <td><%= link_to '', admin_boiler_path(boiler), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, style: 'text-decoration:none' %></td>
+            <td><%= boiler.name %></td>
+            <td><%= link_to '', admin_boiler_path(boiler), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, style: 'text-decoration:none' %></td>
           </tr>
-
-
+          <tr>
+            <% boiler.product_models.each do |product_model| %>
+            <td><%= product_model.name %></td>
+            <td><%= link_to '', admin_product_model_path(product_model), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, style: 'text-decoration:none' %></td>
+          </tr>
+            <% end %>
           <% end %>
         </tbody>
       </table>

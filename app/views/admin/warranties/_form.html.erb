@@ -10,13 +10,14 @@
 <% end %>
 
 <%= form_for [:admin, @warranty], html: {class: "form-group"}  do |f| %>
-
+  <div>
   <%= f.label :boiler, "Производитель*" %>
   <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
-
+  </div>
+  <div>
   <%= f.label :model, "Модель*" %>
-  <%= f.text_field :model, class: "form-control" %>
-
+  <%= f.grouped_collection_select :model, Boiler.order(:name), :product_models, :name, :name, :name, { include_blank: true }, class: "form-control" %>
+  </div>
   <%= f.label :name, "Фамилия Имя владельца*" %>
   <%= f.text_field :name, class: "form-control" %>
 

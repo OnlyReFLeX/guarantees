@@ -1,4 +1,4 @@
-jQuery ->
+$(document).on "turbolinks:load", ->
   loaded_product = $('#warranty_model :selected').text()
   categorys = $('#warranty_model').html()
   $('#warranty_model').parent().hide()

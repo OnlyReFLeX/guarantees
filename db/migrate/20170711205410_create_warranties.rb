@@ -12,6 +12,7 @@ class CreateWarranties < ActiveRecord::Migration[5.1]
       t.datetime :datebuyed
       t.string :who_created
       t.boolean :started
+      t.text :comment
 
       t.timestamps
     end

@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20171230125201) do
     t.text "whycanceled"
     t.text "infosuccess"
     t.boolean "guarantee"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "warranty_id"
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 20171230125201) do
     t.datetime "datebuyed"
     t.string "who_created"
     t.boolean "started"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

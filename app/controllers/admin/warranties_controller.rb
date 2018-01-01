@@ -1,5 +1,5 @@
 class Admin::WarrantiesController < Admin::AdminController
-  before_action :find_id, only: [:update, :edit]
+  before_action :find_id, only: [:update, :edit, :destroy]
   def new
     @warranty = Warranty.new
   end
@@ -26,6 +26,8 @@ class Admin::WarrantiesController < Admin::AdminController
   end
 
   def destroy
+    @warranty.destroy
+    redirect_to warranties_path
   end
 
   private

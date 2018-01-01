@@ -16,6 +16,7 @@
       <% end %>
       <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d.%m.%Y %H:%M") %></th>
       <tr class="odd"> <th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
+      <tr class="even"> <th> Комментарий: <%= @warranty.comment %></th>
       </table>
     </div>
   </div>

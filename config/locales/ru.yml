@@ -25,6 +25,7 @@ ru:
           whodidfirststart: 'Кто делал запуск'
           datefirststart: 'Дата первого запуска'
           serial: 'Серийный номер'
+          comment: 'Комментарий'
         call:
           username: 'Имя'
           boiler: 'Котел'
@@ -34,6 +35,7 @@ ru:
           error: 'Неисправность'
           guarantee: 'Гарантийность'
           serial_code: 'Серийный номер'
+          comment: 'Комментарий'
         master:
           name: 'Мастер'
         boiler:

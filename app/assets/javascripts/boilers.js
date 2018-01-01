@@ -11,11 +11,11 @@ $(document).on("turbolinks:load", function() {
     title = $('#product_model_title_' + model_id);
 
     if (!$(this).hasClass('cancel')) {
-      $(this).html('Отменить');
-      $(this).addClass('cancel');
+      $(this).removeClass('fa-pencil-square-o');
+      $(this).addClass('fa-times cancel');
     } else {
-      $(this).html('Ред.');
-      $(this).removeClass('cancel');
+      $(this).removeClass('fa-times cancel');
+      $(this).addClass('fa-pencil-square-o')
     }
     form.toggle();
     title.toggle();

@@ -33,6 +33,6 @@ class Admin::WarrantiesController < Admin::AdminController
     @warranty = Warranty.find(params[:id])
   end
   def warranty_params
-    params.require(:warranty).permit(:name, :phone, :boiler, :model, :adress, :serial, :datefirststart, :whodidfirststart, :datebuyed, :who_created, :started)
+    params.require(:warranty).permit(:name, :phone, :boiler, :model, :adress, :serial, :datefirststart, :whodidfirststart, :datebuyed, :who_created, :started, :comment)
   end
 end

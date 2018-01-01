@@ -14,7 +14,7 @@
       <tr class="odd"> <th> Мастер: <%= if @called.master.blank? then "Неизвестен" else @called.master end %></th></tr>
       <tr class="even"><th>Гарантийный: <%= @called.guarantee  ? 'Да' : 'Нет' %></th></tr>
       <% if @called.guarantee? %>
-        <tr class="odd"><th>Серия: <%= link_to @called.warranty.serial, warranty_path(@called.warranty) %></th></tr>
+        <tr class="odd"><th>Серия: <%= @called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных' %></th></tr>
       <% end %>
       <tr class="even"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>
       <tr class="odd"> <th> Комментарий: <%= @called.comment %></th>

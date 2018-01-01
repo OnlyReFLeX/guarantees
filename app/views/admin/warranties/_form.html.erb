@@ -43,6 +43,10 @@
     <%= f.label :datefirststart, "Дата первого запуска котла" %>
     <%= f.text_field :datefirststart, class: "form-control" %>
   </div>
+
+  <%= f.label :comment, "Комментарий" %>
+  <%= f.text_area :comment, class: "form-control" %>
+
   <br /><%= f.submit @warranty.new_record? ? 'Создать' : 'Изменить' , class: "btn btn-primary" %>
 <% end %>
 

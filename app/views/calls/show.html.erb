@@ -17,6 +17,7 @@
         <tr class="odd"><th>Серия: <%= link_to @called.warranty.serial, warranty_path(@called.warranty) %></th></tr>
       <% end %>
       <tr class="even"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>
+      <tr class="odd"> <th> Комментарий: <%= @called.comment %></th>
 
       <tr class="odd button_choose"> <th>Статус:
       <% if current_user.admin? %>

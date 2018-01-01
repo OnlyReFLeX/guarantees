@@ -47,9 +47,21 @@
                         </tr>
                       <% boiler.product_models.each do |product_model| %>
                         <tr>
-                          <td><%= product_model.name %></td>
+                          <td>
+                            <div id="product_model_title_<%= product_model.id %>">
+                              <%= product_model.name %>
+                            </div>
+                            <%= form_for [:admin, product_model], html: {class: "form-inline", style: 'display: none'} do |f| %>
+                                  <%= f.label :name, "Модель", class: "sr-only" %>
+                                  <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название" %>
+                                  <%= f.hidden_field :boiler_id, value: boiler.id %>
+                                  <%= f.submit "Изменить", class: "btn btn-primary" %>
+                            <% end %>
+                          </td>
+                          <td><%= link_to 'Ред.', '', class: 'edit_model', data: { model_id: product_model.id } %></td>
                           <td><%= link_to '', admin_product_model_path(product_model), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, style: 'text-decoration:none;' %></td>
                         </tr>
+
                       <% end %>
                   </tbody>
                 </table>

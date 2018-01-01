@@ -1,8 +1,13 @@
 class Admin::ProductModelsController < Admin::AdminController
-  before_action :find_id, only: :destroy
+  before_action :find_id, only: [:destroy, :update]
   def create
-    @product_model = ProductModel.new(product_models_params)
+    @product_model = ProductModel.new(product_model_params)
     if @product_model.save
+      redirect_to new_admin_boiler_path
+    end
+  end
+  def update
+    if @product_model.update(product_model_params)
       redirect_to new_admin_boiler_path
     end
   end
@@ -12,7 +17,7 @@ class Admin::ProductModelsController < Admin::AdminController
   end
 
   private
-  def product_models_params
+  def product_model_params
     params.require(:product_model).permit(:name, :boiler_id)
   end
   def find_id

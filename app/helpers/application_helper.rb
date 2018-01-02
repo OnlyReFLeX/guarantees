@@ -19,4 +19,15 @@ module ApplicationHelper
         "<span title='Выполнен' style='color:#008000;' class='fa fa-check fa-#{size}x'></span>".html_safe
     end
   end
+
+
+  def comment_status(object)
+    if object.status =='success' && object.infosuccess != ""
+      object.infosuccess
+    elsif object.status == 'canceled' && object.whycanceled != ""
+      object.whycanceled
+    else
+      false
+    end
+  end
 end

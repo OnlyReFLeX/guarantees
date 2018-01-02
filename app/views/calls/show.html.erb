@@ -37,6 +37,9 @@
         <%= status_check(@called.status) %>
       <% end %>
       </th></tr>
+      <% if comment_status(@called) %>
+      <tr class="even"> <th> Комментарий к статусу: <%= comment_status(@called) %></th></tr>
+      <% end %>
       </table>
     </div>
   </div>

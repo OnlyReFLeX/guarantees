@@ -14,10 +14,8 @@
       <% end %>
 
       <%= form_for :master, url: admin_masters_path, html: {class: "form-group"}  do |f| %>
-
             <%= f.label :name, "Мастер" %>
             <%= f.text_field :name, class: "form-control" %>
-
             <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
       <% end %>
   <% if @masters.size > 0 %>
@@ -29,8 +27,18 @@
         <tbody>
           <% @masters.each do |master| %>
           <tr>
-              <td><%= master.name %></td>
-              <td><%= link_to '', admin_master_path(master), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить котел #{master.name}?"}, style: 'text-decoration:none' %></td>
+            <td>
+              <div id="master_title_<%= master.id %>">
+                <%= master.name %>
+              </div>
+              <%= form_for [:admin, master], html: {class: "form-inline", style: 'display: none'} do |f| %>
+                    <%= f.label :name, "Мастер", class: "sr-only" %>
+                    <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0" %>
+                    <%= f.submit "Изменить", class: "btn btn-primary" %>
+              <% end %>
+            </td>
+            <td><%= link_to '', '', class: 'fa fa-pencil-square-o edit_master', style: 'text-decoration:none', data: { master_id: master.id }  %></td>
+            <td><%= link_to '', admin_master_path(master), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить котел #{master.name}?"}, style: 'text-decoration:none' %></td>
           </tr>
           <% end %>
         </tbody>

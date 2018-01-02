@@ -1,5 +1,6 @@
 class Admin::MastersController < Admin::AdminController
     before_action :masters_all, only: [:new, :create]
+    before_action :find_id, only: [:destroy, :update]
     def new
       @master = Master.new
     end
@@ -15,16 +16,26 @@ class Admin::MastersController < Admin::AdminController
       end
     end
 
+    def update
+      if @master.update(master_params)
+        redirect_to action: 'new'
+      end
+    end
+
     def destroy
-      Master.find(params[:id]).destroy
+      @master.destroy
       redirect_to :action => 'new'
     end
 
+
+    private
     def masters_all
       @masters = Master.all.paginate(:per_page => 10, :page => params[:page])
     end
 
-    private
+    def find_id
+      @master = Master.find(params[:id])
+    end
     def master_params
       params.require(:master).permit(:name)
     end

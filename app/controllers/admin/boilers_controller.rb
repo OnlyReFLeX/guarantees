@@ -7,9 +7,15 @@ class Admin::BoilersController < Admin::AdminController
   end
 
   def create
-    @boiler = Boiler.new(call_params)
+    @boiler = Boiler.new(boiler_params)
 
     if @boiler.save
+      redirect_to new_admin_boiler_path
+    end
+  end
+
+  def update
+    if @boiler.update(boiler_params)
       redirect_to new_admin_boiler_path
     end
   end
@@ -19,7 +25,6 @@ class Admin::BoilersController < Admin::AdminController
     redirect_to action: 'new'
   end
 
-
   private
   def find_id
     @boiler = Boiler.find(params[:id])
@@ -27,7 +32,7 @@ class Admin::BoilersController < Admin::AdminController
   def boilers_all
     @boilers = Boiler.all.paginate(:per_page => 10, :page => params[:page])
   end
-  def call_params
+  def boiler_params
     params.require(:boiler).permit(:name)
   end
 end

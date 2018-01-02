@@ -21,3 +21,26 @@ $(document).on("turbolinks:load", function() {
     title.toggle();
   });
 });
+$(document).on("turbolinks:load", function() {
+  $('a.edit_boiler').click(function(e) {
+    e.preventDefault();
+    var boiler_id;
+    var form;
+    var title;
+
+    boiler = $(this).data('boilerId')
+
+    form = $('#edit_boiler_' + boiler);
+    title = $('#boiler_title_' + boiler);
+
+    if (!$(this).hasClass('cancel')) {
+      $(this).removeClass('fa-pencil-square-o');
+      $(this).addClass('fa-times cancel');
+    } else {
+      $(this).removeClass('fa-times cancel');
+      $(this).addClass('fa-pencil-square-o');
+    }
+    form.toggle();
+    title.toggle();
+  });
+});

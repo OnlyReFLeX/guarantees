@@ -6,7 +6,6 @@ class Admin::ProductModelsController < Admin::AdminController
   end
   def update
     @product_model.update(product_model_params)
-    @product_model.save
   end
   def destroy
     @product_model.destroy

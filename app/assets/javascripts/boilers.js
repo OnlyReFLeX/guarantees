@@ -1,5 +1,5 @@
 $(document).on("turbolinks:load", function() {
-  $('a.edit_model').click(function(e) {
+  $(document).on( "click", "a.edit_model", function(e) {
     e.preventDefault();
     var model_id;
     var form;

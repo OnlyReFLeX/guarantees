@@ -40,6 +40,8 @@ ru:
           name: 'Мастер'
         boiler:
           name: 'Котел'
+        product_model:
+          name: 'Название'
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'

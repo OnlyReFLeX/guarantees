@@ -2,9 +2,7 @@ class Admin::ProductModelsController < Admin::AdminController
   before_action :find_id, only: [:destroy, :update]
   def create
     @product_model = ProductModel.new(product_model_params)
-    if @product_model.save
-      redirect_to new_admin_boiler_path
-    end
+    @product_model.save
   end
   def update
     if @product_model.update(product_model_params)

@@ -17,14 +17,11 @@ class Admin::MastersController < Admin::AdminController
     end
 
     def update
-      if @master.update(master_params)
-        redirect_to action: 'new'
-      end
+      @master.update(master_params)
     end
 
     def destroy
       @master.destroy
-      redirect_to :action => 'new'
     end
 
 

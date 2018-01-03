@@ -5,9 +5,8 @@ class Admin::ProductModelsController < Admin::AdminController
     @product_model.save
   end
   def update
-    if @product_model.update(product_model_params)
-      redirect_to new_admin_boiler_path
-    end
+    @product_model.update(product_model_params)
+    @product_model.save
   end
   def destroy
     @product_model.destroy

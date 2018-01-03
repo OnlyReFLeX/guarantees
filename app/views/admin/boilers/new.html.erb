@@ -63,7 +63,7 @@
                             <div id="product_model_title_<%= product_model.id %>">
                               <%= product_model.name %>
                             </div>
-                            <%= form_for [:admin, product_model], html: {class: "form-inline", style: 'display: none'} do |f| %>
+                            <%= form_for [:admin, product_model], html: {class: "form-inline", style: 'display: none'}, remote: true do |f| %>
                                   <%= f.label :name, "Модель", class: "sr-only" %>
                                   <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название" %>
                                   <%= f.hidden_field :boiler_id, value: product_model.boiler.id %>

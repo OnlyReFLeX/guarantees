@@ -10,7 +10,6 @@ class Admin::ProductModelsController < Admin::AdminController
   end
   def destroy
     @product_model.destroy
-    redirect_to new_admin_boiler_path
   end
 
   private

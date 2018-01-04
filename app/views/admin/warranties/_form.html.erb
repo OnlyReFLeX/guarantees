@@ -14,7 +14,7 @@
   <%= f.label :boiler, "Производитель*" %>
   <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
   </div>
-  <div>
+  <div id="hidden_model">
   <%= f.label :model, "Модель*" %>
   <%= f.grouped_collection_select :model, Boiler.order(:name), :product_models, :name, :name, :name, { include_blank: true }, class: "form-control" %>
   </div>

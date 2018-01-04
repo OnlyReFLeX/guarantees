@@ -11,6 +11,8 @@ class Admin::BoilersController < Admin::AdminController
 
     if @boiler.save
       redirect_to new_admin_boiler_path
+    else
+      render action: 'new'
     end
   end
 

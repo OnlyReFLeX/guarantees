@@ -34,10 +34,10 @@
 
   <%= f.label :guarantee, "Гарантийный" %>
   <%= f.select :guarantee, [['Да', true],['Нет', false]], { include_blank: true }, class: "form-control" %>
-
+  <div id="hidden_div" style="display: none;">
   <%= f.label :serial_code, "Серийный номер" %>
   <%= f.text_field :serial_code, class: "form-control", data: { autocomplete_source: Warranty.order(:id).map(&:serial)}   %>
-
+  </div>
   <%= f.label :comment, "Комментарий" %>
   <%= f.text_area :comment, class: "form-control" %>
 
@@ -64,6 +64,19 @@ $(function() {
 
           response(results.slice(0, this.options.maxResults));
       }
+  });
+
+  var hidden_div = $('#hidden_div')
+  if ($('#warranty_started').val() == "true") {
+    hidden_div.show();
+  } else {
+    hidden_div.hide();
+    $('call_serial_code').val('');
+  }
+  document.getElementById('call_guarantee').addEventListener('change', function () {
+      var style = this.value == "true" ? 'block' : 'none';
+      document.getElementById('hidden_div').style.display = style;
+      $('#call_serial_code').val('');
   });
 });
 

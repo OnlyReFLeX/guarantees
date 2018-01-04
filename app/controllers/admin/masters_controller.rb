@@ -8,8 +8,7 @@ class Admin::MastersController < Admin::AdminController
     def create
       @master = Master.new(master_params)
 
-      if @master.valid?
-        @master.save
+      if @master.save
         redirect_to new_admin_master_path
       else
         render action: 'new'

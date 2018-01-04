@@ -67,10 +67,14 @@ $(function() {
     hidden_div.show();
   } else {
     hidden_div.hide();
+    $('#warranty_whodidfirststart').val('');
+    $('#warranty_datefirststart').val('');
   }
   document.getElementById('warranty_started').addEventListener('change', function () {
       var style = this.value == "true" ? 'block' : 'none';
       document.getElementById('hidden_div').style.display = style;
+      $('#warranty_whodidfirststart').val('');
+      $('#warranty_datefirststart').val('');
   });
 });
 

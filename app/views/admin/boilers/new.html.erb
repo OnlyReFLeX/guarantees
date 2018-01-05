@@ -28,7 +28,7 @@
               <h5 class="mb-0" style="text-align: center;">
                 <a class="collapsed" data-toggle="collapse" style='text-decoration:none' data-parent="#accordion" href="#collapse<%= boiler.id %>" aria-expanded="false" aria-controls="collapse<%= boiler.id %>">
               <div id="boiler_title_<%= boiler.id %>">
-                <%= boiler.name %>(<%= boiler.product_models.size %>)
+                <span id="boiler_title_<%= boiler.id %>"><%= boiler.name %></span>(<span id="boiler_count_<%= boiler.id %>"><%= boiler.product_models.size %></span>)
               </div>
                 </a>
                 <%= form_for [:admin, boiler], html: {class: "form-inline", style: 'display: none'} do |f| %>

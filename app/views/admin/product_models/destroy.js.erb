@@ -9,4 +9,6 @@ if (!$("div").is(".model-errors_<%= @product_model.id %>")) {
 <% else %>
   $('#product_model_title_<%= @product_model.id %>').parents('tr').remove();
   $(".model-errors_<%= @product_model.id %>").remove()
+  var count = $('#boiler_count_<%= @product_model.boiler.id %>').text();
+  $('#boiler_count_<%= @product_model.boiler.id %>').html(--count)
 <%end%>

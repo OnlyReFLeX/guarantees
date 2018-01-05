@@ -3,7 +3,7 @@
   <p><%= @user.username %><b style="color: red;"><%= @user.admin? ? "" : " Не"%></b> является Администратором</p>
 
 
-  <%= form_for :user, url: admin_user_path(@user), method: :put do |f| %>
+  <%= form_for [:admin, @user], method: :put do |f| %>
   <%= f.label :admin, 'Администратор' %>
   <%= f.check_box :admin %>
   <br>

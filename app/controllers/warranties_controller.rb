@@ -13,7 +13,6 @@ class WarrantiesController < ApplicationController
   def show
     @warranty = Warranty.find(params[:id])
     @calls = @warranty.calls.paginate(:page => params[:page], :per_page => 10)
-
   end
 
   private

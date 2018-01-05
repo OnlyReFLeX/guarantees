@@ -13,7 +13,7 @@
         </div>
       <% end %>
 
-      <%= form_for :boiler, url: admin_boilers_path, html: {class: "form-group"}  do |f| %>
+      <%= form_for [:admin, @boiler], html: {class: "form-group"}  do |f| %>
 
             <%= f.label :name, "Марка" %>
             <%= f.text_field :name, class: "form-control" %>
@@ -49,7 +49,7 @@
                         <tr>
                           <td>
                             <div class="product_model-errors_<%= boiler.id %>"></div>
-                            <%= form_for :product_model, url: admin_product_models_path, html: {class: "form-inline"}, remote: true  do |f| %>
+                            <%= form_for [:admin, @product_model], html: {class: "form-inline"}, remote: true  do |f| %>
                                   <%= f.label :name, "Модель", class: "sr-only" %>
                                   <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название", id: "product_model_name_#{boiler.id}" %>
                                   <%= f.hidden_field :boiler_id, value: boiler.id %>

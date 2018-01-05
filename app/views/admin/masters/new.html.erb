@@ -13,7 +13,7 @@
         </div>
       <% end %>
 
-      <%= form_for :master, url: admin_masters_path, html: {class: "form-group"}  do |f| %>
+      <%= form_for [:admin, @master], html: {class: "form-group"}  do |f| %>
             <%= f.label :name, "Мастер" %>
             <%= f.text_field :name, class: "form-control" %>
             <br /><%= f.submit "Добавить", class: "btn btn-primary" %>

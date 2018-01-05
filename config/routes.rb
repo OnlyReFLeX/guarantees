@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :warranties, except: [:show, :index]
-    resources :calls, except: [:show, :index]
-    resources :boilers
-    resources :masters
-    resources :users
-    resources :product_models
+    resources :calls, except: [:show, :index, ]
+    resources :boilers, except: [:show, :index, :edit]
+    resources :masters, except: [:show, :index, :edit]
+    resources :users, only: [:index, :show, :update, :destroy]
+    resources :product_models, only: [:create, :update, :destroy]
   end
 
 

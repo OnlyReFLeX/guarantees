@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def update
-    if User.where(admin: true).size <= 1 and user_params[:admin] == "0"
+    if User.where(admin: true).size <= 1 and user_params[:admin] != "true"
       redirect_to admin_users_path, alert: 'Вы последний администратор.'
     else
       @user.update(user_params)

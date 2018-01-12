@@ -15,7 +15,12 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= link_to user.username, admin_user_path(user), style: 'text-decoration:none' %></td>
-          <td><%= user.admin? ? "Да" : "Нет"%> </td>
+          <td>
+            <%= form_for [:admin, user], method: :put, class: "form-inline" do |f| %>
+            <%= f.select(:admin, [['Да', true],['Нет', false]], {}, { class: "custom-select mb-2 mr-sm-2 mb-sm-0" }) %>
+            <%= f.submit 'Обновить', class: "btn btn-primary" %>
+            <% end %>
+          </td>
           <td><%= user.email %></td>
           <td><%= link_to '', admin_user_path(user), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить пользователя #{user.username}?"}, style: 'text-decoration:none' %></td>
         </tr>

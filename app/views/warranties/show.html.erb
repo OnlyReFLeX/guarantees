@@ -17,7 +17,9 @@
       <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d.%m.%Y %H:%M") %></th>
       <tr class="odd"> <th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
       <tr class="even"> <th> Комментарий: <%= @warranty.comment %></th>
+      <% if current_user.admin? %>
       <tr><th style="text-align: right;"><%= link_to ' Удалить', admin_warranty_path(@warranty), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить вызов #{@warranty.name}?"}, style: 'text-decoration:none' %></th></tr>
+      <% end %>
 
       </table>
     </div>

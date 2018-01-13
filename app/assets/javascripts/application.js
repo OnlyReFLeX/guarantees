@@ -15,7 +15,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require tether
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
@@ -23,6 +22,7 @@
 //= require popper
 //= require moment
 //= require bootstrap-daterangepicker
+//= require_tree .
 
 function geolocate() {
   if (navigator.geolocation) {

@@ -18,7 +18,7 @@
           <td>
             <%= form_for [:admin, user], method: :put, class: "form-inline" do |f| %>
             <%= f.select(:admin, [['Да', true],['Нет', false]], {}, { class: "custom-select mb-2 mr-sm-2 mb-sm-0", disabled: user.admin? && @users.where(admin: true).size  <= 1 ? true : false }) %>
-            <%= f.submit 'Обновить', class: "btn btn-primary" %>
+            <%= f.submit 'Обновить', class: "btn btn-primary", disabled: user.admin? && @users.where(admin: true).size  <= 1 ? true : false %>
             <% end %>
           </td>
           <td><%= user.email %></td>

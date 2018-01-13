@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-5">
-      <h3>Гарантийный котел №<%= @warranty.id %> <% if current_user.admin? %><%= link_to "",edit_admin_warranty_path(@warranty), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h3>
+      <h3>Гарантийный котел №<%= @warranty.id %> <%= link_to "",edit_admin_warranty_path(@warranty), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' if current_user.admin? %> </h3>
       <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
       <tr class="odd"> <th> Клиент: <%= @warranty.name %></th></tr>
       <tr class="even"> <th> Котел: <%= @warranty.boiler %> <%= @warranty.model %></th></tr>

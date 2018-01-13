@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-5">
 
-      <h2>Вызов №<%= @called.id %> <% if current_user.admin? %><%= link_to "",edit_admin_call_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' %> <% end %></h2>
+      <h2>Вызов №<%= @called.id %> <%= link_to "",edit_admin_call_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' if current_user.admin? %></h2>
       <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
       <tr class="even"> <th> Имя: <%= @called.username %></th></tr>
       <tr class="odd"> <th> Котел: <%= @called.boiler %></th></tr>
@@ -44,49 +44,51 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="modalCanceled" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Отменен <span class='fa fa-times fa-1x'></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<% if current_user.admin? %>
+  <div class="modal fade" id="modalCanceled" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Отменен <span class='fa fa-times fa-1x'></span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
+        <div class="modal-body">
+            <%= f.label :whycanceled, "Почему?", class: "form-control-label"%>
+            <%= f.text_area :whycanceled, class: "form-control" %>
+            <%= f.hidden_field :status, value: 'canceled' %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <%= f.submit 'Сохранить', class: "btn btn-primary"%>
+        </div>
+        <% end %>
       </div>
-      <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
-      <div class="modal-body">
-          <%= f.label :whycanceled, "Почему?", class: "form-control-label"%>
-          <%= f.text_area :whycanceled, class: "form-control" %>
-          <%= f.hidden_field :status, value: 'canceled' %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-        <%= f.submit 'Сохранить', class: "btn btn-primary"%>
-      </div>
-      <% end %>
     </div>
   </div>
-</div>
-<div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Выполнен <span style="color: green;" class='fa fa-check fa-1x'></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Выполнен <span style="color: green;" class='fa fa-check fa-1x'></span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
+        <div class="modal-body">
+            <%= f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?", class: "form-control-label"%>
+            <%= f.text_area :infosuccess, class: "form-control" %>
+            <%= f.hidden_field :status, value: 'success' %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+          <%= f.submit 'Сохранить', class: "btn btn-primary"%>
+        </div>
+        <% end %>
       </div>
-      <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
-      <div class="modal-body">
-          <%= f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?", class: "form-control-label"%>
-          <%= f.text_area :infosuccess, class: "form-control" %>
-          <%= f.hidden_field :status, value: 'success' %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-        <%= f.submit 'Сохранить', class: "btn btn-primary"%>
-      </div>
-      <% end %>
     </div>
   </div>
-</div>
+<% end %>

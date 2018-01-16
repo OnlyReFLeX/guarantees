@@ -43,10 +43,10 @@
           </thead>
           <tbody>
             <% @calls.each do |call| %>
-              <tr>
+              <tr onclick="document.location = '<%= call_path(call) %>';">
                 <td><%= call.id %></td>
                 <td><%= call.call_date.strftime("%d.%m.%Y") %></td>
-                <td><%= link_to call.username, call_path(call) %></a></td>
+                <td><%= call.username %></a></td>
                 <td><%= call.phone %></td>
                 <td><%= call.adress %></td>
                 <td><%= call.boiler %></td>

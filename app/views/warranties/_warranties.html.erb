@@ -45,9 +45,9 @@
                </thead>
                <tbody>
                <% @warranties.each do |warranty| %>
-               <tr>
+               <tr onclick="document.location = '<%= warranty_path(warranty) %>';">
                  <td><%= warranty.id %></td>
-                 <td><%= link_to "#{warranty.name}", warranty_path(warranty) %></td>
+                 <td><%= warranty.name %></td>
                  <td><%= warranty.boiler %> <%= warranty.model %> </td>
                  <td><%= warranty.adress %></td>
                  <td><%= warranty.datebuyed.strftime("%d.%m.%Y") %></td>

@@ -32,7 +32,7 @@ class Admin::BoilersController < Admin::AdminController
     @boiler = Boiler.find(params[:id])
   end
   def boilers_all
-    @boilers = Boiler.order('name').paginate(:per_page => 10, :page => params[:page])
+    @boilers = Boiler.order(:name).paginate(:per_page => 10, :page => params[:page])
   end
   def boiler_params
     params.require(:boiler).permit(:name)

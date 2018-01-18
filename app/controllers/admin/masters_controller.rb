@@ -26,7 +26,7 @@ class Admin::MastersController < Admin::AdminController
 
     private
     def masters_all
-      @masters = Master.all.paginate(:per_page => 10, :page => params[:page])
+      @masters = Master.order(:name).paginate(:per_page => 10, :page => params[:page])
     end
 
     def find_id

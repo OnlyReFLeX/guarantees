@@ -1,31 +1,36 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-      <h2>Смена пароля <%= current_user.username %></h2>
+<h4>Редактирование пользователя</h4>
+<div class="row">
+  <div class="col s5">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render 'shared/errors', resource: resource %>
+        <div class="input-field">
+          <i class="material-icons prefix">email</i>
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+        <div class="input-field">
+          <i class="material-icons prefix">account_circle</i>
+          <%= f.label :username %>
+          <%= f.text_field :username %>
+        </div>
+        <div class="input-field">
+          <i class="material-icons prefix">fiber_new</i>
+          <%= f.label :password, 'Новый пароль' %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+        <div class="input-field">
+          <i class="material-icons prefix">fiber_new</i>
+          <%= f.label :password_confirmation, 'Подтверждение нового пароля' %>
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form-group" }) do |f| %>
-        <%= devise_error_messages! %>
+        <div class="input-field">
+          <i class="material-icons prefix">vpn_key</i>
+          <%= f.label :current_password %>
+          <%= f.password_field :current_password, autocomplete: "off" %>
+        </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
-        <%= f.label :password, "Новый пароль"%>
-        <% if @minimum_password_length %>
-          <em>(минимум <%= @minimum_password_length %> символов)</em><br />
-        <% end %>
-        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-
-        <%= f.label :password_confirmation, "Подтверждение пароля" %>
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-
-        <%= f.label :current_password, "Текуший пароль" %>
-        <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
-
-        <br><%= f.submit "Обновить", class: "btn btn-primary" %>
-
-      <% end %>
-      <%= link_to "Назад", :back %>
-    </div>
+        <%= f.button "Обновить", class: 'waves-effect waves-light btn' %>
+    <% end %>
   </div>
 </div>

@@ -1,0 +1,11 @@
+<% if flash.any? %>
+  <script>
+    function flash_call() {
+      <% flash.each do |key, message| %>
+        M.toast({html: '<%= message %>', classes: '<%= alert_to_color(key) %>'})
+      <% end %>
+    };
+
+    flash_call();
+  </script>
+<% end %>

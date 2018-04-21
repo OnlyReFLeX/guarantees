@@ -1,25 +1,26 @@
 class Admin::UsersController < Admin::AdminController
-  before_action :find_id, only: [:show, :update, :destroy]
+  before_action :find_user, only: [:destroy, :edit, :update]
+
   def index
-    @users = User.all.order('created_at DESC')
+    @users = User.order(created_at: :DESC)
   end
 
-  def show
+  def new
+    @user = User.new
   end
 
-  def update
-    if User.where(admin: true).size <= 1 and user_params[:admin] != "true"
-      redirect_to admin_users_path, alert: 'Вы последний администратор.'
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to admin_users_path, notice: 'Администратор успешно добавлен'
     else
-      @user.update(user_params)
-      redirect_to admin_users_path
+      render :new
     end
   end
 
   def destroy
-    if User.all.size == 1
-      redirect_to admin_users_path, alert: 'Последний пользователь не может быть удален.'
-    elsif User.where(admin: true).size <= 1 and @user.admin? == true
+    if User.where(type: 'Admin').count == 1 && @user.admin?
       redirect_to admin_users_path, alert: 'Последний администратор не может быть удален.'
     else
       @user.destroy
@@ -27,12 +28,24 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  private
-  def find_id
-    @user = User.find(params[:id])
-  end
-  def user_params
-    params.require(:user).permit(:admin)
+  def edit
   end
 
+  def update
+    if @user.update(user_params)
+      redirect_to admin_users_path, notice: 'Успешно обновлен'
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def find_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :username, :password, :password_confirmation, :type)
+  end
 end

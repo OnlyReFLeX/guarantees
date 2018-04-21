@@ -1,0 +1,51 @@
+<h3>Редактирование пользователя <%= @user.username %></h3>
+
+<%= render 'shared/errors', resource: @user %>
+
+<div class="row">
+  <div class="col s5">
+      <%= form_with model: [:admin, @user.becomes(User)], local: true do |f| %>
+
+          <div class="input-field">
+            <i class="material-icons prefix">email</i>
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'validate', id: 'user_email' %>
+          </div>
+
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <%= f.label :username %>
+            <%= f.text_field :username, autocomplete: "username", class: 'validate', id: 'user_username' %>
+          </div>
+
+          <div class="input-field">
+            <i class="material-icons prefix">bookmark</i>
+            <%= f.select :type, [['Администратор', 'Admin'],['Обычный пользователь','User']] %>
+            <%= f.label :type %>
+          </div>
+
+          <%= f.button "Сохранить", class: 'waves-effect waves-light btn'  %>
+      <% end %>
+  </div>
+  <div class="col s2"></div>
+  <div class="col s5">
+      <h4>Сменить пароль</h4>
+
+      <%= form_with model: [:admin, @user.becomes(User)], local: true do |f| %>
+
+          <div class="input-field">
+            <i class="material-icons prefix">vpn_key</i>
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: "off", class: 'validate', id: 'user_password' %>
+          </div>
+
+          <div class="input-field">
+            <i class="material-icons prefix">vpn_key</i>
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'validate', id: 'user_password_confirmation' %>
+          </div>
+
+         <%= f.button "Сменить", class: 'waves-effect waves-light btn'  %>
+      <% end %>
+  </div>
+</div>

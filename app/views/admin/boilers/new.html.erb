@@ -2,17 +2,7 @@
   <div class="row">
       <div class="col-sm-6">
       <h3>Добавить марку</h3>
-      <% if @boiler.errors.any? %>
-        <div id="error_explanation" class="alert alert-danger" role="alert">
-          <strong>Ошибка</strong>
-          <ul>
-            <% @boiler.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
+      <%= render 'shared/errors', resource: @boiler %>
       <%= form_for [:admin, @boiler], html: {class: "form-group"}  do |f| %>
 
             <%= f.label :name, "Марка" %>
@@ -57,23 +47,7 @@
                             <% end %>
                           </td>
                         </tr>
-                      <% boiler.product_models.each do |product_model| %>
-                        <tr>
-                          <td>
-                            <div id="product_model_title_<%= product_model.id %>">
-                              <%= product_model.name %>
-                            </div>
-                            <%= form_for [:admin, product_model], html: {class: "form-inline", style: 'display: none'}, remote: true do |f| %>
-                                  <%= f.label :name, "Модель", class: "sr-only" %>
-                                  <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название" %>
-                                  <%= f.hidden_field :boiler_id, value: product_model.boiler.id %>
-                                  <%= f.submit "Изменить", class: "btn btn-primary" %>
-                            <% end %>
-                          </td>
-                          <td><%= link_to '', '', class: 'fa fa-pencil-square-o edit_model', style: 'text-decoration:none;', data: { model_id: product_model.id } %></td>
-                          <td><%= link_to '', admin_product_model_path(product_model), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, style: 'text-decoration:none;', remote: true %></td>
-                        </tr>
-                      <% end %>
+                      <%= render boiler.product_models %>
                   </tbody>
                 </table>
               </div>

@@ -1,14 +1,4 @@
-<% if @call.errors.any? %>
-  <div id="error_explanation" class="alert alert-danger" role="alert">
-    <strong>Ошибки</strong>
-    <ul>
-      <% @call.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
+<%= render 'shared/errors', resource: @call %>
 <%= form_for [:admin, @call], html: {class: "form-group"}  do |f| %>
 
   <%= f.label :boiler, "Котел" %>

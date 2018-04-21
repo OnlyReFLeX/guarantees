@@ -10,21 +10,16 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require font-awesome
  *= require_tree .
+ *= require material_icons
  *= require_self
- *= require bootstrap-datepicker3
- *= require bootstrap-daterangepicker-3
- *= require tether
  */
- .field_with_errors input {
-   border-color: red;
- }
- .field_with_errors select {
-   border-color: red;
- }
-@import "bootstrap";
-@import "font-awesome";
+
+@import "materialize/components/color-variables";
+$primary-color: color("blue-grey", "darken-4") !default;
+$secondary-color: color("blue", "base") !default;
+@import 'materialize';
+
 th .current {
   padding-right: 12px;
   background-repeat: no-repeat;

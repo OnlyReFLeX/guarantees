@@ -6,16 +6,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
+
   def layout_by_resource
-    if !user_signed_in?
-      "login"
-    elsif current_user.admin?
-      "admins"
-    else
-      "application"
-    end
+    current_user&.admin? ? 'admin' : 'application'
   end
+
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password) }
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username])
   end
 end

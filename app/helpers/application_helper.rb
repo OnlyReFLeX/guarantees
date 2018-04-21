@@ -1,4 +1,9 @@
 module ApplicationHelper
+  ALERTS = {
+    'alert' => 'red', 'success' => 'green', 'notice' => 'green',
+    'notify' => 'yellow', 'warning' => 'yellow', 'danger' => 'red'
+  }
+
   def sortable(column, title = nil)
     title ||= column.titlesize
     css_class = column == self.sort_column ? "current #{sort_direction}" : nil
@@ -6,8 +11,7 @@ module ApplicationHelper
     link_to title, request.query_parameters.merge({ sort: column, direction: direction, page: nil }), {:class => css_class}
   end
 
-
-  def status_check(status, size = "1")
+  def status_check(status, size = '1')
     case status
       when "canceled"
         "<span title='Отменен' style='color:#808080;' class='fa fa-times fa-#{size}x'></span>".html_safe
@@ -20,7 +24,6 @@ module ApplicationHelper
     end
   end
 
-
   def comment_status(object)
     if object.status =='success' && object.infosuccess != ""
       object.infosuccess
@@ -29,5 +32,9 @@ module ApplicationHelper
     else
       false
     end
+  end
+
+  def alert_to_color(key)
+    ALERTS[key] || ''
   end
 end

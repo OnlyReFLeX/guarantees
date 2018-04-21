@@ -1,30 +1,73 @@
-<div class="container">
-  <div class="row">
-
-    <div class="col-sm-8">
-
-
-    <%= form_tag calls_path, :method => 'get', :id => "qs_search", class: "form-inline" do %>
-    <%= hidden_field_tag :direction, params[:direction] %>
-    <%= hidden_field_tag :sort, params[:sort] %>
-    <%= hidden_field_tag :call_date, params[:call_date] %>
-    <%= hidden_field_tag :created_at, params[:created_at] %>
-    <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Поиск" %>
-    <%= submit_tag "Найти",class: "btn btn-outline-success my-2 my-sm-0" , :name => nil %>
-    <% end %><br>
-
-    </div>
-
-
-
-    <div class="col-sm-4">
+<div class="row">
+  <div class="col s3 left">
+    <br>
     Общее число вызовов: <%= Call.all.size %><br>
     В процессе: <%= Call.where(:status => 'in_progress').size %>
+  </div>
+  <div class="col s3 right center input-field">
+    <%= form_tag calls_path, :method => 'get', :id => "qs_search", class: "form-inline" do %>
+      <div class="file-field input-field">
+        <%= submit_tag "Найти", class: "btn", :name => nil %>
 
-    </div>
+        <div class="file-path-wrapper">
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= hidden_field_tag :call_date, params[:call_date] %>
+          <%= hidden_field_tag :created_at, params[:created_at] %>
+          <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Поиск" %>
+        </div>
+      </div>
+
+    <% end %>
   </div>
 </div>
-      <div id="calls"><%= render 'calls' %></div>
+
+
+<div id="calls">
+  <table class="calls striped">
+    <thead>
+      <tr>
+        <th><%= sortable "id", "#" %></th>
+        <th><%= sortable "call_date", "Дата звонка" %> <br>
+
+          <%= form_tag calls_path, :method => 'get', id: 'form_call_date' do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= hidden_field_tag :search, params[:search] %>
+          <%= hidden_field_tag :created_at, params[:created_at] %>
+          <%= text_field_tag :call_date, params[:call_date], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
+          <% end %>
+
+        </th>
+        <th><%= sortable "username", "Имя" %></th>
+        <th><%= sortable "phone", "Телефон" %></th>
+        <th><%= sortable "adress", "Адрес" %></th>
+        <th><%= sortable "boiler", "Котел" %></th>
+        <th><%= sortable "error", "Неисправность" %></th>
+        <th><%= sortable "master", "Мастер" %></th>
+        <th><%= sortable "created_at", "Создание записи" %><br>
+
+          <%= form_tag calls_path, :method => 'get', id: 'form_created_at' do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= hidden_field_tag :search, params[:search] %>
+          <%= hidden_field_tag :call_date, params[:call_date] %>
+          <%= text_field_tag :created_at, params[:created_at], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
+          <% end %>
+
+        </th>
+        <th><%= sortable "status", "Статус" %></th>
+        <th><%= sortable "guarantee", "Г" %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @calls %>
+    </tbody>
+  </table>
+  <div class="container">
+    <%= will_paginate @calls, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
+  </div>
+</div>
 <!-- <script type="text/javascript">
 $(function() {
   //СОРТИРОВКА и ПРОЛИСТЫВАНИЕ ТОВАРОВ ПО ЗАПРОСУ AJAX (Для работы расскоментировать)

@@ -9,22 +9,22 @@
           <tr>
             <th bgcolor="green"><i class="fa fa-wrench" style="color: white;" aria-hidden="true"></i></th>
             <th scope="row">Зарегистрировано вызовов</th>
-            <td><%= Call.all.size %></td>
+            <td><%= Call.count %></td>
           </tr>
           <tr>
             <th bgcolor="green"><i class="fa fa-check-circle" style="color: white;" aria-hidden="true"></i></th>
             <th scope="row">Зарегистировано гарантий</th>
-            <td><%= Warranty.all.size %></td>
+            <td><%= Warranty.count %></td>
           </tr>
           <tr>
             <th bgcolor="green"><i class="fa fa-address-card" style="color: white;" aria-hidden="true"></i></th>
             <th scope="row">Зарегисрировано мастеров</th>
-            <td><%= Master.all.size %></td>
+            <td><%= Master.count %></td>
           </tr>
           <tr>
             <th bgcolor="green"><i class="fa fa-cubes" style="color: white;" aria-hidden="true"></i></th>
             <th scope="row">Зарегистрировано марок котлов</th>
-            <td><%= Boiler.all.size %></td>
+            <td><%= Boiler.count %></td>
           </tr>
         </tbody>
       </table>

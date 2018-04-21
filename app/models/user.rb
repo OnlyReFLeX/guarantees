@@ -1,7 +1,18 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-         validates :username, presence: true
+  devise :database_authenticatable, :recoverable,
+         :rememberable, :trackable, :validatable, :registerable
+  validates :username, presence: true
+  validate :validate_last_administrator, on: :update
+
+  def admin?
+    is_a?(Admin)
+  end
+
+  private
+
+  def validate_last_administrator
+    if User.where(type: 'Admin').count <= 1 && type != 'Admin' && admin?
+      errors.add(:base, 'Вы являетесь последним администратором.')
+    end
+  end
 end

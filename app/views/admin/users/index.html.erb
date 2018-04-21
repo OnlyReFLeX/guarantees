@@ -1,30 +1,27 @@
-<div class="container">
-  <br>
-  <%= link_to "Новый пользователь", new_user_registration_path, class: "btn btn-info" %>
-  <br><br>
-  <table class="table table-bordered table-hover">
-    <thead>
+<br>
+<%= link_to 'Создать нового пользователя', new_admin_user_path, class: 'waves-effect waves-light btn green' %>
+
+<table class="striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Email</th>
+      <th>Пользователь</th>
+      <th>Роль</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
       <tr>
-        <td>Пользователь</td>
-        <td>Администратор</td>
-        <td>Эл. Почта</td>
-        <td></td>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.username %></td>
+        <td><%= user.type %></td>
+        <td><%= link_to 'Редактировать', edit_admin_user_path(user), class: 'waves-effect waves-light btn' %></td>
+        <td><%= link_to "Удалить", admin_user_path(user), method: :delete, data: { confirm: 'Вы уверены?' }, class: 'waves-effect waves-light btn red' %></td>
       </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.username %></td>
-          <td>
-            <%= form_for [:admin, user], method: :put, class: "form-inline" do |f| %>
-            <%= f.select(:admin, [['Да', true],['Нет', false]], {}, { class: "custom-select mb-2 mr-sm-2 mb-sm-0", disabled: user.admin? && @users.where(admin: true).size  <= 1 ? true : false }) %>
-            <%= f.submit 'Обновить', class: "btn btn-primary", disabled: user.admin? && @users.where(admin: true).size  <= 1 ? true : false %>
-            <% end %>
-          </td>
-          <td><%= user.email %></td>
-          <td><%= link_to '', admin_user_path(user), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить пользователя #{user.username}?"}, style: 'text-decoration:none' if user.admin? && @users.where(admin: true).size  <= 1 ?  false : true %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  </tbody>
+</table>

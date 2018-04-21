@@ -4,7 +4,7 @@
     $('.model-errors_<%= @product_model.boiler.id %>').append('<%= j message %></br>');
   <% end %>
 <% else %>
-  $('.table_boiler_<%= @product_model.boiler.id %>').append('<%= j render 'admin/product_models/product_models', product_model: @product_model %>');
+  $('.table_boiler_<%= @product_model.boiler.id %>').append('<%= j render 'admin/product_models/product_model', product_model: @product_model %>');
   $("#product_model_name_<%= @product_model.boiler.id %>").val('');
   $('.product_model-errors_<%= @product_model.boiler.id %>').html('');
   var count = $('#boiler_count_<%= @product_model.boiler.id %>').text();

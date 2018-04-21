@@ -1,0 +1,11 @@
+<% if resource.errors.present? %>
+  <script>
+    function errors_call() {
+      <% resource.errors.full_messages.each do |message| %>
+        M.toast({html: '<%= message %>', classes: 'red'})
+      <% end %>
+    };
+
+    errors_call();
+  </script>
+<% end %>

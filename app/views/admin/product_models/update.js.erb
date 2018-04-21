@@ -7,6 +7,6 @@ if (!$("div").is(".model-errors_<%= @product_model.id %>")) {
     $('.model-errors_<%= @product_model.id %>').append('<%= j message %></br>');
   <% end %>
 <% else %>
-  $('#product_model_title_<%= @product_model.id %>').parents('tr').replaceWith('<%= j render 'admin/product_models/product_models', product_model: @product_model %>');
+  $('#product_model_title_<%= @product_model.id %>').parents('tr').replaceWith('<%= j render 'admin/product_models/product_model', product_model: @product_model %>');
   $(".model-errors_<%= @product_model.id %>").remove()
 <%end%>

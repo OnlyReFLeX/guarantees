@@ -8,12 +8,17 @@ Bundler.require(*Rails.groups)
 module Eurodom
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.time_zone = 'Moscow'
     config.load_defaults 5.1
-    config.i18n.default_locale = :ru #ЛОКАЛИЗАЦИИ РУССКОГО
+    config.time_zone = 'Moscow'
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.i18n.default_locale = :ru
+
+    ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag.html_safe
+    end
+
     config.autoload_paths << Rails.root.join('lib')
   end
 end

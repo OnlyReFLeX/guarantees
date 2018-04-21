@@ -1,6 +1,7 @@
 class Admin::BoilersController < Admin::AdminController
   before_action :find_id, only: [:destroy, :edit, :update]
   before_action :boilers_all, only: [:new, :create]
+
   def new
     @boiler = Boiler.new
     @product_model = ProductModel.new
@@ -28,12 +29,15 @@ class Admin::BoilersController < Admin::AdminController
   end
 
   private
+
   def find_id
     @boiler = Boiler.find(params[:id])
   end
+
   def boilers_all
     @boilers = Boiler.order(:name).paginate(:per_page => 10, :page => params[:page])
   end
+
   def boiler_params
     params.require(:boiler).permit(:name)
   end

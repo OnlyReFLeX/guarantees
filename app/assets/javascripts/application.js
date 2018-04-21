@@ -10,18 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require jquery3
-//= require jquery-ui
-//= require jquery_ujs
 //= require turbolinks
-//= require tether
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
-//= require bootstrap-sprockets
-//= require popper
-//= require moment
-//= require bootstrap-daterangepicker
+//= require rails-ujs
+//= require jquery
+//= require materialize
 //= require_tree .
 
 function geolocate() {
@@ -39,12 +31,7 @@ function geolocate() {
     });
   }
 }
-$(document).on("turbolinks:load", function() {
-  $(".popovers_hover").popover({
-    trigger: 'hover',
-    placement: 'top'
-  });
-  $('#MyModal').on('shown.bs.modal', function () {
-   $('#myInput').focus()
-  });
-});
+
+$(document).on("turbolinks:load",function(){
+  $('select').formSelect();
+})

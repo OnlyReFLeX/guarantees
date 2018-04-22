@@ -20,6 +20,15 @@ $primary-color: color("blue-grey", "darken-4") !default;
 $secondary-color: color("blue", "base") !default;
 @import 'materialize';
 
+.hidden {
+    display: none;
+}
+
+#datepicker-container {
+  position: fixed;
+  z-index: 10000;
+}
+
 th .current {
   padding-right: 12px;
   background-repeat: no-repeat;

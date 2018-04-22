@@ -1,7 +1,7 @@
 class Admin::CallsController < Admin::AdminController
   include ApplicationHelper
   helper_method :sort_column, :sort_direction
-  before_action :find_id, only: [:update, :edit, :destroy]
+  before_action :find_id, only: [:update, :edit, :destroy, :call_expect, :call_in_progress]
   before_action :boilers_all, only: [:new, :create]
 
   def new
@@ -36,6 +36,16 @@ class Admin::CallsController < Admin::AdminController
   end
 
   def serial_autocomplete
+  end
+
+  def call_expect
+    @call.update(status: 'expect')
+    redirect_to @call
+  end
+
+  def call_in_progress
+    @call.update(status: 'in_progress')
+    redirect_to @call
   end
 
   private

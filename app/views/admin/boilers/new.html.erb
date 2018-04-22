@@ -10,6 +10,31 @@
 
             <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
       <% end %>
+
+<% if @boilers.size > 0 %>
+  <ul class="collapsible popout">
+    <% @boilers.each do |boiler| %>
+      <li>
+        <div class="collapsible-header">
+          <%= boiler.name %>
+        </div>
+        <div class="collapsible-body">
+          <%= render boiler.product_models %>
+
+          <%= form_for [:admin, @product_model], remote: true do |f| %>
+            <%= f.label :name, "Модель" %>
+            <%= f.text_field :name, placeholder: "Название", id: "product_model_name_#{boiler.id}" %>
+            <%= f.hidden_field :boiler_id, value: boiler.id %>
+            <%= f.submit "Добавить", class: "btn" %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+
 <% if @boilers.size > 0 %>
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <% @boilers.each do |boiler| %>

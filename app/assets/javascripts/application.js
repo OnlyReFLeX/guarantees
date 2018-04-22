@@ -33,5 +33,35 @@ function geolocate() {
 }
 
 $(document).on("turbolinks:load",function(){
+  M.AutoInit();
   $('select').formSelect();
+  $('.dropdown-trigger').dropdown();
+  $('.tooltipped').tooltip();
+  $('.modal').modal();
+
+
+  $('#call_date_start').datepicker({
+    container: 'body'
+  })
+  $('#call_date_end').datepicker();
+
+
+  // search
+  if ($('#call_search_form #search').val() != '') {
+    $('#call_search_form').removeClass('hidden');
+    $('#call_search_button').addClass('hidden');
+  }
+  $('#call_search_button').click(function(e) {
+    e.preventDefault();
+    $('#call_search_form').removeClass('hidden');
+    $(this).addClass('hidden');
+    $('#call_search_form #search').focus();
+  });
+
+  $("#call_date_clear").click(function() {
+    $('#form_call_date #call_date_start').val('');
+    $('#form_call_date #call_date_end').val('');
+    $('#form_call_date').submit();
+  })
+
 })

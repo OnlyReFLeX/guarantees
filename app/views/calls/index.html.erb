@@ -1,24 +1,28 @@
 <div class="row">
   <div class="col s3 left">
     <br>
-    Общее число вызовов: <%= Call.all.size %><br>
-    В процессе: <%= Call.where(:status => 'in_progress').size %>
+    Общее число вызовов: <%= Call.count %><br>
+    В процессе: <%= Call.where(status: 'in_progress').count %>
   </div>
-  <div class="col s3 right center input-field">
-    <%= form_tag calls_path, :method => 'get', :id => "qs_search", class: "form-inline" do %>
-      <div class="file-field input-field">
-        <%= submit_tag "Найти", class: "btn", :name => nil %>
 
-        <div class="file-path-wrapper">
-          <%= hidden_field_tag :direction, params[:direction] %>
-          <%= hidden_field_tag :sort, params[:sort] %>
-          <%= hidden_field_tag :call_date, params[:call_date] %>
-          <%= hidden_field_tag :created_at, params[:created_at] %>
-          <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Поиск" %>
+  <div class="col s3 right center input-field">
+    <%= button_tag 'Поиск', class: 'btn', id: 'call_search_button' %>
+    <div class="card hidden tooltipped" id="call_search_form" data-position="bottom" data-tooltip="Поиск выполняется по всем критериям." >
+      <div class="card-stacked">
+        <div class="card-action">
+          <%= form_tag calls_path, :method => 'get', :id => "qs_search" do %>
+            <%= hidden_field_tag :direction, params[:direction] %>
+            <%= hidden_field_tag :sort, params[:sort] %>
+            <%= hidden_field_tag :call_date, params[:call_date] %>
+            <%= hidden_field_tag :created_at, params[:created_at] %>
+            <%= text_field_tag :search, params[:search], placeholder: "Поиск" %>
+            <%= submit_tag "Найти", class: "btn hidden", name: nil %>
+          <% end %>
         </div>
       </div>
+    </div>
+  </div>
 
-    <% end %>
   </div>
 </div>
 
@@ -28,16 +32,8 @@
     <thead>
       <tr>
         <th><%= sortable "id", "#" %></th>
-        <th><%= sortable "call_date", "Дата звонка" %> <br>
-
-          <%= form_tag calls_path, :method => 'get', id: 'form_call_date' do %>
-          <%= hidden_field_tag :direction, params[:direction] %>
-          <%= hidden_field_tag :sort, params[:sort] %>
-          <%= hidden_field_tag :search, params[:search] %>
-          <%= hidden_field_tag :created_at, params[:created_at] %>
-          <%= text_field_tag :call_date, params[:call_date], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
-          <% end %>
-
+        <th><%= sortable "call_date", "Дата звонка" %>
+          <a class="waves-effect waves-light btn modal-trigger" href="#call_period">Период</a>
         </th>
         <th><%= sortable "username", "Имя" %></th>
         <th><%= sortable "phone", "Телефон" %></th>
@@ -68,58 +64,29 @@
     <%= will_paginate @calls, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
   </div>
 </div>
-<!-- <script type="text/javascript">
-$(function() {
-  //СОРТИРОВКА и ПРОЛИСТЫВАНИЕ ТОВАРОВ ПО ЗАПРОСУ AJAX (Для работы расскоментировать)
-  $("body").on('click', "#calls th a, #calls .pagination a", function() {
-    $.getScript(this.href);
-    return false;
-  });
 
-  //ПОИСК С ПОМОЩЬЮ ЗАПРОСА AJAX (Для работы расскоментировать)
-  $("#qs_search input").keyup(function() {
-    $.get($("#qs_search").attr("action"), $("#qs_search").serialize(), null, "script");
-    return false;
-  });
-});
-</script> -->
-
-
-
-<script type="text/javascript">
-  $(function() {
-      $('input[name="call_date"], input[name="created_at"]').daterangepicker({
-        'format': 'YYYY-MM-DD',
-        'autoApply': true,
-        'locale': {
-            'fromLabel': 'От',
-            'toLabel': 'До',
-            'weekLabel': 'Н',
-            'customRangeLabel': 'Задать даты',
-            'firstDay': 1,
-            'cancelLabel': 'Очистить',
-            'applyLabel': 'Применить',
-            'daysOfWeek': ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            'monthNames': ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-        },
-        'language': 'ru'
-      });
-
-
-      $('input[name="call_date"]').on('apply.daterangepicker', function(ev, picker) {
-        $('#form_call_date').submit();
-      });
-      $('input[name="call_date"]').on('cancel.daterangepicker', function(ev, picker) {
-        $('#form_call_date #call_date').val('');
-        $('#form_call_date').submit();
-      });
-      $('input[name="created_at"]').on('apply.daterangepicker', function(ev, picker) {
-        $('#form_created_at').submit();
-      });
-      $('input[name="created_at"]').on('cancel.daterangepicker', function(ev, picker) {
-        $('#form_created_at #created_at').val('');
-        $('#form_created_at').submit();
-      });
-  });
-</script>
-
+<div class="conta">
+  <div id="call_period" class="modal">
+    <%= form_tag calls_path, :method => 'get', id: 'form_call_date' do %>
+      <div class="modal-content">
+        <h4>Период даты звонка</h4>
+            <%= hidden_field_tag :direction, params[:direction] %>
+            <%= hidden_field_tag :sort, params[:sort] %>
+            <%= hidden_field_tag :search, params[:search] %>
+            <%= hidden_field_tag :created_at, params[:created_at] %>
+            <div class="row">
+              <div class="col s6">
+                <%= text_field_tag :call_date_start, params[:call_date_start], placeholder: "Начало" %>
+              </div>
+              <div class="col s6">
+                <%= text_field_tag :call_date_end, params[:call_date_end], placeholder: "Конец" %>
+              </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" id="call_date_clear">Очистить</a>
+        <%= button_tag "Установить", class: "modal-action modal-close waves-effect waves-green btn", name: nil %>
+      </div>
+    <% end %>
+  </div>
+</div>

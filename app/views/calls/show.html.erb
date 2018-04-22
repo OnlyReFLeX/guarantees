@@ -1,94 +1,64 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-5">
-
       <h2>Вызов №<%= @called.id %> <%= link_to "",edit_admin_call_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' if current_user.admin? %></h2>
-      <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
-      <tr class="even"> <th> Имя: <%= @called.username %></th></tr>
-      <tr class="odd"> <th> Котел: <%= @called.boiler %></th></tr>
-      <tr class="even"> <th> Телефон: <%= @called.phone %></th></tr>
-      <tr class="odd"> <th> Адрес: <%= @called.adress %></th></tr>
-      <tr class="even"> <th> Неисправность: <%= @called.error %></th></tr>
-      <tr class="odd"> <th> Дата звонка клиента: <%= @called.call_date.strftime("%d.%m.%Y") %></th></tr>
-      <tr class="even"> <th> Дата создание записи: <%= @called.created_at.strftime("%d.%m.%Y %H:%M") %></th>
-      <tr class="odd"> <th> Мастер: <%= if @called.master.blank? then "Неизвестен" else @called.master end %></th></tr>
-      <tr class="even"><th>Гарантийный: <%= @called.guarantee  ? 'Да' : 'Нет' %></th></tr>
-      <% if @called.guarantee? %>
-        <tr class="odd"><th>Серия: <%= @called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных' %></th></tr>
-      <% end %>
-      <tr class="even"> <th> Регистратор вызова: <%= @called.who_created %></th></tr>
-      <tr class="odd"> <th> Комментарий: <%= @called.comment %></th>
+      <table class="striped">
+        <tr><th> Имя: <%= @called.username %></th></tr>
+        <tr><th> Котел: <%= @called.boiler %></th></tr>
+        <tr><th> Телефон: <%= @called.phone %></th></tr>
+        <tr><th> Адрес: <%= @called.adress %></th></tr>
+        <tr><th> Неисправность: <%= @called.error %></th></tr>
+        <tr><th> Дата звонка клиента: <%= @called.call_date.strftime("%d.%m.%Y") %></th></tr>
+        <tr><th> Дата создание записи: <%= @called.created_at.strftime("%d.%m.%Y %H:%M") %></th>
+        <tr><th> Мастер: <%= @called.master.blank? ? "Неизвестен" : @called.master %></th></tr>
+        <tr><th>Гарантийный: <%= @called.guarantee  ? 'Да' : 'Нет' %></th></tr>
 
-      <tr class="odd button_choose"> <th>Статус:
-      <% if current_user.admin? %>
-          <%= button_to admin_call_path(@called), class: "btn btn-outline-danger popovers_hover", method: :put, params: {call: { status: "expect"}}, form_class: "form_inline", data: {content: "Вызов не рассмотрен и ждет рассмотрения"}, title: "Ожидает", disabled: @called.status == "expect" do %>
-          <span class='fa fa-hourglass-start fa-1x'></span>
-          <% end %>
-          <%= button_to admin_call_path(@called), class: "btn btn-outline-warning popovers_hover", method: :put, params: {call: { status: "in_progress"}}, form_class: "form_inline", disabled: @called.status == "in_progress", title: "В процессе", data: {content: "Мастер уже выехал на выполнение вызова."} do %>
-          <span class='fa fa-cog fa-1x <%= if @called.status == "in_progress" then "fa-spin" end %>'></span>
-          <% end %>
-          <%= button_tag(type: 'button', class: "btn btn-outline-secondary popovers_hover", data: {toggle: 'modal', target: '#modalCanceled', content: "Вызов был по каким то причинам не выполнен."}, title: "Отменен", disabled: @called.status == "canceled") do %>
-            <span class='fa fa-times fa-1x'></span>
-          <% end %>
-          <%= button_tag(type: 'button', class: "btn btn-outline-success popovers_hover", data: {toggle: 'modal', target: '#modalSuccess', content: "Вызов был успешно выполнен"}, title: "Выполнен", disabled: @called.status == "success") do %>
-            <span class='fa fa-check fa-1x'></span>
-          <% end %>
-      <% else %>
-        <%= status_check(@called.status) %>
-      <% end %>
-      </th></tr>
-      <% if comment_status(@called) %>
-      <tr class="even"> <th> Комментарий к статусу: <%= comment_status(@called) %></th></tr>
-      <% end %>
+        <% if @called.guarantee? %>
+          <tr><th>Серия: <%= @called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных' %></th></tr>
+        <% end %>
+
+        <tr><th> Регистратор вызова: <%= @called.who_created %></th></tr>
+        <tr><th> Комментарий: <%= @called.comment %></th></tr>
+
+        <tr><th>
+          Статус:
+          <%= link_to 'Ожидает', call_expect_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger red', method: :put, disabled: @called.status == 'expect' %>
+          <%= link_to 'В процессе', call_in_progress_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger orange', method: :put, disabled: @called.status == 'in_progress'  %>
+          <%= link_to 'Выполнен', '#modal_success', class: 'waves-effect waves-light btn modal-trigger green', disabled: @called.status == 'success'  %>
+          <%= link_to 'Отменен', '#modal_canceled', class: 'waves-effect waves-light btn modal-trigger grey', disabled: @called.status == 'canceled'  %>
+        </th></tr>
+        <% if comment_status(@called) %>
+          <tr><th> Комментарий к статусу: <%= comment_status(@called) %></th></tr>
+        <% end %>
       </table>
-    </div>
   </div>
 </div>
+
 <% if current_user.admin? %>
-  <div class="modal fade" id="modalCanceled" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div id="modal_success" class="modal">
+      <%= form_for [:admin, @called] do |f| %>
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Отменен <span class='fa fa-times fa-1x'></span></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
-        <div class="modal-body">
-            <%= f.label :whycanceled, "Почему?", class: "form-control-label"%>
-            <%= f.text_area :whycanceled, class: "form-control" %>
-            <%= f.hidden_field :status, value: 'canceled' %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-          <%= f.submit 'Сохранить', class: "btn btn-primary"%>
-        </div>
-        <% end %>
+        <h4>Вызов выполнен</h4>
+        <%= f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?" %>
+        <%= f.text_area :infosuccess, class: 'materialize-textarea' %>
+        <%= f.hidden_field :status, value: 'success' %>
       </div>
-    </div>
+      <div class="modal-footer">
+        <%= f.submit 'Сохранить', class: "btn green"%>
+      </div>
+    <% end %>
   </div>
-  <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+  <div id="modal_canceled" class="modal">
+      <%= form_for [:admin, @called] do |f| %>
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Выполнен <span style="color: green;" class='fa fa-check fa-1x'></span></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <%= form_for [:admin, @called], html: {class: "form-group"}  do |f| %>
-        <div class="modal-body">
-            <%= f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?", class: "form-control-label"%>
-            <%= f.text_area :infosuccess, class: "form-control" %>
-            <%= f.hidden_field :status, value: 'success' %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-          <%= f.submit 'Сохранить', class: "btn btn-primary"%>
-        </div>
-        <% end %>
+        <h4>Вызов отменен</h4>
+        <%= f.label :whycanceled, "Не хотите рассказать почему пришлось отменить вызов?"%>
+        <%= f.text_area :whycanceled, class: "materialize-textarea" %>
+        <%= f.hidden_field :status, value: 'canceled' %>
       </div>
-    </div>
+      <div class="modal-footer">
+        <%= f.submit 'Сохранить', class: "btn red"%>
+      </div>
+    <% end %>
   </div>
 <% end %>

@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     resources :masters, except: [:show, :index, :edit]
     resources :users, only: [:index, :show, :update, :destroy]
     resources :product_models, only: [:create, :update, :destroy]
+    post '/serial_autocomplete', to: 'calls#serial_autocomplete'
   end
+
 end

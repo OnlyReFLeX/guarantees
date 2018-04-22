@@ -1,35 +1,57 @@
 <%= render 'shared/errors', resource: @call %>
 <%= form_for [:admin, @call], html: {class: "form-group"}  do |f| %>
 
-  <%= f.label :boiler, "Котел" %>
-  <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
-
-  <%= f.label :username, "Имя" %>
-  <%= f.text_field :username, class: "form-control" %>
-
-  <%= f.label :adress, "Адрес" %>
-  <%= f.text_field :adress, class: "form-control", onFocus: "geolocate()" %>
-
-  <%= f.label :phone, "Телефон" %>
-  <%= f.text_field :phone, class: "form-control" %>
-
-  <%= f.label :call_date, "Дата" %>
-  <%= f.text_field :call_date, class: "form-control" %>
-
-  <%= f.label :master, "Мастер" %>
-  <%= f.collection_select :master, Master.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
-
-  <%= f.label :error, "Неисправность" %>
-  <%= f.text_field :error, class: "form-control" %>
-
-  <%= f.label :guarantee, "Гарантийный" %>
-  <%= f.select :guarantee, [['Да', true],['Нет', false]], { include_blank: true }, class: "form-control" %>
-  <div id="hidden_div" style="display: none;">
-  <%= f.label :serial_code, "Серийный номер" %>
-  <%= f.text_field :serial_code, class: "form-control", data: { autocomplete_source: Warranty.order(:id).map(&:serial)}   %>
+  <div class="input-field">
+    <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true } %>
+    <%= f.label :boiler, "Котел" %>
   </div>
-  <%= f.label :comment, "Комментарий" %>
-  <%= f.text_area :comment, class: "form-control" %>
+
+  <div class="input-field">
+    <%= f.label :username, "Имя" %>
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :adress, "Адрес" %>
+    <%= f.text_field :adress, onFocus: "geolocate()" %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :phone, "Телефон" %>
+    <%= f.text_field :phone %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :call_date, "Дата" %>
+    <%= f.text_field :call_date %>
+  </div>
+
+  <div class="input-field">
+    <%= f.collection_select :master, Master.order(:name), :name , :name, { include_blank: true } %>
+    <%= f.label :master, "Мастер" %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :error, "Неисправность" %>
+    <%= f.text_field :error %>
+  </div>
+
+  <div class="input-field">
+    <%= f.select :guarantee, [['Да', true],['Нет', false]], { include_blank: true } %>
+    <%= f.label :guarantee, "Гарантийный" %>
+  </div>
+
+  <div id="hidden_div" style="display: one;">
+    <div class="input-field">
+      <%= f.text_field :serial_code, class: 'autocomplete' %>
+      <%= f.label :serial_code, "Серийный номер" %>
+    </div>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :comment, "Комментарий" %>
+    <%= f.text_area :comment, class: 'materialize-textarea' %>
+  </div>
 
   <br /><%= f.submit @call.new_record? ? 'Создать' : 'Сохранить', class: "btn btn-primary"%>
 
@@ -41,23 +63,16 @@ $(function() {
     clearIfNotMatch: true
   });
 
-  $('#call_call_date').datepicker({
-    format: "dd.mm.yyyy",
-    todayBtn: "linked",
-    language: "ru"
-  });
-
+  $('#call_call_date').datepicker();
   $("#call_serial_code").autocomplete({
-      maxResults: 6,
-      source: function(request, response) {
-          var results = $.ui.autocomplete.filter($('#call_serial_code').data('autocomplete-source'), request.term);
-
-          response(results.slice(0, this.options.maxResults));
-      }
+    data: {
+        "": null,
+    },
   });
+
 
   var hidden_div = $('#hidden_div')
-  if ($('#warranty_started').val() == "true") {
+  if ($('#call_guarantee').val() == "true") {
     hidden_div.show();
   } else {
     hidden_div.hide();
@@ -76,6 +91,13 @@ function initAutocomplete() {
       {types: ['geocode']});
 }
 
+$('#call_serial_code').bind("keyup change", function(e) {
+        $.ajax({
+           url: '<%= admin_serial_autocomplete_path %>',
+           data: { call: { autocomplete: $('#call_serial_code').val() }, authenticity_token: '<%= form_authenticity_token %>' },
+           type: 'POST'
+    })
+});
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP-L2RSMado3N_tgp20D7pn9OqJf2WeSs&libraries=places&callback=initAutocomplete" async defer></script>

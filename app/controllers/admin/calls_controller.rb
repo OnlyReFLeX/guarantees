@@ -3,6 +3,7 @@ class Admin::CallsController < Admin::AdminController
   helper_method :sort_column, :sort_direction
   before_action :find_id, only: [:update, :edit, :destroy]
   before_action :boilers_all, only: [:new, :create]
+
   def new
     @call = Call.new
   end
@@ -34,14 +35,19 @@ class Admin::CallsController < Admin::AdminController
     redirect_to calls_path
   end
 
+  def serial_autocomplete
+  end
+
   private
 
   def call_params
     params.require(:call).permit(:boiler, :username, :who_created, :phone, :adress, :call_date, :status, :master, :error, :guarantee, :serial_code, :whycanceled, :infosuccess, :comment)
   end
+
   def find_id
     @call = Call.find(params[:id])
   end
+
   def boilers_all
     @boilers = Boiler.all
   end
@@ -49,6 +55,7 @@ class Admin::CallsController < Admin::AdminController
   def sort_column
     Call.column_names.include?(params[:sort]) ? params[:sort] : "id"
   end
+
   def sort_direction
     %W[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end

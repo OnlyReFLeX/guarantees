@@ -4,9 +4,9 @@
     <td><%= call.username %></a></td>
     <td><%= call.phone %></td>
     <td><%= call.adress %></td>
-    <td><%= call.boiler %></td>
+    <td><%= call.product_model&.name %></td>
     <td><%= call.error %></td>
-    <td><%= call.master %></td>
+    <td><%= call.master&.name %></td>
     <td><%= call.created_at.strftime("%d.%m.%Y %H:%M") %></td>
     <td><%= status_check(call.status) %></td>
     <td><%= call.guarantee ? 'Да' : 'Нет'  %></td>

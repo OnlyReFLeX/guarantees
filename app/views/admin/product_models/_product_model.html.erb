@@ -3,13 +3,32 @@
     <div id="product_model_title_<%= product_model.id %>">
       <%= product_model.name %>
     </div>
-    <%= form_for [:admin, product_model], html: {class: "form-inline", style: 'display: none'}, remote: true do |f| %>
-          <%= f.label :name, "Модель", class: "sr-only" %>
-          <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название" %>
-          <%= f.hidden_field :boiler_id, value: product_model.boiler.id %>
-          <%= f.submit "Изменить", class: "btn btn-primary" %>
+    <%= form_for [:admin, product_model], html: { class: 'col s12 hidden' }, remote: true do |f| %>
+      <div class="row">
+        <div class="input-field input-group col s6">
+          <%= f.text_field :name, placeholder: "Название" %>
+          <%= f.label :name, "Модель" %>
+          <span class="suffix">
+            <%= f.button class: "btn btn-floating waves-effect waves-light green" do %>
+              <i class="material-icons">done</i>
+            <% end %>
+          </span>
+        </div>
+      </div>
     <% end %>
   </td>
-  <td><%= link_to '', '', class: 'fa fa-pencil-square-o edit_model', style: 'text-decoration:none;', data: { model_id: product_model.id } %></td>
-  <td><%= link_to '', admin_product_model_path(product_model), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, style: 'text-decoration:none;', remote: true %></td>
+
+  <td class="right">
+    <%= link_to admin_product_model_path(product_model), method: :delete, data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, remote: true do %>
+      <i class="material-icons">delete</i>
+    <% end %>
+  </td>
+  <td class="right">
+    <%= link_to '', class: 'edit_model', data: { model_id: product_model.id } do %>
+      <i class="material-icons">edit</i>
+    <% end %>
+  </td>
 </tr>
+
+
+

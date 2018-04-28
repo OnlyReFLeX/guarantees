@@ -32,5 +32,6 @@
 en:
   hello: "Hello world"
   will_paginate:
-    previous_label: 'Пред'
-    next_label: 'След'
+    previous_label: '<i class="material-icons">chevron_left</i>'
+    next_label: '<i class="material-icons">chevron_right</i>'
+    page_gap: '...'

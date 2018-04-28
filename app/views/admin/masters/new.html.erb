@@ -2,17 +2,7 @@
   <div class="row">
       <div class="col-sm-6">
       <h3>Добавить мастера</h3>
-      <% if @master.errors.any? %>
-        <div id="error_explanation" class="alert alert-danger" role="alert">
-          <strong>Ошибка</strong>
-          <ul>
-            <% @master.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
+      <%= render 'shared/errors', resource: @master %>
       <%= form_for [:admin, @master], html: {class: "form-group"}  do |f| %>
             <%= f.label :name, "Мастер" %>
             <%= f.text_field :name, class: "form-control" %>
@@ -25,26 +15,11 @@
           <th></th>
         </thead>
         <tbody>
-          <% @masters.each do |master| %>
-          <tr>
-            <td>
-              <div id="master_title_<%= master.id %>">
-                <%= master.name %>
-              </div>
-              <%= form_for [:admin, master], html: {class: "form-inline", style: 'display: none'}, remote: true do |f| %>
-                    <%= f.label :name, "Мастер", class: "sr-only" %>
-                    <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0" %>
-                    <%= f.submit "Изменить", class: "btn btn-primary" %>
-              <% end %>
-            </td>
-            <td><%= link_to '', '', class: 'fa fa-pencil-square-o edit_master', style: 'text-decoration:none', data: { master_id: master.id }  %></td>
-            <td><%= link_to '', admin_master_path(master), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить мастера #{master.name}?"}, style: 'text-decoration:none', remote: true %></td>
-          </tr>
-          <% end %>
+          <%= render @masters %>
         </tbody>
       </table>
       <div class="container">
-        <%= will_paginate @masters, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
+        <%= will_paginate @masters, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
       </div>
     <% end %>
       </div>

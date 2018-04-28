@@ -1,89 +1,47 @@
 <div class="container">
   <div class="row">
-      <div class="col-sm-6">
+    <div class="col-sm-6">
       <h3>Добавить марку</h3>
-      <%= render 'shared/errors', resource: @boiler %>
-      <%= form_for [:admin, @boiler], html: {class: "form-group"}  do |f| %>
+      <%= render 'form', resource: @boiler %>
 
-            <%= f.label :name, "Марка" %>
-            <%= f.text_field :name, class: "form-control" %>
+      <% if @boilers.size > 0 %>
+        <ul class="collapsible popout">
+          <% @boilers.each do |boiler| %>
+            <li>
+              <div class="collapsible-header">
+                <%= boiler.name %> (<span id="boiler_count_<%= boiler.id %>"><%= boiler.product_models.count %></span>)
 
-            <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
-      <% end %>
-
-<% if @boilers.size > 0 %>
-  <ul class="collapsible popout">
-    <% @boilers.each do |boiler| %>
-      <li>
-        <div class="collapsible-header">
-          <%= boiler.name %>
-        </div>
-        <div class="collapsible-body">
-          <%= render boiler.product_models %>
-
-          <%= form_for [:admin, @product_model], remote: true do |f| %>
-            <%= f.label :name, "Модель" %>
-            <%= f.text_field :name, placeholder: "Название", id: "product_model_name_#{boiler.id}" %>
-            <%= f.hidden_field :boiler_id, value: boiler.id %>
-            <%= f.submit "Добавить", class: "btn" %>
-          <% end %>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-
-
-
-<% if @boilers.size > 0 %>
-      <div id="accordion" role="tablist" aria-multiselectable="true">
-        <% @boilers.each do |boiler| %>
-          <div class="card">
-            <div class="card-header" role="tab" id="heading<%= boiler.id %>">
-              <h5 class="mb-0" style="text-align: center;">
-                <a class="collapsed" data-toggle="collapse" style='text-decoration:none' data-parent="#accordion" href="#collapse<%= boiler.id %>" aria-expanded="false" aria-controls="collapse<%= boiler.id %>">
-              <div id="boiler_title_<%= boiler.id %>">
-                <span id="boiler_title_<%= boiler.id %>"><%= boiler.name %></span>(<span id="boiler_count_<%= boiler.id %>"><%= boiler.product_models.size %></span>)
-              </div>
-                </a>
-                <%= form_for [:admin, boiler], html: {class: "form-inline", style: 'display: none'} do |f| %>
-                      <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0" %>
-                      <%= f.submit "Изменить", class: "btn btn-primary" %>
+                <%= link_to edit_admin_boiler_path(boiler) do %>
+                  <i class="material-icons">edit</i>
                 <% end %>
-                <div style="text-align: right">
-                <%= link_to '', '', class: 'fa fa-pencil-square-o edit_boiler', style: 'text-decoration:none', data: { boiler_id: boiler.id } %>
-                <%= link_to '', admin_boiler_path(boiler), method: :delete, class: "fa fa-trash", data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, style: 'text-decoration:none'%>
-                </div>
-              </h5>
+              </div>
 
-            </div>
-            <div id="collapse<%= boiler.id %>" class="collapse" role="tabpanel" aria-labelledby="heading<%= boiler.id %>">
-              <div class="card-block">
-                <table class="table toble-responsive">
-                  <tbody class=" table_boiler_<%= boiler.id %>">
-                        <tr>
-                          <td>
-                            <div class="product_model-errors_<%= boiler.id %>"></div>
-                            <%= form_for [:admin, @product_model], html: {class: "form-inline"}, remote: true  do |f| %>
-                                  <%= f.label :name, "Модель", class: "sr-only" %>
-                                  <%= f.text_field :name, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Название", id: "product_model_name_#{boiler.id}" %>
-                                  <%= f.hidden_field :boiler_id, value: boiler.id %>
-                                  <%= f.submit "Добавить", class: "btn btn-primary" %>
-                            <% end %>
-                          </td>
-                        </tr>
-                      <%= render boiler.product_models %>
+              <div class="collapsible-body">
+                <table>
+                  <tbody id="table_body_boiler_<%= boiler.id %>">
+                    <%= render boiler.product_models %>
                   </tbody>
                 </table>
+                <br>
+                  <%= form_for [:admin, boiler, boiler.product_models.build], class: 'col s12', remote: true do |f| %>
+                    <div class="row">
+                      <div class="input-field input-group col s6">
+                        <%= f.label :name, "Модель" %>
+                        <%= f.text_field :name, id: "product_model_name_#{boiler.id}" %>
+                        <span class="suffix">
+                          <%= f.button "+", class: "btn btn-floating waves-effect waves-light red" %>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
               </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <br>
-      <div class="container">
-        <%= will_paginate @boilers, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
-      </div>
-<% end %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="container">
+          <%= will_paginate @boilers, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

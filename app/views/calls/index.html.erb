@@ -10,7 +10,7 @@
     <div class="card hidden tooltipped" id="call_search_form" data-position="bottom" data-tooltip="Поиск выполняется по всем критериям." >
       <div class="card-stacked">
         <div class="card-action">
-          <%= form_tag calls_path, :method => 'get', :id => "qs_search" do %>
+          <%= form_tag calls_path, method: :get, id: "qs_search" do %>
             <%= hidden_field_tag :direction, params[:direction] %>
             <%= hidden_field_tag :sort, params[:sort] %>
             <%= hidden_field_tag :call_date, params[:call_date] %>
@@ -21,8 +21,6 @@
         </div>
       </div>
     </div>
-  </div>
-
   </div>
 </div>
 

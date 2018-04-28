@@ -1,80 +1,44 @@
-<div class="container">
-  <div class="row">
+<div class="row">
+  <div class="col s4 left">
+    <br>
+    Общее количество гарантийных котлов: <%= Warranty.count %>
+  </div>
 
-    <div class="col-sm-8">
-
-
-    <%= form_tag warranties_path, :method => 'get', :id => "ws_search", class: "form-inline" do %>
-    <%= hidden_field_tag :direction, params[:direction] %>
-    <%= hidden_field_tag :sort, params[:sort] %>
-    <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Поиск" %>
-    <%= submit_tag "Найти",class: "btn btn-outline-success my-2 my-sm-0" , :name => nil %>
-    <% end %><br>
-    </div>
-    <div class="col-sm-4">
-    Общее количество гарантийных котлов: <%= Warranty.all.size %>
+  <div class="col s3 right center input-field">
+    <%= button_tag 'Поиск', class: 'btn', id: 'call_search_button' %>
+    <div class="card hidden tooltipped" id="call_search_form" data-position="bottom" data-tooltip="Поиск выполняется по всем критериям." >
+      <div class="card-stacked">
+        <div class="card-action">
+          <%= form_tag calls_path, method: :get, id: "ws_search" do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Поиск" %>
+            <%= submit_tag "Найти", class: "btn hidden", name: nil %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="warranties"><%= render 'warranties' %></div>
-<!-- <script type="text/javascript">
-$(function() {
-  //СОРТИРОВКА и ПРОЛИСТЫВАНИЕ ТОВАРОВ ПО ЗАПРОСУ AJAX (Для работы расскоментировать)
-  $("body").on('click', "#warranties th a, #warranties .pagination a", function() {
-    $.getScript(this.href);
-    return false;
-  });
-
-  //ПОИСК С ПОМОЩЬЮ ЗАПРОСА AJAX (Для работы расскоментировать)
-  $("#ws_search input").keyup(function() {
-    $.get($("#ws_search").attr("action"), $("#ws_search").serialize(), null, "script");
-    return false;
-  });
-});
-</script> -->
-
-<script type="text/javascript">
-  $(function() {
-      $('input[name="datebuyed"], input[name="created_at"], input[name="datefirststart"]').daterangepicker({
-        'format': 'YYYY-MM-DD',
-        'autoApply': true,
-        'locale': {
-            'fromLabel': 'От',
-            'toLabel': 'До',
-            'weekLabel': 'Н',
-            'customRangeLabel': 'Задать даты',
-            'firstDay': 1,
-            'cancelLabel': 'Очистить',
-            'applyLabel': 'Применить',
-            'daysOfWeek': ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            'monthNames': ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-        },
-        'language': 'ru'
-      });
-
-
-      $('input[name="datebuyed"]').on('apply.daterangepicker', function(ev, picker) {
-        $('#form_datebuyed').submit();
-      });
-      $('input[name="datebuyed"]').on('cancel.daterangepicker', function(ev, picker) {
-        $('#form_datebuyed #datebuyed').val('');
-        $('#form_datebuyed').submit();
-      });
-      $('input[name="created_at"]').on('apply.daterangepicker', function(ev, picker) {
-        $('#form_created_at').submit();
-      });
-      $('input[name="created_at"]').on('cancel.daterangepicker', function(ev, picker) {
-        $('#form_created_at #created_at').val('');
-        $('#form_created_at').submit();
-      });
-      $('input[name="datefirststart"]').on('apply.daterangepicker', function(ev, picker) {
-        $('#form_datefirststart').submit();
-      });
-      $('input[name="datefirststart"]').on('cancel.daterangepicker', function(ev, picker) {
-        $('#form_datefirststart #datefirststart').val('');
-        $('#form_datefirststart').submit();
-      });
-  });
-</script>
-
+<div id="warranties">
+  <table class="warranties striped">
+    <thead>
+      <tr>
+        <th><%= sortable "id", "#" %></th>
+        <th><%= sortable "name", "Клиент" %></th>
+        <th><%= sortable "boiler", "Котел" %></th>
+        <th><%= sortable "adress", "Адрес" %></th>
+        <th><%= sortable "datebuyed", "Дата покупки"%></th>
+        <th><%= sortable "started", "Первый пуск"%></th>
+        <th><%= sortable "whodidfirststart", "Кто запускал"%></th>
+        <th><%= sortable "datefirststart", "Дата пуска"%></th>
+        <th><%= sortable "created_at", "Дата создание"%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @warranties %>
+    </tbody>
+  </table>
+  <div class="container">
+    <%= will_paginate @warranties, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
+  </div>
+</div>

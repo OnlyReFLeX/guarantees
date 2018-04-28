@@ -5,12 +5,11 @@ class Admin::CallsController < Admin::AdminController
   before_action :boilers_all, only: [:new, :create]
 
   def new
-    @call = Call.new
+    @call = current_user.calls.build
   end
 
   def create
-    @call = Call.new(call_params)
-    @call.who_created = current_user.username
+    @call = current_user.calls.build(call_params)
 
     if @call.save
       redirect_to calls_path
@@ -51,7 +50,7 @@ class Admin::CallsController < Admin::AdminController
   private
 
   def call_params
-    params.require(:call).permit(:boiler, :username, :who_created, :phone, :adress, :call_date, :status, :master, :error, :guarantee, :serial_code, :whycanceled, :infosuccess, :comment)
+    params.require(:call).permit(:product_model_id, :username, :phone, :adress, :call_date, :status, :master_id, :error, :guarantee, :serial_code, :whycanceled, :infosuccess, :comment)
   end
 
   def find_id

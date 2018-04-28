@@ -3,23 +3,23 @@ class WarrantiesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @warranties = Warranty.date_period(params[:datebuyed], 'datebuyed')
-                          .date_period(params[:created_at], 'created_at')
-                          .date_period(params[:datefirststart], 'datefirststart')
-                          .search(params[:search])
-                          .order(sort_column + " " + sort_direction)
-                          .paginate(:per_page => 10, :page => params[:page])
+    @warranties = Warranty.search(params[:search])
+                          .order(sort_column + ' ' + sort_direction)
+                          .paginate(per_page: 10, page: params[:page])
   end
+
   def show
     @warranty = Warranty.find(params[:id])
-    @calls = @warranty.calls.paginate(:page => params[:page], :per_page => 10)
+    @calls = @warranty.calls.paginate(page: params[:page], per_page: 10)
   end
 
   private
+
   def sort_column
-    Warranty.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    Warranty.column_names.include?(params[:sort]) ? params[:sort] : 'id'
   end
+
   def sort_direction
-    %W[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 end

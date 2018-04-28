@@ -1,10 +1,6 @@
 <% if @product_model.errors.present? %>
-if (!$("div").is(".model-errors_<%= @product_model.id %>")) {
-  $('#product_model_title_<%= @product_model.id %>').parents('tr').after('<div class="alert alert-danger model-errors_<%= @product_model.id %>" role="alert"></div>');
-};
-  $(".model-errors_<%= @product_model.id %>").html('')
   <% @product_model.errors.full_messages.each do |message| %>
-    $('.model-errors_<%= @product_model.id %>').append('<%= j message %></br>');
+    M.toast({html: '<%= message %>', classes: 'red'})
   <% end %>
 <% else %>
   $('#product_model_title_<%= @product_model.id %>').parents('tr').replaceWith('<%= j render 'admin/product_models/product_model', product_model: @product_model %>');

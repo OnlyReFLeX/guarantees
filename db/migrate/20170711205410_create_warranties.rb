@@ -3,16 +3,14 @@ class CreateWarranties < ActiveRecord::Migration[5.1]
     create_table :warranties do |t|
       t.string :name
       t.string :phone
-      t.string :boiler
-      t.string :model
       t.string :adress
-      t.string :serial
-      t.datetime :datefirststart
-      t.string :whodidfirststart
-      t.datetime :datebuyed
-      t.string :who_created
+      t.date :datefirststart
+      t.date :datebuyed
       t.boolean :started
       t.text :comment
+      t.references :product_model
+      t.references :master
+      t.references :user
 
       t.timestamps
     end

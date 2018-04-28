@@ -4,7 +4,6 @@ class Admin::BoilersController < Admin::AdminController
 
   def new
     @boiler = Boiler.new
-    @product_model = ProductModel.new
   end
 
   def create
@@ -20,6 +19,8 @@ class Admin::BoilersController < Admin::AdminController
   def update
     if @boiler.update(boiler_params)
       redirect_to new_admin_boiler_path
+    else
+      render :edit
     end
   end
 

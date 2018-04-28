@@ -1,12 +1,2 @@
-<% if @master.errors.present? %>
-if (!$("div").is(".master-errors_<%= @master.id %>")) {
-  $('#master_title_<%= @master.id %>').parents('tr').after('<div class="alert alert-danger master-errors_<%= @master.id %>" role="alert"></div>');
-};
-  $(".master-errors_<%= @master.id %>").html('')
-  <% @master.errors.full_messages.each do |message| %>
-    $('.master-errors_<%= @master.id %>').append('<%= j message %></br>');
-  <% end %>
-<% else %>
-  $('#master_title_<%= @master.id %>').parents('tr').remove();
-  $(".master-errors_<%= @master.id %>").remove()
-<%end%>
+$('#master_title_<%= @master.id %>').parents('tr').remove();
+$(".master-errors_<%= @master.id %>").remove()

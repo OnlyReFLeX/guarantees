@@ -8,6 +8,8 @@ ru:
   activerecord:
     models:
       user: 'Пользователь'
+      warranty: 'Гарантию'
+      call: 'Вызов'
     attributes:
         user:
           current_password: 'Текущий пароль'

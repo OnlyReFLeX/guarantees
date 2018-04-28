@@ -1,9 +1,10 @@
 <%= render 'shared/errors', resource: @call %>
-<%= form_for [:admin, @call], html: {class: "form-group"}  do |f| %>
+
+<%= form_for [:admin, @call] do |f| %>
 
   <div class="input-field">
-    <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true } %>
-    <%= f.label :boiler, "Котел" %>
+    <%= f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: true } %>
+    <%= f.label :product_model_id, "Котел" %>
   </div>
 
   <div class="input-field">
@@ -27,8 +28,8 @@
   </div>
 
   <div class="input-field">
-    <%= f.collection_select :master, Master.order(:name), :name , :name, { include_blank: true } %>
-    <%= f.label :master, "Мастер" %>
+    <%= f.collection_select :master_id, Master.order(:name), :id , :name %>
+    <%= f.label :master_id, "Мастер" %>
   </div>
 
   <div class="input-field">
@@ -37,7 +38,7 @@
   </div>
 
   <div class="input-field">
-    <%= f.select :guarantee, [['Да', true],['Нет', false]], { include_blank: true } %>
+    <%= f.select :guarantee, [['Нет', false],['Да', true]] %>
     <%= f.label :guarantee, "Гарантийный" %>
   </div>
 
@@ -53,7 +54,7 @@
     <%= f.text_area :comment, class: 'materialize-textarea' %>
   </div>
 
-  <br /><%= f.submit @call.new_record? ? 'Создать' : 'Сохранить', class: "btn btn-primary"%>
+  <br /><%= f.submit class: "btn"%>
 
 <% end %>
 <script>

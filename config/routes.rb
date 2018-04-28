@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         put :call_in_progress
       end
     end
-    resources :boilers, except: [:show, :index, :edit] do
+    resources :boilers, except: [:show, :index] do
       resources :product_models, only: [:create, :update, :destroy], shallow: true
     end
     resources :masters, except: [:show, :index, :edit]

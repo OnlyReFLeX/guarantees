@@ -4,6 +4,9 @@ class User < ApplicationRecord
   validates :username, presence: true
   validate :validate_last_administrator, on: :update
 
+  has_many :warranties
+  has_many :calls
+
   def admin?
     is_a?(Admin)
   end

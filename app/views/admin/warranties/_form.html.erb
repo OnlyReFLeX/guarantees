@@ -1,44 +1,61 @@
 <%= render 'shared/errors', resource: @warranty %>
 
-<%= form_for [:admin, @warranty], html: {class: "form-group"}  do |f| %>
-  <div>
-  <%= f.label :boiler, "Производитель*" %>
-  <%= f.collection_select :boiler, Boiler.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
-  </div>
-  <div id="hidden_model">
-  <%= f.label :model, "Модель*" %>
-  <%= f.grouped_collection_select :model, Boiler.order(:name), :product_models, :name, :name, :name, { include_blank: true }, class: "form-control" %>
-  </div>
-  <%= f.label :name, "Фамилия Имя владельца*" %>
-  <%= f.text_field :name, class: "form-control" %>
+<%= form_for [:admin, @warranty] do |f| %>
 
-  <%= f.label :adress, "Адрес установленного котла*" %>
-  <%= f.text_field :adress, class: "form-control", onFocus: "geolocate()"  %>
-
-  <%= f.label :phone, "Телефон*" %>
-  <%= f.text_field :phone, class: "form-control" %>
-
-  <%= f.label :serial, "Серийный номер котла*" %>
-  <%= f.text_field :serial, class: "form-control" %>
-
-  <%= f.label :datebuyed, "Дата покупки котла*" %>
-  <%= f.text_field :datebuyed, class: "form-control" %>
-
-  <%= f.label :started, "Был ли первый запуск котла*" %>
-  <%= f.select :started, [['Да', true],['Нет', false]], { include_blank: true }, class: "form-control" %>
-
-  <div id="hidden_div" style="display: none;">
-    <%= f.label :whodidfirststart, "Кто делал запуск котла" %>
-    <%= f.collection_select :whodidfirststart, Master.order(:name), :name , :name, { include_blank: true }, class: "form-control" %>
-
-    <%= f.label :datefirststart, "Дата первого запуска котла" %>
-    <%= f.text_field :datefirststart, class: "form-control" %>
+  <div id="hidden_model" class="input-field">
+    # TODO
+    <%= f.label :product_model_id, "Модель" %>
+    <%= f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: true }, class: ' browser-default' %>
   </div>
 
-  <%= f.label :comment, "Комментарий" %>
-  <%= f.text_area :comment, class: "form-control" %>
+  <div class="input-field">
+    <%= f.label :name, "Фамилия Имя владельца" %>
+    <%= f.text_field :name %>
+  </div>
 
-  <br /><%= f.submit @warranty.new_record? ? 'Создать' : 'Изменить' , class: "btn btn-primary" %>
+  <div class="input-field">
+    <%= f.label :adress, "Адрес установленного котла" %>
+    <%= f.text_field :adress, onFocus: "geolocate()"  %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :phone, "Телефон" %>
+    <%= f.text_field :phone %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :serial, "Серийный номер котла" %>
+    <%= f.text_field :serial %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :datebuyed, "Дата покупки котла" %>
+    <%= f.text_field :datebuyed %>
+  </div>
+
+  <div class="input-field">
+    <%= f.select :started, [['Да', true],['Нет', false]], { include_blank: true } %>
+    <%= f.label :started, "Был ли первый запуск котла" %>
+  </div>
+
+  <div id="hidden_div" class="hidden">
+    <div class="input-field">
+      <%= f.collection_select :master_id, Master.order(:name), :id , :name, { include_blank: true } %>
+      <%= f.label :master_id, "Кто делал запуск котла" %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :datefirststart, "Дата первого запуска котла" %>
+      <%= f.text_field :datefirststart %>
+    </div>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :comment, "Комментарий" %>
+    <%= f.text_area :comment, class: 'materialize-textarea' %>
+  </div>
+
+  <%= f.submit class: "btn" %>
 <% end %>
 
 <script>
@@ -71,8 +88,8 @@ $(function() {
 
 function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('warranty_adress')),
-      {types: ['geocode']});
+    (document.getElementById('warranty_adress')),
+    {types: ['geocode']});
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP-L2RSMado3N_tgp20D7pn9OqJf2WeSs&libraries=places&callback=initAutocomplete" async defer></script>

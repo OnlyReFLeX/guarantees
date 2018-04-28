@@ -1,22 +1,30 @@
 <div class="container">
   <div class="row">
-      <h2>Вызов №<%= @called.id %> <%= link_to "",edit_admin_call_path(@called), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' if current_user.admin? %></h2>
+      <h2>
+        Вызов №<%= @called.id %>
+        <% if current_user.admin? %>
+          <%= link_to edit_admin_call_path(@called) do %>
+            <i class="material-icons">edit</i>
+          <% end %>
+        <% end %>
+
+      </h2>
       <table class="striped">
         <tr><th> Имя: <%= @called.username %></th></tr>
-        <tr><th> Котел: <%= @called.boiler %></th></tr>
+        <tr><th> Котел: <%= @called.product_model&.name %></th></tr>
         <tr><th> Телефон: <%= @called.phone %></th></tr>
         <tr><th> Адрес: <%= @called.adress %></th></tr>
         <tr><th> Неисправность: <%= @called.error %></th></tr>
         <tr><th> Дата звонка клиента: <%= @called.call_date.strftime("%d.%m.%Y") %></th></tr>
         <tr><th> Дата создание записи: <%= @called.created_at.strftime("%d.%m.%Y %H:%M") %></th>
-        <tr><th> Мастер: <%= @called.master.blank? ? "Неизвестен" : @called.master %></th></tr>
+        <tr><th> Мастер: <%= @called.master&.name %></th></tr>
         <tr><th>Гарантийный: <%= @called.guarantee  ? 'Да' : 'Нет' %></th></tr>
 
         <% if @called.guarantee? %>
           <tr><th>Серия: <%= @called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных' %></th></tr>
         <% end %>
 
-        <tr><th> Регистратор вызова: <%= @called.who_created %></th></tr>
+        <tr><th> Регистратор вызова: <%= @called.user.username %></th></tr>
         <tr><th> Комментарий: <%= @called.comment %></th></tr>
 
         <tr><th>
@@ -28,6 +36,9 @@
         </th></tr>
         <% if comment_status(@called) %>
           <tr><th> Комментарий к статусу: <%= comment_status(@called) %></th></tr>
+        <% end %>
+        <% if current_user.admin? %>
+          <tr><th class="right"><%= link_to admin_call_path(@called), method: :delete, data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"} do %><i class="material-icons">delete</i><% end %></th></tr>
         <% end %>
       </table>
   </div>

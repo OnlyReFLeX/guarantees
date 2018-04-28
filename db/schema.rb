@@ -22,22 +22,25 @@ ActiveRecord::Schema.define(version: 20171230125201) do
   end
 
   create_table "calls", force: :cascade do |t|
-    t.string "boiler"
     t.string "username"
-    t.string "who_created"
     t.string "phone"
     t.text "adress"
-    t.datetime "call_date"
+    t.date "call_date"
     t.string "status", default: "expect"
-    t.string "master"
     t.string "error"
     t.text "whycanceled"
     t.text "infosuccess"
     t.boolean "guarantee"
     t.text "comment"
+    t.bigint "product_model_id"
+    t.bigint "user_id"
+    t.bigint "master_id"
+    t.bigint "warranty_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "warranty_id"
+    t.index ["master_id"], name: "index_calls_on_master_id"
+    t.index ["product_model_id"], name: "index_calls_on_product_model_id"
+    t.index ["user_id"], name: "index_calls_on_user_id"
     t.index ["warranty_id"], name: "index_calls_on_warranty_id"
   end
 
@@ -67,29 +70,34 @@ ActiveRecord::Schema.define(version: 20171230125201) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.string "type", default: "User"
+    t.bigint "call_id"
+    t.bigint "warranty_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type", default: "User"
+    t.index ["call_id"], name: "index_users_on_call_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["warranty_id"], name: "index_users_on_warranty_id"
   end
 
   create_table "warranties", force: :cascade do |t|
     t.string "name"
     t.string "phone"
-    t.string "boiler"
-    t.string "model"
     t.string "adress"
-    t.string "serial"
-    t.datetime "datefirststart"
-    t.string "whodidfirststart"
-    t.datetime "datebuyed"
-    t.string "who_created"
+    t.date "datefirststart"
+    t.date "datebuyed"
     t.boolean "started"
     t.text "comment"
+    t.bigint "product_model_id"
+    t.bigint "master_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["master_id"], name: "index_warranties_on_master_id"
+    t.index ["product_model_id"], name: "index_warranties_on_product_model_id"
+    t.index ["user_id"], name: "index_warranties_on_user_id"
   end
 
   add_foreign_key "product_models", "boilers"

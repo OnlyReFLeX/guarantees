@@ -35,6 +35,7 @@
       <div class="card-content white-text">
         <span class="card-title">Марки</span>
         <p>Фирмы котлов зарегистированных: <%= Boiler.count %>.</p>
+        <p>Моделей котлов: <%= ProductModel.count %>.</p>
       </div>
       <div class="card-action">
         <%= link_to 'Перейти', new_admin_boiler_path %>

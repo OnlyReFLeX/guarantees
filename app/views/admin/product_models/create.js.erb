@@ -1,12 +1,11 @@
 <% if @product_model.errors.present? %>
-    $('.product_model-errors_<%= @product_model.boiler.id %>').html('<div class="alert alert-danger model-errors_<%= @product_model.boiler.id %>" role="alert"></div>');
   <% @product_model.errors.full_messages.each do |message| %>
-    $('.model-errors_<%= @product_model.boiler.id %>').append('<%= j message %></br>');
+    M.toast({html: '<%= message %>', classes: 'red'})
   <% end %>
 <% else %>
-  $('.table_boiler_<%= @product_model.boiler.id %>').append('<%= j render 'admin/product_models/product_model', product_model: @product_model %>');
+  $('#table_body_boiler_<%= @product_model.boiler.id %>').append('<%= j render 'admin/product_models/product_model', product_model: @product_model %>');
   $("#product_model_name_<%= @product_model.boiler.id %>").val('');
-  $('.product_model-errors_<%= @product_model.boiler.id %>').html('');
+
   var count = $('#boiler_count_<%= @product_model.boiler.id %>').text();
   $('#boiler_count_<%= @product_model.boiler.id %>').html(++count)
 <%end%>

@@ -1,53 +1,48 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-5">
-      <h3>Гарантийный котел №<%= @warranty.id %> <%= link_to "",edit_admin_warranty_path(@warranty), class: 'fa fa-pencil-square-o', style: 'text-decoration:none' if current_user.admin? %> </h3>
-      <table class="detail-view table table-striped table-condensed" id="yw0"><tr class="odd">
-      <tr class="odd"> <th> Клиент: <%= @warranty.name %></th></tr>
-      <tr class="even"> <th> Котел: <%= @warranty.boiler %> <%= @warranty.model %></th></tr>
-      <tr class="odd"> <th> Телефон: <%= @warranty.phone %></th></tr>
-      <tr class="even"> <th> Адрес: <%= @warranty.adress %></th></tr>
-      <tr class="odd"> <th> Дата покупки: <%= @warranty.datebuyed.strftime("%d.%m.%Y") %></th></tr>
-      <tr class="even"> <th> Серийный номер: <%= @warranty.serial %></th></tr>
-      <tr class="odd"><th>Первый пуск: <%= @warranty.started ? 'Да' : 'Нет' %></th></tr>
-      <% if @warranty.started == true %>
-        <tr class="even"> <th> Дата первого пуска: <%= @warranty.datefirststart.strftime("%d.%m.%Y") %></th></tr>
-        <tr class="odd"> <th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
-      <% end %>
-      <tr class="even"> <th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d.%m.%Y %H:%M") %></th>
-      <tr class="odd"> <th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
-      <tr class="even"> <th> Комментарий: <%= @warranty.comment %></th>
+    <h3>
+      Гарантийный котел №<%= @warranty.id %>
       <% if current_user.admin? %>
-      <tr><th style="text-align: right;"><%= link_to ' Удалить', admin_warranty_path(@warranty), method: :delete, class: "fa fa-trash",data: { confirm: "Вы уверены что хотите удалить вызов #{@warranty.name}?"}, style: 'text-decoration:none' %></th></tr>
+        <%= link_to edit_admin_warranty_path(@warranty) do %>
+          <i class="material-icons">edit</i>
+        <% end %>
       <% end %>
+    </h3>
 
-      </table>
-    </div>
-  </div>
-  <% if @calls.any? %>
-  <h2>Вызовы которые были </h2>
-  <div class="table-responsive">
-    <table class="table table-hover orders">
-     <thead>
-       <tr>
-         <th>#</th>
-         <th>Имя</th>
-         <th>Дата</th>
-       </tr>
-     </thead>
-     <tbody>
-       <% @calls.each do |call| %>
-       <tr>
-         <td><%= call.id %></td>
-         <td><%= link_to "#{call.username}", call_path(call) %></td>
-         <td><%= call.created_at.strftime("%d.%m.%Y") %></td>
-       </tr>
+    <table class="striped"><tr>
+      <tr><th> Клиент: <%= @warranty.name %></th></tr>
+      <tr><th> Котел: <%= @warranty.boiler %> <%= @warranty.model %></th></tr>
+      <tr><th> Телефон: <%= @warranty.phone %></th></tr>
+      <tr><th> Адрес: <%= @warranty.adress %></th></tr>
+      <tr><th> Дата покупки: <%= @warranty.datebuyed.strftime("%d.%m.%Y") %></th></tr>
+      <tr><th> Серийный номер: <%= @warranty.serial %></th></tr>
+      <tr><th>Первый пуск: <%= @warranty.started ? 'Да' : 'Нет' %></th></tr>
+      <% if @warranty.started == true %>
+        <tr><th> Дата первого пуска: <%= @warranty.datefirststart.strftime("%d.%m.%Y") %></th></tr>
+        <tr><th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
       <% end %>
-     </tbody>
+      <tr><th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d.%m.%Y %H:%M") %></th>
+      <tr><th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
+      <tr><th> Комментарий: <%= @warranty.comment %></th>
+      <% if current_user.admin? %>
+        <tr><th class="right"><%= link_to admin_warranty_path(@warranty), method: :delete, data: { confirm: "Вы уверены что хотите удалить гарантию #{@warranty.name}?"} do %><i class="material-icons">delete</i><% end %></th></tr>
+      <% end %>
     </table>
+  </div>
+
+  <% if @calls.any? %>
+    <h3>Вызовы которые были </h3>
+    <div class="collection">
+      <% @calls.each do |call| %>
+        <%= link_to call_path(call), class: 'collection-item' do %>
+          <span class="badge">#<%= call.id%></span>
+          <%= call.created_at.strftime("%d.%m.%Y") %>
+        <% end %>
+      <% end %>
+    </div>
+
     <div class="container">
       <%= will_paginate @calls, renderer: 'BootstrapPaginationHelper::LinkRenderer' %>
     </div>
-  </div>
   <% end %>
 </div>

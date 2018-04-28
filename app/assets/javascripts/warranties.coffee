@@ -8,6 +8,7 @@ $(document).on "turbolinks:load", ->
    options = $(categorys).filter("optgroup[label=#{escaped_brand}]").html()
    $('#warranty_model').html(options)
    $('#hidden_model').show()
+
   $('#warranty_boiler').change ->
     brand = $('#warranty_boiler :selected').text()
     escaped_brand = brand.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')

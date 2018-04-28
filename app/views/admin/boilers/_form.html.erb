@@ -1,0 +1,15 @@
+<%= render 'shared/errors', resource: resource %>
+<%= form_for [:admin, resource] do |f| %>
+  <div class="row">
+    <div class="input-field input-group">
+      <%= f.label :name, "Марка" %>
+      <%= f.text_field :name %>
+
+      <span class="suffix">
+        <%= f.button class: "btn waves-effect waves-light" %>
+      </span>
+    </div>
+  </div>
+<% end %>
+
+

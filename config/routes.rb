@@ -13,16 +13,18 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :new, :create, :destroy, :edit, :update]
     resources :warranties, except: [:show, :index]
-    resources :calls, except: [:show, :index, ] do
+    resources :calls, except: [:show, :index] do
       member do
         put :call_expect
         put :call_in_progress
       end
     end
-    resources :boilers, except: [:show, :index, :edit]
+    resources :boilers, except: [:show, :index, :edit] do
+      resources :product_models, only: [:create, :update, :destroy], shallow: true
+    end
     resources :masters, except: [:show, :index, :edit]
     resources :users, only: [:index, :show, :update, :destroy]
-    resources :product_models, only: [:create, :update, :destroy]
+
     post '/serial_autocomplete', to: 'calls#serial_autocomplete'
   end
 

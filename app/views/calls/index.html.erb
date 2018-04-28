@@ -33,7 +33,7 @@
       <tr>
         <th><%= sortable "id", "#" %></th>
         <th><%= sortable "call_date", "Дата звонка" %>
-          <a class="waves-effect waves-light btn modal-trigger" href="#call_period">Период</a>
+          <a class="waves-effect modal-trigger" href="#call_period"><i class="material-icons">access_time</i></a>
         </th>
         <th><%= sortable "username", "Имя" %></th>
         <th><%= sortable "phone", "Телефон" %></th>
@@ -41,16 +41,8 @@
         <th><%= sortable "boiler", "Котел" %></th>
         <th><%= sortable "error", "Неисправность" %></th>
         <th><%= sortable "master", "Мастер" %></th>
-        <th><%= sortable "created_at", "Создание записи" %><br>
-
-          <%= form_tag calls_path, :method => 'get', id: 'form_created_at' do %>
-          <%= hidden_field_tag :direction, params[:direction] %>
-          <%= hidden_field_tag :sort, params[:sort] %>
-          <%= hidden_field_tag :search, params[:search] %>
-          <%= hidden_field_tag :call_date, params[:call_date] %>
-          <%= text_field_tag :created_at, params[:created_at], class: "form-control form-control-sm col-sm-8", placeholder: "Установить период", style: "font-size:11px;" %>
-          <% end %>
-
+        <th><%= sortable "created_at", "Создание записи" %>
+          <a class="waves-effect modal-trigger" href="#created_at_period"><i class="material-icons">access_time</i></a>
         </th>
         <th><%= sortable "status", "Статус" %></th>
         <th><%= sortable "guarantee", "Г" %></th>
@@ -65,28 +57,50 @@
   </div>
 </div>
 
-<div class="conta">
-  <div id="call_period" class="modal">
-    <%= form_tag calls_path, :method => 'get', id: 'form_call_date' do %>
-      <div class="modal-content">
-        <h4>Период даты звонка</h4>
-            <%= hidden_field_tag :direction, params[:direction] %>
-            <%= hidden_field_tag :sort, params[:sort] %>
-            <%= hidden_field_tag :search, params[:search] %>
-            <%= hidden_field_tag :created_at, params[:created_at] %>
-            <div class="row">
-              <div class="col s6">
-                <%= text_field_tag :call_date_start, params[:call_date_start], placeholder: "Начало" %>
-              </div>
-              <div class="col s6">
-                <%= text_field_tag :call_date_end, params[:call_date_end], placeholder: "Конец" %>
-              </div>
+<div id="call_period" class="modal">
+  <%= form_tag calls_path, method: 'get', id: 'form_call_date' do %>
+    <div class="modal-content">
+      <h4>Период даты звонка</h4>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= hidden_field_tag :search, params[:search] %>
+          <%= hidden_field_tag :created_at, params[:created_at] %>
+          <div class="row">
+            <div class="col s6">
+              <%= text_field_tag :call_date_start, params[:call_date_start], placeholder: "Начало" %>
             </div>
-      </div>
-      <div class="modal-footer">
-        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" id="call_date_clear">Очистить</a>
-        <%= button_tag "Установить", class: "modal-action modal-close waves-effect waves-green btn", name: nil %>
-      </div>
-    <% end %>
-  </div>
+            <div class="col s6">
+              <%= text_field_tag :call_date_end, params[:call_date_end], placeholder: "Конец" %>
+            </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" id="call_date_clear">Очистить</a>
+      <%= button_tag "Установить", class: "modal-action modal-close waves-effect waves-green btn", name: nil %>
+    </div>
+  <% end %>
+</div>
+
+<div id="created_at_period" class="modal">
+  <%= form_tag calls_path, method: 'get', id: 'form_created_at' do %>
+    <div class="modal-content">
+      <h4>Период создания записи</h4>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= hidden_field_tag :search, params[:search] %>
+          <%= hidden_field_tag :call_date, params[:call_date] %>
+          <div class="row">
+            <div class="col s6">
+              <%= text_field_tag :created_at_start, params[:created_at_start], placeholder: "Начало" %>
+            </div>
+            <div class="col s6">
+              <%= text_field_tag :created_at_end, params[:created_at_end], placeholder: "Конец" %>
+            </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-green btn-flat" id="created_at_clear">Очистить</a>
+      <%= button_tag "Установить", class: "modal-action modal-close waves-effect waves-green btn", name: nil %>
+    </div>
+  <% end %>
 </div>

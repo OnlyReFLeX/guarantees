@@ -58,7 +58,7 @@ gem 'devise', '~> 4.4', '>= 4.4.3'
 gem 'rails-i18n', '~> 5.1', '>= 5.1.1'
 
 # materialize
-gem 'materialize-sass', '~> 1.0.0.beta'
+gem 'materialize-sass', git: 'git@github.com:mkhairi/materialize-sass.git'
 
 # jquery
 gem 'jquery-rails'

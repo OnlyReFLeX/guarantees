@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20171230125201) do
     t.date "datebuyed"
     t.boolean "started"
     t.text "comment"
+    t.string "serial"
     t.bigint "product_model_id"
     t.bigint "master_id"
     t.bigint "user_id"

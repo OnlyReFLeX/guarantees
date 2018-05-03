@@ -2,10 +2,13 @@
 
 <%= form_for [:admin, @warranty] do |f| %>
 
-  <div id="hidden_model" class="input-field">
-    # TODO
-    <%= f.label :product_model_id, "Модель" %>
-    <%= f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: true }, class: ' browser-default' %>
+  <div class="input-field">
+    <%= f.collection_select :boiler, Boiler.order(:name), :id, :name, { include_blank: true } %>
+    <%= f.label :boiler, "Фирма" %>
+  </div>
+
+  <div class="input-field" id="hidden_model">
+    <%= f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: 'Выберите модель' }, class: 'browser-default' %>
   </div>
 
   <div class="input-field">

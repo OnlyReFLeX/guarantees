@@ -1,7 +1,11 @@
 var ready = function() {
   M.AutoInit();
-  $('#call_date_start').datepicker();
-  $('#call_date_end').datepicker();
+  $('#call_date_start').datepicker({
+    container: 'body'
+  });
+  $('#call_date_end').datepicker({
+    container: 'body'
+  });
 
   $('#created_at_start').datepicker({
     container: 'body'

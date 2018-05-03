@@ -8,6 +8,7 @@ class CreateWarranties < ActiveRecord::Migration[5.1]
       t.date :datebuyed
       t.boolean :started
       t.text :comment
+      t.string :serial
       t.references :product_model
       t.references :master
       t.references :user

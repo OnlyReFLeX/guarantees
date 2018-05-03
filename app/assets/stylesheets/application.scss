@@ -19,6 +19,7 @@
 $primary-color: color("blue-grey", "darken-4") !default;
 $secondary-color: color("blue", "base") !default;
 @import 'materialize';
+.material-icons.md-pink { color: rgb(208, 28, 97); }
 
 .hidden {
   display: none;
@@ -53,3 +54,4 @@ th .desc {
 .suffix {
     width:1%;
 }
+

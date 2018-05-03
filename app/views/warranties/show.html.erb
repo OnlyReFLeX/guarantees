@@ -11,18 +11,18 @@
 
     <table class="striped"><tr>
       <tr><th> Клиент: <%= @warranty.name %></th></tr>
-      <tr><th> Котел: <%= @warranty.boiler %> <%= @warranty.model %></th></tr>
+      <tr><th> Котел: <%= @warranty.boiler %> <%= @warranty.product_model.name %></th></tr>
       <tr><th> Телефон: <%= @warranty.phone %></th></tr>
-      <tr><th> Адрес: <%= @warranty.adress %></th></tr>
+      <tr><th> Адрес: <%= link_to @warranty.adress, "https://www.google.ru/maps/place/#{@warranty.adress}", target: '_blank' %></th></tr>
       <tr><th> Дата покупки: <%= @warranty.datebuyed.strftime("%d.%m.%Y") %></th></tr>
       <tr><th> Серийный номер: <%= @warranty.serial %></th></tr>
       <tr><th>Первый пуск: <%= @warranty.started ? 'Да' : 'Нет' %></th></tr>
       <% if @warranty.started == true %>
         <tr><th> Дата первого пуска: <%= @warranty.datefirststart.strftime("%d.%m.%Y") %></th></tr>
-        <tr><th> Кто запускал: <%= @warranty.whodidfirststart %></th></tr>
+        <tr><th> Кто запускал: <%= @warranty.master.name %></th></tr>
       <% end %>
       <tr><th> Дата создание записи: <%= @warranty.created_at.in_time_zone('Moscow').strftime("%d.%m.%Y %H:%M") %></th>
-      <tr><th> Регистратор гарантии: <%= @warranty.who_created %></th></tr>
+      <tr><th> Регистратор гарантии: <%= @warranty.user.username %></th></tr>
       <tr><th> Комментарий: <%= @warranty.comment %></th>
       <% if current_user.admin? %>
         <tr><th class="right"><%= link_to admin_warranty_path(@warranty), method: :delete, data: { confirm: "Вы уверены что хотите удалить гарантию #{@warranty.name}?"} do %><i class="material-icons">delete</i><% end %></th></tr>

@@ -34,6 +34,8 @@ function geolocate() {
 
 var ready = function() {
   M.AutoInit();
+  M.updateTextFields();
+  setTimeout(function() { M.updateTextFields(); }, 300);
 };
 
 $(document).ready(ready);

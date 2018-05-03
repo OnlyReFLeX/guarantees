@@ -13,7 +13,7 @@
         <tr><th> Имя: <%= @called.username %></th></tr>
         <tr><th> Котел: <%= @called.product_model&.name %></th></tr>
         <tr><th> Телефон: <%= @called.phone %></th></tr>
-        <tr><th> Адрес: <%= @called.adress %></th></tr>
+        <tr><th> Адрес: <%= link_to @called.adress, "https://www.google.ru/maps/place/#{@called.adress}", target: '_blank'  %></th></tr>
         <tr><th> Неисправность: <%= @called.error %></th></tr>
         <tr><th> Дата звонка клиента: <%= @called.call_date.strftime("%d.%m.%Y") %></th></tr>
         <tr><th> Дата создание записи: <%= @called.created_at.strftime("%d.%m.%Y %H:%M") %></th>

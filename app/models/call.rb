@@ -1,5 +1,5 @@
 class Call < ApplicationRecord
-  validates :username, :adress, :call_date, :phone, :error, presence: true
+  validates :username, :boiler, :adress, :call_date, :phone, :error, presence: true
   validates :guarantee, inclusion: { in: [true, false] }
   validates :status, inclusion: { in: %w[success canceled in_progress expect] }
   validates :serial_code, presence: true, if: -> { guarantee? }
@@ -10,6 +10,10 @@ class Call < ApplicationRecord
 
 
   extend Models::DatePeriod
+
+  def boiler
+    product_model&.boiler.try(:name)
+  end
 
   def serial_code
     warranty.try(:serial)

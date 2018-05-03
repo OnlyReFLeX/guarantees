@@ -1,10 +1,13 @@
 <%= render 'shared/errors', resource: @call %>
 
 <%= form_for [:admin, @call] do |f| %>
-
   <div class="input-field">
-    <%= f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: true } %>
-    <%= f.label :product_model_id, "Котел" %>
+    <%= f.collection_select :boiler, Boiler.order(:name), :id, :name, { include_blank: true } %>
+    <%= f.label :boiler, "Фирма" %>
+  </div>
+
+  <div class="input-field" id="hidden_model">
+    <%= f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :id, :id, :name, { include_blank: 'Выберите модель' }, class: 'browser-default' %>
   </div>
 
   <div class="input-field">

@@ -1,27 +1,27 @@
 <div class="container">
   <div class="row">
-      <div class="col-sm-6">
+    <div class="col s12">
       <h3>Добавить мастера</h3>
       <%= render 'shared/errors', resource: @master %>
-      <%= form_for [:admin, @master], html: {class: "form-group"}  do |f| %>
+      <%= form_for [:admin, @master] do |f| %>
             <%= f.label :name, "Мастер" %>
-            <%= f.text_field :name, class: "form-control" %>
-            <br /><%= f.submit "Добавить", class: "btn btn-primary" %>
+            <%= f.text_field :name, autofocus: true %>
+            <br /><%= f.submit "Добавить", class: "btn" %>
       <% end %>
-  <% if @masters.size > 0 %>
-      <table class="table toble-responsive">
-        <thead>
-          <th>Существующие мастера</th>
-          <th></th>
-        </thead>
-        <tbody>
-          <%= render @masters %>
-        </tbody>
-      </table>
-      <div class="container">
-        <%= will_paginate @masters, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
-      </div>
-    <% end %>
-      </div>
+      <% if @masters.size > 0 %>
+        <table class="striped">
+          <thead>
+            <th>Существующие мастера</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <%= render @masters %>
+          </tbody>
+        </table>
+        <div class="container">
+          <%= will_paginate @masters, renderer: 'MaterializePaginationHelper::LinkRenderer' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

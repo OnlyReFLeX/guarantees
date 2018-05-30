@@ -1,0 +1,26 @@
+h3 Регистрация
+.row
+  .col.s5
+    = form_with model: [:admin, @user.becomes(User)], local: true do |f|
+      = render_errors_for(@user)
+      .input-field
+        i.material-icons.prefix email
+        = f.label :email
+        = f.email_field :email, autofocus: true, autocomplete: "email", id: 'user_email', class: 'validate'
+      .input-field
+        i.material-icons.prefix account_circle
+        = f.label :username
+        = f.text_field :username, autocomplete: "username", id: 'user_username', class: 'validate'
+      .input-field
+        i.material-icons.prefix vpn_key
+        = f.label :password
+        = f.password_field :password, autocomplete: "off", id: 'user_password', class: 'validate'
+      .input-field
+        i.material-icons.prefix vpn_key
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: "off", id: 'user_password_confirmation', class: 'validate'
+      .input-field
+        i.material-icons.prefix bookmark
+        = f.select :type, [['Администратор', 'Admin'],['Обычный пользователь','User']]
+        = f.label :type
+      = f.button "Зарегистрировать", class: 'waves-effect waves-light btn'

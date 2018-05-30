@@ -1,0 +1,72 @@
+- render_errors_for(@warranty)
+= form_for [:admin, @warranty] do |f|
+  .input-field
+    = f.collection_select :boiler, Boiler.order(:name), :id, :name, { include_blank: true }
+    = f.label :boiler, "Фирма"
+  #hidden_model.input-field
+    = f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: 'Выберите модель' }, class: 'browser-default'
+  .input-field
+    = f.label :name, "Фамилия Имя владельца"
+    = f.text_field :name
+  .input-field
+    = f.label :adress, "Адрес установленного котла"
+    = f.text_field :adress, onFocus: "geolocate()"
+  .input-field
+    = f.label :phone, "Телефон"
+    = f.text_field :phone
+  .input-field
+    = f.label :serial, "Серийный номер котла"
+    = f.text_field :serial
+  .input-field
+    = f.label :datebuyed, "Дата покупки котла"
+    = f.text_field :datebuyed
+  .input-field
+    = f.select :started, [['Да', true],['Нет', false]], { include_blank: true }
+    = f.label :started, "Был ли первый запуск котла"
+  #hidden_div.hidden
+    .input-field
+      = f.collection_select :master_id, Master.order(:name), :id , :name, { include_blank: true }
+      = f.label :master_id, "Кто делал запуск котла"
+    .input-field
+      = f.label :datefirststart, "Дата первого запуска котла"
+      = f.text_field :datefirststart
+  .input-field
+    = f.label :comment, "Комментарий"
+    = f.text_area :comment, class: 'materialize-textarea'
+  = f.submit class: "btn"
+
+javascript:
+  $(function() {
+    $("#warranty_phone").mask("+7(000)000-00-00", {
+      placeholder: "+7(___)___-__-__",
+      clearIfNotMatch: true
+    });
+      $('#warranty_datefirststart, #warranty_datebuyed').datepicker({
+      format: "dd.mm.yyyy",
+      todayBtn: "linked",
+      language: "ru"
+    });
+
+    var hidden_div = $('#hidden_div')
+    if ($('#warranty_started').val() == "true") {
+      hidden_div.show();
+    } else {
+      hidden_div.hide();
+      $('#warranty_whodidfirststart').val('');
+      $('#warranty_datefirststart').val('');
+    }
+    document.getElementById('warranty_started').addEventListener('change', function () {
+        var style = this.value == "true" ? 'block' : 'none';
+        document.getElementById('hidden_div').style.display = style;
+        $('#warranty_whodidfirststart').val('');
+        $('#warranty_datefirststart').val('');
+    });
+  });
+
+  function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('warranty_adress')),
+      {types: ['geocode']});
+  }
+
+script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBP-L2RSMado3N_tgp20D7pn9OqJf2WeSs&libraries=places&callback=initAutocomplete" async defer]

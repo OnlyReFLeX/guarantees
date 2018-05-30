@@ -1,0 +1,8 @@
+- render_errors_for(resource)
+= form_for [:admin, resource] do |f|
+  .row
+    .input-field.input-group
+      = f.label :name, "Марка"
+      = f.text_field :name
+      span.suffix
+        = f.button class: "btn waves-effect waves-light"

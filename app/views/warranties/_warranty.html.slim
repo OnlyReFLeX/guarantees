@@ -1,0 +1,12 @@
+tr onclick="document.location = '#{warranty_path(warranty)}'"
+td = warranty.id
+td = warranty.name
+td
+  = warranty.boiler
+  = warranty.product_model.name
+td = warranty.adress
+td = warranty.datebuyed.strftime("%d.%m.%Y")
+td = warranty.started ? 'Да' : 'Нет'
+td = warranty.master.name
+td = warranty.datefirststart ? warranty.datefirststart.strftime("%d.%m.%Y") : ''
+td = warranty.created_at.strftime("%d.%m.%Y")

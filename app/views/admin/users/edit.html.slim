@@ -1,0 +1,31 @@
+h3 Редактирование пользователя #{@user.username}
+- render_errors_for(@user)
+.row
+  .col.s5
+    = form_with model: [:admin, @user.becomes(User)], local: true do |f|
+      .input-field
+        i.material-icons.prefix email
+        = f.label :email
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: 'validate', id: 'user_email'
+      .input-field
+        i.material-icons.prefix account_circle
+        = f.label :username
+        = f.text_field :username, autocomplete: "username", class: 'validate', id: 'user_username'
+      .input-field
+        i.material-icons.prefix bookmark
+        = f.select :type, [['Администратор', 'Admin'],['Обычный пользователь','User']]
+        = f.label :type
+      = f.button "Сохранить", class: 'waves-effect waves-light btn'
+  .col.s2
+  .col.s5
+    h4 Сменить пароль
+    = form_with model: [:admin, @user.becomes(User)], local: true do |f|
+      .input-field
+        i.material-icons.prefix vpn_key
+        = f.label :password
+        = f.password_field :password, autocomplete: "off", class: 'validate', id: 'user_password'
+      .input-field
+        i.material-icons.prefix vpn_key
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: "off", class: 'validate', id: 'user_password_confirmation'
+      = f.button "Сменить", class: 'waves-effect waves-light btn'

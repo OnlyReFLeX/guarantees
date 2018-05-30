@@ -1,0 +1,22 @@
+.container
+  .row
+    .col-sm-6
+      h3
+        = link_to " Назад", root_path, class: "fa fa-share", style: 'text-decoration:none'
+      h2
+        | Зарегистрировать пользователя
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "form-group"}) do |f|
+        = devise_error_messages!
+        = f.label :email
+        = f.email_field :email, autofocus: true, class: "form-control"
+        = f.label :username, "Пользователь"
+        = f.text_field :username, autofocus: true, class: "form-control"
+        = f.label :password, "Пароль"
+        - if @minimum_password_length
+          em
+            | (минимум 
+            = @minimum_password_length
+            |  символов)
+        = f.password_field :password, autocomplete: "off", class: "form-control"
+        br
+        = f.submit "Зарегистрировать", class: "btn btn-primary"

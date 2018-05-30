@@ -1,0 +1,31 @@
+.container
+  .row
+    .col-sm-6
+      h3 Добавить марку
+      = render 'form', resource: @boiler
+      - if @boilers.size > 0
+        ul.collapsible.popout
+          - @boilers.each do |boiler|
+            li
+              .collapsible-header
+                = boiler.name
+                | (
+                span id="boiler_count_#{boiler.id}"
+                  = boiler.product_models.count
+                | )
+                = link_to edit_admin_boiler_path(boiler) do
+                  i.material-icons edit
+              .collapsible-body
+                table
+                  tbody id="table_body_boiler_#{boiler.id}"
+                    = render boiler.product_models
+                br
+                = form_for [:admin, boiler, boiler.product_models.build], class: 'col s12', remote: true do |f|
+                  .row
+                    .input-field.input-group.col.s6
+                      = f.label :name, "Модель"
+                      = f.text_field :name, id: "product_model_name_#{boiler.id}"
+                      span.suffix
+                        = f.button "+", class: "btn btn-floating waves-effect waves-light red"
+        .container
+          = will_paginate @boilers, renderer: 'MaterializePaginationHelper::LinkRenderer'

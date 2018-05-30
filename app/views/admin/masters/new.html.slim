@@ -1,0 +1,19 @@
+.container
+  .row
+    .col.s12
+      h3 Добавить мастера
+      - render_errors_for(@master)
+      = form_for [:admin, @master] do |f|
+        = f.label :name, "Мастер"
+        = f.text_field :name, autofocus: true
+        br
+        = f.submit "Добавить", class: "btn"
+      - if @masters.size > 0
+        table.striped
+          thead
+            th Существующие мастера
+            th
+          tbody
+            = render @masters
+        .container
+          = will_paginate @masters, renderer: 'MaterializePaginationHelper::LinkRenderer'

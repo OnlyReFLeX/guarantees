@@ -1,9 +1,4 @@
 module ApplicationHelper
-  ALERTS = {
-    'alert' => 'red', 'success' => 'green', 'notice' => 'green',
-    'notify' => 'yellow', 'warning' => 'yellow', 'danger' => 'red'
-  }
-
   def sortable(column, title = nil)
     title ||= column.titlesize
     css_class = column == self.sort_column ? "current #{sort_direction}" : nil
@@ -34,7 +29,14 @@ module ApplicationHelper
     end
   end
 
-  def alert_to_color(key)
-    ALERTS[key] || ''
+  def render_flash
+    javascript_tag("App.flash = JSON.parse(" \
+                   "'#{j({ success: flash.notice, error: flash.alert }.to_json)}'" \
+                   ");")
+  end
+
+  def render_errors_for(resource)
+    return unless resource.errors.any?
+    flash.now.alert = resource.errors.full_messages.join(", ")
   end
 end

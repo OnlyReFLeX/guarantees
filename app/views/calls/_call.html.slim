@@ -1,0 +1,12 @@
+tr onclick="document.location = '#{call_path(call)}'" style='cursor: pointer;'
+  td = call.id
+  td = call.call_date.strftime("%d.%m.%Y")
+  td = call.username
+  td = call.phone
+  td = call.adress
+  td = call.product_model&.name
+  td = call.error
+  td = call.master&.name
+  td = call.created_at.strftime("%d.%m.%Y %H:%M")
+  td = status_check(call.status)
+  td = call.guarantee ? 'Да' : 'Нет'

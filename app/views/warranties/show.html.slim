@@ -1,0 +1,48 @@
+.container
+  .row
+    h3
+      |  Гарантийный котел №
+      = @warranty.id
+      - if current_user.admin?
+        = link_to edit_admin_warranty_path(@warranty) do
+          i.material-icons edit
+    table.striped
+      tr
+        th Клиент: #{@warranty.name}
+      tr
+        th Котел: #{@warranty.boiler} #{@warranty.product_model.name}
+      tr
+        th Телефон: #{@warranty.phone}
+      tr
+        th Адрес: #{link_to @warranty.adress, "https://www.google.ru/maps/place/#{@warranty.adress}", target: '_blank'}
+      tr
+        th Дата покупки: #{@warranty.datebuyed.strftime("%d.%m.%Y")}
+      tr
+        th Серийный номер: #{@warranty.serial}
+      tr
+        th Первый пуск: #{@warranty.started ? 'Да' : 'Нет'}
+      - if @warranty.started == true
+        tr
+          th Дата первого пуска: #{@warranty.datefirststart.strftime("%d.%m.%Y")}
+        tr
+          th Кто запускал: #{@warranty.master.name}
+      tr
+        th Дата создание записи: #{@warranty.created_at.strftime("%d.%m.%Y %H:%M")}
+      tr
+        th Регистратор гарантии: #{@warranty.user.username}
+      tr
+        th Комментарий: #{@warranty.comment}
+        - if current_user.admin?
+          tr
+            th.right
+              = link_to admin_warranty_path(@warranty), method: :delete, data: { confirm: "Вы уверены что хотите удалить гарантию #{@warranty.name}?"} do
+                i.material-icons delete
+  - if @calls.any?
+    h3 Вызовы которые были
+    .collection
+      - @calls.each do |call|
+        = link_to call_path(call), class: 'collection-item' do
+          span.badge ##{call.id}
+          = call.created_at.strftime("%d.%m.%Y")
+    .container
+      = will_paginate @calls, renderer: 'BootstrapPaginationHelper::LinkRenderer'

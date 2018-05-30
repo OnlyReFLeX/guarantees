@@ -37,6 +37,6 @@ module ApplicationHelper
 
   def render_errors_for(resource)
     return unless resource.errors.any?
-    flash.now.alert = resource.errors.full_messages.join(", ")
+    flash.now.alert = resource.errors.full_messages
   end
 end

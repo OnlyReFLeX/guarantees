@@ -37,7 +37,46 @@ var ready = function() {
     $(this).addClass('hidden');
     $('#call_search_form #search').focus();
   });
+
+  $("#call_phone").mask("+7(000)000-00-00", {
+    placeholder: "+7(___)___-__-__",
+    clearIfNotMatch: true
+  });
+
+  $('#call_call_date').datepicker();
+
+  if ($('#call_guarantee').val() != undefined) {
+    var hidden_div = $('#hidden_div')
+    if ($('#call_guarantee').val() == "true") {
+      hidden_div.show();
+    } else {
+      hidden_div.hide();
+      $('call_serial_code').val('');
+    }
+    document.getElementById('call_guarantee').addEventListener('change', function () {
+        var style = this.value == "true" ? 'block' : 'none';
+        document.getElementById('hidden_div').style.display = style;
+        $('#call_serial_code').val('');
+    });
+  }
+
+  $('#call_adress').bind("keyup change", function(e) {
+    var suggestView = new ymaps.SuggestView('call_adress', {
+      provider: {
+        suggest:(function(request, options){
+         return  ymaps.suggest(request);
+        })
+      }
+    });
+  });
+
+  $('#call_serial_code').bind("keyup change", function(e) {
+    $.ajax({
+       url: '/admin/serial_autocomplete',
+       data: { autocomplete: $('#call_serial_code').val() },
+       type: 'GET'
+    })
+  });
 };
 
-$(document).ready(ready);
 $(document).on('turbolinks:load',ready);

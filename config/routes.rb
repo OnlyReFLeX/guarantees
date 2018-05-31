@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :calls, only: [:show, :index]
   resources :warranties, only: [:show, :index]
+  resources :search, only: :index
 
   namespace :admin do
     resources :users, only: [:index, :new, :create, :destroy, :edit, :update]
@@ -25,7 +26,6 @@ Rails.application.routes.draw do
     resources :masters, except: [:show, :index, :edit]
     resources :users, only: [:index, :show, :update, :destroy]
 
-    post '/serial_autocomplete', to: 'calls#serial_autocomplete'
+    get '/serial_autocomplete', to: 'calls#serial_autocomplete'
   end
-
 end

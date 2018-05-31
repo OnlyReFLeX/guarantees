@@ -1,0 +1,16 @@
+.row
+  .col.s12.right.center.input-field
+    .card.tooltipped data-position="bottom" data-tooltip="Поиск выполняется по всем критериям."
+      .card-stacked
+        .card-action
+          = form_tag search_index_path, method: :get do
+            = text_field_tag :query, params[:query], placeholder: 'Поиск', class: 'center'
+            = button_tag 'Поиск', class: 'btn'
+.search
+  - if @resources.present?
+    table.warranties.striped
+      thead
+      tbody
+        = render @resources
+  - else
+    h4.center.red-text = "Ничего не найдено по запросу #{params[:query]}."

@@ -1,14 +1,6 @@
 .row
   .col.s4.left
     br Общее количество гарантийных котлов: #{Warranty.count}
-  .col.s3.right.center.input-field
-    = button_tag 'Поиск', class: 'btn', id: 'call_search_button'
-    #call_search_form.card.hidden.tooltipped[data-position="bottom" data-tooltip="Поиск выполняется по всем критериям."]
-      .card-stacked
-        .card-action
-          = form_tag calls_path, method: :get, id: "ws_search" do
-            = text_field_tag :search, params[:search], placeholder: "Поиск"
-            = submit_tag "Найти", class: "btn hidden", name: nil
 #warranties
   table.warranties.striped
     thead

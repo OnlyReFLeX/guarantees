@@ -13,7 +13,7 @@
       tr
         th Телефон: #{@called.phone}
       tr
-        th Адрес: #{link_to @called.adress, "https://www.google.ru/maps/place/#{@called.adress}", target: '_blank'}
+        th Адрес: #{link_to @called.adress, "https://yandex.ru/maps/?text=#{@called.adress}", target: '_blank'}
       tr
         th Неисправность: #{@called.error}
       tr

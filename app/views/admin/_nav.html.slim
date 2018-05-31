@@ -12,6 +12,9 @@
         - if current_user.admin?
           li = link_to 'Пользователи', admin_users_path
         li
+          = link_to search_index_path do
+            i.material-icons search
+        li
           = link_to edit_user_registration_path, class: "waves-effect waves-light btn" do
             = current_user.username
             i.material-icons.right account_circle
@@ -21,22 +24,17 @@
             i.material-icons.right exit_to_app
   .fixed-action-btn
     a.btn-floating.btn-large.red
-      i.large.material-icons
-        | add
+      i.large.material-icons add
     ul
       li
         = link_to new_admin_boiler_path, class: 'btn-floating red' do
-          i.material-icons
-            | phonelink_setup
+          i.material-icons phonelink_setup
       li
         = link_to new_admin_master_path, class: 'btn-floating orange darken-1' do
-          i.material-icons
-            | assignment_ind
+          i.material-icons assignment_ind
       li
         = link_to new_admin_warranty_path, class: 'btn-floating green' do
-          i.material-icons
-            | build
+          i.material-icons build
       li
         = link_to new_admin_call_path, class: 'btn-floating blue' do
-          i.material-icons
-            | call
+          i.material-icons call

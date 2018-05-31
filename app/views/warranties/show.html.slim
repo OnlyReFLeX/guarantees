@@ -14,7 +14,7 @@
       tr
         th Телефон: #{@warranty.phone}
       tr
-        th Адрес: #{link_to @warranty.adress, "https://www.google.ru/maps/place/#{@warranty.adress}", target: '_blank'}
+        th Адрес: #{link_to @warranty.adress, "https://yandex.ru/maps/?text=#{@warranty.adress}", target: '_blank'}
       tr
         th Дата покупки: #{@warranty.datebuyed.strftime("%d.%m.%Y")}
       tr

@@ -48,3 +48,7 @@ gem 'will_paginate', '~> 3.1.0'
 
 # slim
 gem 'slim-rails', '~> 3.1'
+
+# search
+gem 'mysql2'
+gem 'thinking-sphinx', '~> 4.0'

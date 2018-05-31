@@ -23,3 +23,7 @@
 .byebug_history
 
 ubuntu-zesty-17.04-cloudimg-console.log
+
+db/sphinx
+
+config/*.sphinx.conf

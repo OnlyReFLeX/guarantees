@@ -14,13 +14,4 @@ class Warranty < ApplicationRecord
   def boiler
     product_model&.boiler.try(:name)
   end
-
-  def self.search(search)
-    if search
-      where('name ILIKE ? OR phone ILIKE ? OR boiler ILIKE ? OR model ILIKE ? OR adress ILIKE ? OR serial ILIKE ?',
-        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
-    else
-      self.where(nil)
-    end
-  end
 end

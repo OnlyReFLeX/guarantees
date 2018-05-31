@@ -7,7 +7,10 @@ ThinkingSphinx::Index.define :call, with: :active_record do
   indexes whycanceled
   indexes infosuccess
   indexes comment
-  indexes product_model.name
+  indexes product_model.name, as: :product_model
+  indexes product_model.boiler.name, as: :boiler
+  indexes master.name, as: :master
+  indexes user.username, as: :user
   indexes warranty.serial
 
   # attributes

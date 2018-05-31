@@ -30,13 +30,19 @@ module ApplicationHelper
   end
 
   def render_flash
-    javascript_tag("App.flash = JSON.parse(" \
-                   "'#{j({ success: flash.notice, error: flash.alert }.to_json)}'" \
-                   ");")
+    javascript_tag("App.flash = JSON.parse('#{j({ success: flash.notice, error: flash.alert }.to_json)}');")
   end
 
   def render_errors_for(resource)
     return unless resource.errors.any?
-    flash.now.alert = resource.errors.full_messages
+    flash.now.alert = resource.errors.full_messages.join(', ')
+  end
+
+  def render_js_errors_for(resource)
+    st = ''
+    resource.errors.full_messages.each do |message|
+      st += "M.toast({html: '#{message}', classes: 'red'});"
+    end
+    st
   end
 end

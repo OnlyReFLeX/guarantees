@@ -5,9 +5,9 @@ html
     = csrf_meta_tags
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
   body
     = render 'admin/nav'
     = render_flash

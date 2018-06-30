@@ -1,4 +1,4 @@
-$(document).on( "click", "a.edit_model", "turbolinks:load", function(e) {
+$(document).on( "click", "a.edit_model", function(e) {
   e.preventDefault();
   var model_id;
   var form;

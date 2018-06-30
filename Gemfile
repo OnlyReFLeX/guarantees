@@ -11,7 +11,6 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
@@ -49,6 +48,5 @@ gem 'will_paginate', '~> 3.1.0'
 # slim
 gem 'slim-rails', '~> 3.1'
 
-# search
-gem 'mysql2'
-gem 'thinking-sphinx', '~> 4.0'
+gem 'keynote', '~> 1.1'
+gem 'pg_search', '~> 2.1'

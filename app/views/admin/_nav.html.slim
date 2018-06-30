@@ -12,9 +12,6 @@
         - if current_user.admin?
           li = link_to 'Пользователи', admin_users_path
         li
-          = link_to search_index_path do
-            i.material-icons search
-        li
           = link_to edit_user_registration_path, class: "waves-effect waves-light btn" do
             = current_user.username
             i.material-icons.right account_circle

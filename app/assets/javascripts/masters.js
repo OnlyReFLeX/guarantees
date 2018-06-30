@@ -1,4 +1,4 @@
-$(document).on( "click", "a.edit_master", "turbolinks:load", function(e) {
+$(document).on( "click", "a.edit_master", function(e) {
   e.preventDefault();
   var master_id;
   var form;

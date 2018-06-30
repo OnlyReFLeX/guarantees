@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :calls, only: [:show, :index]
   resources :warranties, only: [:show, :index]
-  resources :search, only: :index
 
   namespace :admin do
     resources :users, only: [:index, :new, :create, :destroy, :edit, :update]

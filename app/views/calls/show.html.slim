@@ -1,51 +1,50 @@
-.container
-  .row
-    h2
-      | Вызов № #{@called.id}
-      - if current_user.admin?
-        = link_to edit_admin_call_path(@called) do
-          i.material-icons edit
-    table.striped
+.row
+  h2
+    | Вызов № #{@called.id}
+    - if current_user.admin?
+      = link_to edit_admin_call_path(@called) do
+        i.material-icons edit
+  table.striped
+    tr
+      th Имя: #{@called.username}
+    tr
+      th Котел: #{@called.product_model&.name}
+    tr
+      th Телефон: #{@called.phone}
+    tr
+      th Адрес: #{link_to @called.adress, "https://yandex.ru/maps/?text=#{@called.adress}", target: '_blank'}
+    tr
+      th Неисправность: #{@called.error}
+    tr
+      th Дата звонка клиента: #{@called.call_date.strftime("%d.%m.%Y")}
+    tr
+      th Дата создание записи: #{@called.created_at.strftime("%d.%m.%Y %H:%M")}
+    tr
+      th Мастер: #{@called.master&.name}
+    tr
+      th Гарантийный: #{@called.guarantee  ? 'Да' : 'Нет'}
+    - if @called.guarantee?
       tr
-        th Имя: #{@called.username}
+        th Серия: #{@called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных'}
+    tr
+      th Регистратор вызова: #{@called.user.username}
+    tr
+      th Комментарий: #{@called.comment}
+    tr
+      th
+        |  Статус:
+        = link_to 'Ожидает', call_expect_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger red', method: :put, disabled: @called.status == 'expect'
+        = link_to 'В процессе', call_in_progress_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger orange', method: :put, disabled: @called.status == 'in_progress'
+        = link_to 'Выполнен', '#modal_success', class: 'waves-effect waves-light btn modal-trigger green', disabled: @called.status == 'success'
+        = link_to 'Отменен', '#modal_canceled', class: 'waves-effect waves-light btn modal-trigger grey', disabled: @called.status == 'canceled'
+    - if comment_status(@called)
       tr
-        th Котел: #{@called.product_model&.name}
+        th Комментарий к статусу: #{comment_status(@called)}
+    - if current_user.admin?
       tr
-        th Телефон: #{@called.phone}
-      tr
-        th Адрес: #{link_to @called.adress, "https://yandex.ru/maps/?text=#{@called.adress}", target: '_blank'}
-      tr
-        th Неисправность: #{@called.error}
-      tr
-        th Дата звонка клиента: #{@called.call_date.strftime("%d.%m.%Y")}
-      tr
-        th Дата создание записи: #{@called.created_at.strftime("%d.%m.%Y %H:%M")}
-      tr
-        th Мастер: #{@called.master&.name}
-      tr
-        th Гарантийный: #{@called.guarantee  ? 'Да' : 'Нет'}
-      - if @called.guarantee?
-        tr
-          th Серия: #{@called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных'}
-      tr
-        th Регистратор вызова: #{@called.user.username}
-      tr
-        th Комментарий: #{@called.comment}
-      tr
-        th
-          |  Статус:
-          = link_to 'Ожидает', call_expect_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger red', method: :put, disabled: @called.status == 'expect'
-          = link_to 'В процессе', call_in_progress_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger orange', method: :put, disabled: @called.status == 'in_progress'
-          = link_to 'Выполнен', '#modal_success', class: 'waves-effect waves-light btn modal-trigger green', disabled: @called.status == 'success'
-          = link_to 'Отменен', '#modal_canceled', class: 'waves-effect waves-light btn modal-trigger grey', disabled: @called.status == 'canceled'
-      - if comment_status(@called)
-        tr
-          th Комментарий к статусу: #{comment_status(@called)}
-      - if current_user.admin?
-        tr
-          th.right
-            = link_to admin_call_path(@called), method: :delete, data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"} do
-              i.material-icons delete
+        th.right
+          = link_to admin_call_path(@called), method: :delete, data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"} do
+            i.material-icons delete
 - if current_user.admin?
   #modal_success.modal
     = form_for [:admin, @called] do |f|

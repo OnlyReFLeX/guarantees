@@ -5,57 +5,12 @@
     br
     = "В процессе: #{Call.where(status: 'in_progress').count}"
 #calls
-  table.calls.striped
-    thead
-      tr
-        th = sortable "id", "#"
-        th
-          = sortable "call_date", "Дата звонка"
-          a.waves-effect.modal-trigger[href="#call_period"]
-            i.material-icons access_time
-        th = sortable "username", "Имя"
-        th = sortable "phone", "Телефон"
-        th = sortable "adress", "Адрес"
-        th = sortable "boiler", "Котел"
-        th = sortable "error", "Неисправность"
-        th = sortable "master", "Мастер"
-        th
-          = sortable "created_at", "Создание записи"
-          a.waves-effect.modal-trigger[href="#created_at_period"]
-            i.material-icons access_time
-        th = sortable "status", "Статус"
-        th = sortable "guarantee", "Г"
-    tbody
-      = render @calls
-  .container
-    = will_paginate @calls, renderer: 'MaterializePaginationHelper::LinkRenderer'
-#call_period.modal
-  = form_tag calls_path, method: 'get', id: 'form_call_date' do
-    .modal-content
-      h4 Период даты звонка
-      = hidden_field_tag :direction, params[:direction]
-      = hidden_field_tag :sort, params[:sort]
-      = hidden_field_tag :created_at, params[:created_at]
-      .row
-        .col.s6
-          = text_field_tag :call_date_start, params[:call_date_start], placeholder: "Начало"
-        .col.s6
-          = text_field_tag :call_date_end, params[:call_date_end], placeholder: "Конец"
-    .modal-footer
-      a#call_date_clear.modal-action.modal-close.waves-effect.waves-green.btn-flat[href=""] Очистить
-      = button_tag "Установить", class: "modal-action modal-close waves-effect waves-green btn", name: nil
-#created_at_period.modal
-  = form_tag calls_path, method: 'get', id: 'form_created_at' do
-    .modal-content
-      h4 Период создания записи
-      = hidden_field_tag :direction, params[:direction]
-      = hidden_field_tag :sort, params[:sort]
-      = hidden_field_tag :call_date, params[:call_date]
-      .row
-        .col.s6
-          = text_field_tag :created_at_start, params[:created_at_start], placeholder: "Начало"
-        .col.s6
-          = text_field_tag :created_at_end, params[:created_at_end], placeholder: "Конец"
-    .modal-footer
-      a#created_at_clear.modal-action.modal-close.waves-effect.waves-green.btn-flat[href=""] Очистить
-      = button_tag "Установить", class: "modal-action modal-close waves-effect waves-green btn", name: nil
+  .row
+    table#calls.table cellspacing="0" width='100%' data-source="#{calls_path(format: :json)}"
+      thead
+        tr
+          - CallPresenter.columns.each do |column|
+            = k(:datatable_column, column).filter_cell
+        tr
+          - CallPresenter.columns.each do |column|
+            = k(:datatable_column, column).cell

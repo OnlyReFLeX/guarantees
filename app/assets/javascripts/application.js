@@ -10,17 +10,15 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require turbolinks
-//= require rails-ujs
 //= require jquery
+//= require jquery_ujs
 //= require materialize
 //= require_tree .
 
 var ready = function() {
   M.AutoInit();
   M.updateTextFields();
-  setTimeout(function() { M.updateTextFields(); }, 300);
 };
 
 $(document).ready(ready);
-$(document).on('turbolinks:load',ready);
+

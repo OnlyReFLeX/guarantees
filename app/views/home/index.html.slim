@@ -15,7 +15,7 @@
                 = call.adress
                 span.pull-right.font-xs.text-muted
                   i
-                    = time_ago_in_words(call.created_at)
+                    = "#{time_ago_in_words(call.created_at)} назад"
   .col-sm-6.col-lg-4
     .panel.panel-default
       .panel-body.status
@@ -32,7 +32,7 @@
                 = warranty.adress
                 span.pull-right.font-xs.text-muted
                   i
-                    = time_ago_in_words(warranty.created_at)
+                    = "#{time_ago_in_words(warranty.created_at)} назад"
   .col-sm-6.col-lg-4
     .panel.panel-default
       .panel-body.status

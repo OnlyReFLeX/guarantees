@@ -10,6 +10,9 @@ class Call < ApplicationRecord
   validates :guarantee, inclusion: { in: [true, false] }
   validates :status, inclusion: { in: %w[success canceled in_progress expect] }
   validates :serial_code, presence: true, if: -> { guarantee? }
+
+  before_save :clear_warranty
+
   belongs_to :warranty, optional: true
   belongs_to :product_model
   belongs_to :master, optional: true
@@ -25,5 +28,9 @@ class Call < ApplicationRecord
 
   def self.pg_search(query)
     query.blank? ? [] : search_by(query)
+  end
+
+  def clear_warranty
+    self.warranty = nil unless guarantee?
   end
 end

@@ -8,6 +8,8 @@ class Warranty < ApplicationRecord
   validates :master_id, :datefirststart, presence: true, if: -> { started? }
   validates :serial, uniqueness: { case_sensitive: false }
 
+  before_save :clear_master_and_start
+
   has_many :calls
   belongs_to :product_model
   belongs_to :master, optional: true
@@ -18,5 +20,11 @@ class Warranty < ApplicationRecord
 
   def self.pg_search(query)
     query.blank? ? [] : search_by(query)
+  end
+
+  def clear_master_and_start
+    return if started?
+    self.master = nil
+    self.datefirststart = nil
   end
 end

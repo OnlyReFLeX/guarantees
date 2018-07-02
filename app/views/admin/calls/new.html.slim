@@ -1,4 +1,10 @@
-.col-sm-12
-  .well
-    h1 Новый вызов
-    = render 'form'
+.row
+  article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+      header.ui-sortable-handle
+        span.widget-icon
+          i.fa.fa-phone
+        h2 Новый вызов
+      div
+        .widget-body
+          = render 'form'

@@ -1,4 +1,10 @@
-.col-sm-12
-  .well
-    h1 Оформление гарантийного котла
-    = render 'form'
+.row
+  article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+      header.ui-sortable-handle
+        span.widget-icon
+          i.fa.fa-ambulance
+        h2 Оформление гарантийного котла
+      div
+        .widget-body
+          = render 'form'

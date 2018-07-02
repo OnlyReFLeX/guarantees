@@ -12,10 +12,14 @@ class MenuPresenter < Keynote::Presenter
   end
 
   def admin_menu
-    [calls_menu_block, warranties_menu_block, masters_menu_block, boilers_menu_block, users_menu_block, exit_menu_block]
+    [main_menu_block, calls_menu_block, warranties_menu_block, masters_menu_block, boilers_menu_block, users_menu_block, exit_menu_block]
   end
 
   # Menu blocks
+
+  def main_menu_block
+    { href: root_path, content: link_content('home', 'Главная') }
+  end
 
   def calls_menu_block
     {

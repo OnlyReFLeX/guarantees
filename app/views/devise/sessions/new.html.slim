@@ -2,7 +2,10 @@ css:
   body {
     background-image: url(#{asset_path 'admin_background.jpg'})
   }
-.center style="margin: auto;width: 35%;padding: 10px;"
+  #main {
+    margin-left: 0px;
+  }
+.center style="margin: auto;width: 20%;padding: 10px;"
   .well.no-padding
     = render 'shared/errors', resource: resource
     = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'smart-form client-form' }) do |f|

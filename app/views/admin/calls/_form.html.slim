@@ -1,37 +1,46 @@
-- render_errors_for(@call)
-= form_for [:admin, @call] do |f|
-  / .input-field
-  /   = f.collection_select :boiler, Boiler.order(:name), :id, :name, { include_blank: true }
-  /   = f.label :boiler, "Фирма"
-  #hidden_model.input-field
-    = f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :id, :id, :name, { include_blank: 'Выберите модель' }, class: 'browser-default'
-  .input-field
-    = f.label :username, "Имя"
-    = f.text_field :username
-  .input-field
-    = f.label :adress, "Адрес"
-    = f.text_field :adress
-  .input-field
-    = f.label :phone, "Телефон"
-    = f.text_field :phone
-  .input-field
-    = f.label :call_date, "Дата"
-    = f.text_field :call_date
-  .input-field
-    = f.collection_select :master_id, Master.order(:name), :id , :name
-    = f.label :master_id, "Мастер"
-  .input-field
-    = f.label :error, "Неисправность"
-    = f.text_field :error
-  .input-field
-    = f.select :guarantee, [['Нет', false],['Да', true]]
-    = f.label :guarantee, "Гарантийный"
-  #hidden_div[style="display: one;"]
-    .input-field
-      = f.text_field :serial_code, class: 'autocomplete'
-      = f.label :serial_code, "Серийный номер"
-  .input-field
-    = f.label :comment, "Комментарий"
-    = f.text_area :comment, class: 'materialize-textarea'
-  br
-  = f.submit class: "btn"
+= form_for [:admin, @call], html: { class: 'smart-form call_form' } do |f|
+  = render 'shared/errors', resource: @call
+  section
+    = f.label :product_model_id, "Фирма", class: 'label'
+    label
+      = f.collection_select :product_model_id, ProductModel.order(:name), :id, :name, { include_blank: true }, class: 'select2'
+  section
+    = f.label :username, "Имя", class: 'label'
+    label.input
+      = f.text_field :username
+  section
+    = f.label :adress, "Адрес", class: 'label'
+    label.input
+      = f.text_field :adress
+  section
+    = f.label :phone, "Телефон", class: 'label'
+    label.input
+      = f.text_field :phone
+  section
+    = f.label :call_date, "Дата звонка", class: 'label'
+    label.input
+      = f.text_field :call_date, class: 'datepicker'
+  section
+    = f.label :master_id, "Мастер", class: 'label'
+    = f.collection_select :master_id, Master.order(:name), :id , :name, { include_blank: true }, class: 'select2'
+  section
+    = f.label :error, "Неисправность", class: 'label'
+    label.input
+      = f.text_field :error
+  section
+    = f.label :guarantee, "Гарантийный", class: 'label'
+    label.select
+      = f.select :guarantee, [['Нет', false],['Да', true]]
+  section
+    #hidden_div
+      = f.label :serial_code, "Серийный номер", class: 'label'
+      label.input
+        = f.text_field :serial_code
+  section
+    = f.label :comment, "Комментарий", class: 'label'
+    label.textarea
+      = f.text_area :comment
+  footer
+    .left
+      = f.submit class: 'btn btn-primary'
+

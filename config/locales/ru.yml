@@ -1,7 +1,7 @@
 ru:
   will_paginate:
-    previous_label: '<i class="material-icons">chevron_left</i>'
-    next_label: '<i class="material-icons">chevron_right</i>'
+    next_label: '>'
+    previous_label: '<'
     page_gap: '...'
   common:
     errors: 'Ошибка'
@@ -10,6 +10,8 @@ ru:
       user: 'Пользователь'
       warranty: 'Гарантию'
       call: 'Вызов'
+      product_model: 'Модель котла'
+      master: 'Мастер'
     attributes:
         user:
           current_password: 'Текущий пароль'
@@ -45,3 +47,11 @@ ru:
           name: 'Котел'
         product_model:
           name: 'Название'
+  in_progress: 'В процессе'
+  expect: 'Ожидает'
+  canceled: 'Отменен'
+  success: 'Выполнен'
+  'true': 'Да'
+  'false': 'Нет'
+  User: 'Обычный пользователь'
+  Admin: 'Администратор'

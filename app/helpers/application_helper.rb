@@ -1,11 +1,4 @@
 module ApplicationHelper
-  def sortable(column, title = nil)
-    title ||= column.titlesize
-    css_class = column == self.sort_column ? "current #{sort_direction}" : nil
-    direction = column == self.sort_column && self.sort_direction === "asc" ? "desc" : "asc"
-    link_to title, request.query_parameters.merge({ sort: column, direction: direction, page: nil }), {:class => css_class}
-  end
-
   def status_check(status, size = '1')
     case status
       when "canceled"
@@ -27,22 +20,5 @@ module ApplicationHelper
     else
       false
     end
-  end
-
-  def render_flash
-    javascript_tag("App.flash = JSON.parse('#{j({ success: flash.notice, error: flash.alert }.to_json)}');")
-  end
-
-  def render_errors_for(resource)
-    return unless resource.errors.any?
-    flash.now.alert = resource.errors.full_messages.join(', ')
-  end
-
-  def render_js_errors_for(resource)
-    st = ''
-    resource.errors.full_messages.each do |message|
-      st += "M.toast({html: '#{message}', classes: 'red'});"
-    end
-    st
   end
 end

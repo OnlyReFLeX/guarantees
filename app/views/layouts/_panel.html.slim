@@ -1,0 +1,8 @@
+aside#left-panel.no-padding
+  .login-info
+    span
+      = link_to edit_user_registration_path, class: 'show-shortcut' do
+        img.online src="#{image_path('avatars/male.png')}" alt="me"
+        span = current_user.username
+  nav
+    = present(:menu, current_user).show

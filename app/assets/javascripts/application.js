@@ -10,15 +10,5 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require materialize
-//= require_tree .
-
-var ready = function() {
-  M.AutoInit();
-  M.updateTextFields();
-};
-
-$(document).ready(ready);
-
+//= require cabinet/application
+//= require_tree ./shared

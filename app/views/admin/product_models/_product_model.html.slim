@@ -2,17 +2,13 @@ tr
   td
     div id="product_model_title_#{product_model.id}"
       = product_model.name
-    = form_for [:admin, product_model], html: { class: 'col s12 hidden' }, remote: true do |f|
-      .row
-        .input-field.input-group.col.s6
-          = f.text_field :name, placeholder: "Название"
-          = f.label :name, "Модель"
-          span.suffix
-            = f.button class: "btn btn-floating waves-effect waves-light green" do
-              i.material-icons done
-  td.right
-    = link_to admin_product_model_path(product_model), method: :delete, data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, remote: true do
-      i.material-icons delete
-  td.right
-    = link_to '', class: 'edit_model', data: { model_id: product_model.id } do
-      i.material-icons edit
+    = form_for [:admin, product_model], html: { class: 'smart-form', style: 'display: none;' }, remote: true do |f|
+      = f.text_field :name, style: 'width: 80%'
+      = f.button class: 'btn btn-xs btn-default ml5' do
+        i.fa.fa-save
+  td
+    = link_to '', class: 'edit_model mr10 btn btn-xs btn-default', data: { model_id: product_model.id } do
+      i.fa.fa-pencil
+    = link_to admin_product_model_path(product_model), class: 'btn btn-xs btn-danger', method: :delete, data: { confirm: "Вы уверены что хотите удалить котел #{product_model.name}?"}, remote: true do
+      i.fa.fa-trash
+

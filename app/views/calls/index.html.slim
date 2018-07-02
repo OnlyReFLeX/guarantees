@@ -1,16 +1,16 @@
-.row
-  .col.s3.left
-    br
-    = "Общее число вызовов: #{Call.count}"
-    br
-    = "В процессе: #{Call.where(status: 'in_progress').count}"
-#calls
-  .row
-    table#calls.table cellspacing="0" width='100%' data-source="#{calls_path(format: :json)}"
-      thead
-        tr
-          - CallPresenter.columns.each do |column|
-            = k(:datatable_column, column).filter_cell
-        tr
-          - CallPresenter.columns.each do |column|
-            = k(:datatable_column, column).cell
+section
+  .row.mt5
+    article.col-xs-12
+      .jarviswidget
+        header
+          h2 Вызовы
+        div
+          .widget-body.no-padding
+            table#calls.table.table-bordered.table-striped.mb0 cellspacing="0" width='100%' data-source="#{calls_path(format: :json)}"
+              thead
+                tr
+                  - CallPresenter.columns.each do |column|
+                    = k(:datatable_column, column).filter_cell
+                tr
+                  - CallPresenter.columns.each do |column|
+                    = k(:datatable_column, column).cell

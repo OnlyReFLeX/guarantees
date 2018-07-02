@@ -1,31 +1,38 @@
-h4 Редактирование пользователя
 .row
-  .col.s5
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      - render_errors_for(resource)
-      .input-field
-        i.material-icons.prefix
-          | email
-        = f.label :email
-        = f.email_field :email, autofocus: true
-      .input-field
-        i.material-icons.prefix
-          | account_circle
-        = f.label :username
-        = f.text_field :username
-      .input-field
-        i.material-icons.prefix
-          | fiber_new
-        = f.label :password, 'Новый пароль'
-        = f.password_field :password, autocomplete: "off"
-      .input-field
-        i.material-icons.prefix
-          | fiber_new
-        = f.label :password_confirmation, 'Подтверждение нового пароля'
-        = f.password_field :password_confirmation, autocomplete: "off"
-      .input-field
-        i.material-icons.prefix
-          | vpn_key
-        = f.label :current_password
-        = f.password_field :current_password, autocomplete: "off"
-      = f.button "Обновить", class: 'waves-effect waves-light btn'
+  article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+      header.ui-sortable-handle
+        span.widget-icon
+          i.fa.fa-user
+        h2 Редактирование профиля
+      div
+        .widget-body
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'smart-form' }) do |f|
+            = render 'shared/errors', resource: resource
+            fieldset
+              .row
+                section.col.col-6
+                  label.input
+                    i.icon-prepend.fa.fa-envelope-o
+                    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'E-mail'
+                section.col.col-6
+                  label.input
+                    i.icon-prepend.fa.fa-user
+                    = f.text_field :username, autocomplete: "username", placeholder: 'Пользователь'
+              .row
+                section.col.col-6
+                  label.input
+                    i.icon-prepend.fa.fa-key
+                    = f.password_field :password, autocomplete: "off", placeholder: 'Новый пароль'
+                section.col.col-6
+                  label.input
+                    i.icon-prepend.fa.fa-key
+                    = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Подтверждение нового пароля'
+              .row
+                section.col.col-6
+                  label.input
+                    i.icon-prepend.fa.fa-key
+                    = f.password_field :current_password, autocomplete: "off", placeholder: 'Текущий пароль'
+              footer
+                .left
+                  = f.submit 'Обновить', class: 'btn btn-primary'

@@ -8,19 +8,19 @@ module Scopes
       }
 
       scope :by_call_date, lambda { |call_date|
-        where('calls.call_date > ?', call_date)
+        where('call_date > ?', call_date)
       }
 
       scope :by_username, lambda { |username|
-        where('calls.username ILIKE ?', "%#{username}%")
+        where('username ILIKE ?', "%#{username}%")
       }
 
       scope :by_phone, lambda { |phone|
-        where('calls.phone ILIKE ?', "%#{phone}%")
+        where('phone ILIKE ?', "%#{phone}%")
       }
 
       scope :by_adress, lambda { |adress|
-        where('calls.adress ILIKE ?', "%#{adress}%")
+        where('adress ILIKE ?', "%#{adress}%")
       }
 
       scope :by_product_model_name, lambda { |product_model_name|
@@ -28,7 +28,7 @@ module Scopes
       }
 
       scope :by_error, lambda { |error|
-        where('calls.error ILIKE ?', "%#{error}%")
+        where('error ILIKE ?', "%#{error}%")
       }
 
       scope :by_master_name, lambda { |master_name|
@@ -36,11 +36,11 @@ module Scopes
       }
 
       scope :by_created_at, lambda { |created_at|
-        where('calls.created_at > ?', created_at)
+        where('created_at > ?', created_at)
       }
 
       scope :by_status, lambda { |status|
-        where('calls.status ILIKE ?', "%#{status}%")
+        where('status ILIKE ?', "%#{status}%")
       }
 
       scope :by_guarantee, lambda { |guarantee|

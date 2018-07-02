@@ -1,36 +1,48 @@
-- render_errors_for(@warranty)
-= form_for [:admin, @warranty] do |f|
-  .input-field
-    = f.collection_select :boiler, Boiler.order(:name), :id, :name, { include_blank: true }
-    = f.label :boiler, "Фирма"
-  #hidden_model.input-field
-    = f.grouped_collection_select :product_model_id, Boiler.order(:name), :product_models, :name, :id, :name, { include_blank: 'Выберите модель' }, class: 'browser-default'
-  .input-field
-    = f.label :name, "Фамилия Имя владельца"
-    = f.text_field :name
-  .input-field
-    = f.label :adress, "Адрес установленного котла"
-    = f.text_field :adress
-  .input-field
-    = f.label :phone, "Телефон"
-    = f.text_field :phone
-  .input-field
-    = f.label :serial, "Серийный номер котла"
-    = f.text_field :serial
-  .input-field
-    = f.label :datebuyed, "Дата покупки котла"
-    = f.text_field :datebuyed
-  .input-field
-    = f.select :started, [['Да', true],['Нет', false]], { include_blank: true }
-    = f.label :started, "Был ли первый запуск котла"
-  #hidden_div.hidden
-    .input-field
-      = f.collection_select :master_id, Master.order(:name), :id , :name, { include_blank: true }
-      = f.label :master_id, "Кто делал запуск котла"
-    .input-field
+= render 'shared/errors', resource: @warranty
+= form_for [:admin, @warranty], html: { class: 'smart-form warranty_form' } do |f|
+  section
+    = f.label :product_model_id, "Фирма", class: 'label'
+    label
+      = f.collection_select :product_model_id, ProductModel.order(:name), :id, :name, { include_blank: true }, class: 'select2'
+  section
+    = f.label :name, "Фамилия Имя владельца", class: 'label'
+    label.input
+      = f.text_field :name
+  section
+    = f.label :adress, "Адрес установленного котла", class: 'label'
+    label.input
+      = f.text_field :adress
+  section
+    = f.label :phone, "Телефон", class: 'label'
+    label.input
+      = f.text_field :phone
+  section
+    = f.label :serial, "Серийный номер котла", class: 'label'
+    label.input
+      = f.text_field :serial
+  section
+    = f.label :datebuyed, "Дата покупки котла", class: 'label'
+    label.input
+      = f.text_field :datebuyed, class: 'datepicker'
+  section
+    = f.label :started, "Был ли первый запуск котла", class: 'label'
+    label.select
+      = f.select :started, [['Нет', false], ['Да', true]]
+      i
+  #hidden_div
+    section
+      = f.label :master_id, "Кто делал запуск котла", class: 'label'
+      label
+        = f.collection_select :master_id, Master.order(:name), :id , :name, { include_blank: true }, class: 'select2'
+    section
       = f.label :datefirststart, "Дата первого запуска котла"
-      = f.text_field :datefirststart
-  .input-field
+      label.input
+        = f.text_field :datefirststart, class: 'datepicker'
+  section
     = f.label :comment, "Комментарий"
-    = f.text_area :comment, class: 'materialize-textarea'
-  = f.submit class: "btn"
+    label.textarea
+      = f.text_area :comment
+  footer
+    .left
+      = f.submit class: 'btn btn-primary'
+

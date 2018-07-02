@@ -1,19 +1,35 @@
-.container
+.col-sm-12
+  .well
+    h1 Добавить мастера
+    = render 'shared/errors', resource: @master
+    = form_for [:admin, @master], html: { class: 'smart-form' } do |f|
+      section
+        = f.label :name, "Мастер", class: 'label'
+        label.input
+          = f.text_field :name, autofocus: true
+      footer
+        .left
+          = f.submit 'Добавить', class: 'btn btn-primary'
   .row
-    .col.s12
-      h3 Добавить мастера
-      - render_errors_for(@master)
-      = form_for [:admin, @master] do |f|
-        = f.label :name, "Мастер"
-        = f.text_field :name, autofocus: true
-        br
-        = f.submit "Добавить", class: "btn"
-      - if @masters.size > 0
-        table.striped
-          thead
-            th Существующие мастера
-            th
-          tbody
-            = render @masters
-        .container
-          = will_paginate @masters, renderer: 'MaterializePaginationHelper::LinkRenderer'
+    article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+        header.ui-sortable-handle
+          span.widget-icon
+            i.fa.fa-address-book
+          h2 Существующие мастера
+        div
+          .widget-body
+            - if @masters.any?
+              table#masters.table.table-hover.table-bordered.table-striped
+                thead
+                  tr
+                    th ID
+                    th Имя
+                    th Дата создания
+                    th Действия
+                tbody
+                  = render @masters
+              .container
+                = will_paginate @masters, renderer: 'BootstrapPaginationHelper::LinkRenderer'
+            - else
+              h3.text-center Список мастеров пуст

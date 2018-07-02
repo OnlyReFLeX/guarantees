@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
   devise_for :users, path: '', path_names: { sign_in: :login }, skip: [:registrations]
   as :user do
-    get 'admin/edit' => 'registrations#edit', :as => 'edit_user_registration'
-    put 'admin' => 'registrations#update', :as => 'user_registration'
+    get 'me/edit' => 'registrations#edit', :as => 'edit_user_registration'
+    put 'user' => 'registrations#update', :as => 'user_registration'
   end
 
   root 'home#index'

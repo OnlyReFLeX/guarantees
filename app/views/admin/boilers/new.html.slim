@@ -1,31 +1,52 @@
-.container
+.col-sm-12
+  .well
+    h1 Добавить марку
+    = render 'form', resource: @boiler
   .row
-    .col-sm-6
-      h3 Добавить марку
-      = render 'form', resource: @boiler
-      - if @boilers.size > 0
-        ul.collapsible.popout
-          - @boilers.each do |boiler|
-            li
-              .collapsible-header
-                = boiler.name
-                | (
-                span id="boiler_count_#{boiler.id}"
-                  = boiler.product_models.count
-                | )
-                = link_to edit_admin_boiler_path(boiler) do
-                  i.material-icons edit
-              .collapsible-body
-                table
-                  tbody id="table_body_boiler_#{boiler.id}"
-                    = render boiler.product_models
-                br
-                = form_for [:admin, boiler, boiler.product_models.build], class: 'col s12', remote: true do |f|
-                  .row
-                    .input-field.input-group.col.s6
-                      = f.label :name, "Модель"
-                      = f.text_field :name, id: "product_model_name_#{boiler.id}"
-                      span.suffix
-                        = f.button "+", class: "btn btn-floating waves-effect waves-light red"
-        .container
-          = will_paginate @boilers, renderer: 'MaterializePaginationHelper::LinkRenderer'
+    article.col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+        header.ui-sortable-handle
+          span.widget-icon
+            i.fa.fa-fire
+          h2 Существующие марки
+        div
+          .widget-body
+            - if @boilers.any?
+              #accordion.panel-group.smart-accordion-default
+                - @boilers.each do |boiler|
+                  .panel.panel-default class="boiler#{boiler.id}"
+                    .panel-heading
+                      h4.panel-title
+                        a.collapsed aria-expanded="false" data-parent="#accordion" data-toggle="collapse" href="#collapse#{boiler.id}"
+                          i.fa.fa-fw.fa-plus-circle.txt-color-green
+                          i.fa.fa-fw.fa-minus-circle.txt-color-red
+                          = boiler.name
+                          | (
+                          span id="boiler_count_#{boiler.id}"
+                            = boiler.product_models.count
+                          | )
+                    .panel-collapse.collapse id="collapse#{boiler.id}"
+                      .panel-body.no-padding
+                        table.table.table-bordered.table-condensed
+                          thead
+                            tr
+                              th.text-center colspan="2"
+                                = link_to 'Редактировать марку', edit_admin_boiler_path(boiler), class: 'btn btn-xs btn-warning mr5'
+                                = link_to 'Удалить марку', admin_boiler_path(boiler), class: 'btn btn-xs btn-danger', method: :delete, data: { confirm: "Вы уверены что хотите удалить котел #{boiler.name}?"}, remote: true
+                            tr
+                              th Название
+                              th Действия
+                          tbody id="table_body_boiler_#{boiler.id}"
+                            = render boiler.product_models
+                          tr
+                            td
+                              = form_for [:admin, boiler, boiler.product_models.build], html: { class: 'smart-form' }, remote: true do |f|
+                                span Добавить модель
+                                = f.text_field :name, id: "product_model_name_#{boiler.id}"
+                                = f.button class: 'btn btn-xs btn-primary ml5' do
+                                  i.fa.fa-plus
+
+              .container
+                = will_paginate @boilers, renderer: 'BootstrapPaginationHelper::LinkRenderer'
+            - else
+              h3.text-center Список марок пуст

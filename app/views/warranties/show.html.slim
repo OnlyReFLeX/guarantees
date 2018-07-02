@@ -1,48 +1,78 @@
-.container
-  .row
-    h3
-      |  Гарантийный котел №
-      = @warranty.id
-      - if current_user.admin?
-        = link_to edit_admin_warranty_path(@warranty) do
-          i.material-icons edit
-    table.striped
-      tr
-        th Клиент: #{@warranty.name}
-      tr
-        th Котел: #{@warranty.boiler} #{@warranty.product_model.name}
-      tr
-        th Телефон: #{@warranty.phone}
-      tr
-        th Адрес: #{link_to @warranty.adress, "https://yandex.ru/maps/?text=#{@warranty.adress}", target: '_blank'}
-      tr
-        th Дата покупки: #{@warranty.datebuyed.strftime("%d.%m.%Y")}
-      tr
-        th Серийный номер: #{@warranty.serial}
-      tr
-        th Первый пуск: #{@warranty.started ? 'Да' : 'Нет'}
-      - if @warranty.started == true
-        tr
-          th Дата первого пуска: #{@warranty.datefirststart.strftime("%d.%m.%Y")}
-        tr
-          th Кто запускал: #{@warranty.master.name}
-      tr
-        th Дата создание записи: #{@warranty.created_at.strftime("%d.%m.%Y %H:%M")}
-      tr
-        th Регистратор гарантии: #{@warranty.user.username}
-      tr
-        th Комментарий: #{@warranty.comment}
-        - if current_user.admin?
-          tr
-            th.right
-              = link_to admin_warranty_path(@warranty), method: :delete, data: { confirm: "Вы уверены что хотите удалить гарантию #{@warranty.name}?"} do
-                i.material-icons delete
-  - if @calls.any?
-    h3 Вызовы которые были
-    .collection
-      - @calls.each do |call|
-        = link_to call_path(call), class: 'collection-item' do
-          span.badge ##{call.id}
-          = call.created_at.strftime("%d.%m.%Y")
-    .container
-      = will_paginate @calls, renderer: 'BootstrapPaginationHelper::LinkRenderer'
+.row
+  article.col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+      header.ui-sortable-handle
+        span.widget-icon
+          i.fa.fa-ambulance
+        h2
+          | Гарантийный котел #
+          = @warranty.id
+        .jarviswidget-ctrls
+          = link_to edit_admin_warranty_path(@warranty), class: 'button-icon' do
+            i.fa.fa-cog
+          = link_to admin_warranty_path(@warranty), class: 'button-icon', method: :delete, data: { confirm: "Вы уверены что хотите удалить гарантию #{@warranty.name}?"} do
+            i.fa.fa-trash
+      div
+        .widget-body
+          table#warranty.table-hover.table.table-bordered.table-striped[style="clear: both"]
+            tbody
+              tr
+                td style="width:20%;" Клиент
+                td = @warranty.name
+              tr
+                td Котел
+                td = @warranty.product_model.full_name
+              tr
+                td Телефон
+                td = @warranty.phone
+              tr
+                td Адрес
+                td = link_to @warranty.adress, "https://yandex.ru/maps/?text=#{@warranty.adress}", target: '_blank'
+              tr
+                td Дата покупки
+                td = @warranty.datebuyed.strftime("%d.%m.%Y")
+              tr
+                td Серийный номер
+                td = @warranty.serial
+              tr
+                td Первый пуск
+                td = t(@warranty.started)
+              - if @warranty.started?
+                tr
+                  td Дата первого пуска
+                  td = @warranty.datefirststart.strftime("%d.%m.%Y")
+                tr
+                  td Кто запускал
+                  td = @warranty.master&.name
+              tr
+                td Дата создание записи
+                td = @warranty.created_at.strftime("%d.%m.%Y %H:%M")
+              tr
+                td Регистратор гарантии
+                td = @warranty.user.username
+              tr
+                td Комментарий
+                td = @warranty.comment
+  article.col-xs-12.col-sm-6.col-md-6.col-lg-6
+    .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+      header.ui-sortable-handle
+        span.widget-icon
+          i.fa.fa-phone
+        h2 Вызовы котла
+      div
+        .widget-body
+          - if @calls.any?
+            table#calls.table.table-hover.table-bordered.table-striped[style="clear: both"]
+              thead
+                tr
+                  th ID
+                  th Дата создания
+              tbody
+                - @calls.each do |call|
+                  tr
+                    td = link_to "##{call.id}", call_path(call)
+                    td = call.created_at.strftime("%d.%m.%Y")
+            .container
+              = will_paginate @calls, renderer: 'BootstrapPaginationHelper::LinkRenderer'
+          - else
+            h3.text-center Список вызовов пуст

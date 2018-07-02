@@ -1,0 +1,6 @@
+- if resource&.errors.present?
+  - resource.errors.full_messages.each do |message|
+    .alert.alert-danger.fade.in
+      button.close data-dismiss="alert" ×
+      i.fa-fw.fa.fa-times
+      = " #{message}"

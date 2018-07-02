@@ -35,6 +35,11 @@ class Admin::CallsController < Admin::AdminController
   end
 
   def serial_autocomplete
+    respond_to do |format|
+      format.json do
+        render json: Warranty.serials(params[:term])
+      end
+    end
   end
 
   def call_expect

@@ -10,6 +10,6 @@ class CallsController < ApplicationController
   end
 
   def show
-    @called = Call.find(params[:id])
+    @call = Call.find(params[:id])
   end
 end

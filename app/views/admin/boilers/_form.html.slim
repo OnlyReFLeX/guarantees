@@ -1,8 +1,9 @@
-- render_errors_for(resource)
-= form_for [:admin, resource] do |f|
-  .row
-    .input-field.input-group
-      = f.label :name, "Марка"
-      = f.text_field :name
-      span.suffix
-        = f.button class: "btn waves-effect waves-light"
+= render 'shared/errors', resource: resource
+= form_for [:admin, resource], html: { class: 'smart-form' } do |f|
+      section
+        = f.label :name, "Марка", class: 'label'
+        label.input
+          = f.text_field :name, autofocus: true
+      footer
+        .left
+          = f.submit resource.persisted? ? 'Сохранить' : 'Добавить марку', class: 'btn btn-primary'

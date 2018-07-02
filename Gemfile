@@ -33,11 +33,9 @@ gem 'devise', '~> 4.4', '>= 4.4.3'
 # localize
 gem 'rails-i18n', '~> 5.1', '>= 5.1.1'
 
-# materialize
-gem 'materialize-sass', '~> 1.0.0.rc1', git: 'git@github.com:mkhairi/materialize-sass.git'
-
 # jquery
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3'
+gem 'jquery-ui-rails', '~> 6.0'
 
 # icons
 gem 'material_icons'

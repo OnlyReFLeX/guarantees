@@ -1,28 +1,80 @@
-.row.center
-  .col.s6.m6
-    .card.blue-grey.darken-1
-      .card-content.white-text
-        span.card-title Вызовы
-        p Зарегистрированых вызовов: #{Call.count}.
-      .card-action
-        = link_to 'Перейти', calls_path
-    .card.blue-grey.darken-1
-      .card-content.white-text
-        span.card-title Мастеры
-        p Рабочих в мастерской: #{Master.count}.
-      .card-action
-        = link_to 'Перейти', new_admin_master_path
-  .col.s6.m6
-    .card.blue-grey.darken-1
-      .card-content.white-text
-        span.card-title Гарантийные котлы
-        p Оформлено гарантий: #{Warranty.count}.
-      .card-action
-        = link_to 'Перейти', warranties_path
-    .card.blue-grey.darken-1
-      .card-content.white-text
-        span.card-title Марки
-        p Фирмы котлов зарегистированных: #{Boiler.count}.
-        p Моделей котлов: #{ProductModel.count}.
-      .card-action
-        = link_to 'Перейти', new_admin_boiler_path
+.row
+  .col-sm-6.col-lg-4
+    .panel.panel-default
+      .panel-body.status
+        .who.clearfix
+          h4
+            | Последние вызовы
+            i.fa.fa-phone.right
+        - Call.order(created_at: :desc).limit(5).each do |call|
+          .who.clearfix
+            span.name.font-sm
+              = link_to call.username, call, class: 'font-md'
+              br
+              span.text-muted
+                = call.adress
+                span.pull-right.font-xs.text-muted
+                  i
+                    = time_ago_in_words(call.created_at)
+  .col-sm-6.col-lg-4
+    .panel.panel-default
+      .panel-body.status
+        .who.clearfix
+          h4
+            | Последние оформленные гарантии
+            i.fa.fa-ambulance.right
+        - Warranty.order(created_at: :desc).limit(5).each do |warranty|
+          .who.clearfix
+            span.name.font-sm
+              = link_to warranty.name, warranty, class: 'font-md'
+              br
+              span.text-muted
+                = warranty.adress
+                span.pull-right.font-xs.text-muted
+                  i
+                    = time_ago_in_words(warranty.created_at)
+  .col-sm-6.col-lg-4
+    .panel.panel-default
+      .panel-body.status
+        .who.clearfix
+          h4
+            | Статистика данных
+            i.fa.fa-bar-chart.right
+        .row
+          .text
+            .col-sm-12.col-md-6.col-lg-6
+              .well.text-center.connect
+                i.fa.fa-ambulance
+                br
+                span
+                  b Оформлено гарантий
+                br
+                label.label.label-primary
+                  span.font-xs = Warranty.count
+            .col-sm-12.col-md-6.col-lg-6
+              .well.text-center.connect
+                i.fa.fa-group
+                br
+                span
+                  b Рабочих в мастерской
+                br
+                label.label.label-warning
+                  span.font-xs = Master.count
+            .col-sm-12.col-md-6.col-lg-6
+              .well.text-center.connect
+                i.fa.fa-phone
+                br
+                span
+                  b Оформлено вызовов
+                br
+                label.label.label-success
+                  span.font-xs = Call.count
+            .col-sm-12.col-md-6.col-lg-6
+              .well.text-center.connect
+                i.fa.fa-fire
+                br
+                span
+                  b Моделей котлов
+                br
+                label.label.label-primary
+                  span.font-xs = ProductModel.count

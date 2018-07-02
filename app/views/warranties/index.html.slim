@@ -1,20 +1,16 @@
-.row
-  .col.s4.left
-    br Общее количество гарантийных котлов: #{Warranty.count}
-#warranties
-  table.warranties.striped
-    thead
-      tr
-        th = sortable "id", "#"
-        th = sortable "name", "Клиент"
-        th = sortable "boiler", "Котел"
-        th = sortable "adress", "Адрес"
-        th = sortable "datebuyed", "Дата покупки"
-        th = sortable "started", "Первый пуск"
-        th = sortable "whodidfirststart", "Кто запускал"
-        th = sortable "datefirststart", "Дата пуска"
-        th = sortable "created_at", "Дата создание"
-    tbody
-      = render @warranties
-  .container
-    = will_paginate @warranties, renderer: 'MaterializePaginationHelper::LinkRenderer'
+section
+  .row.mt5
+    article.col-xs-12
+      .jarviswidget
+        header
+          h2 Гарантийные
+        div
+          .widget-body.no-padding
+            table#warranties.table.table-bordered.table-striped.mb0 cellspacing="0" width='100%' data-source="#{warranties_path(format: :json)}"
+              thead
+                tr
+                  - WarrantyPresenter.columns.each do |column|
+                    = k(:datatable_column, column).filter_cell
+                tr
+                  - WarrantyPresenter.columns.each do |column|
+                    = k(:datatable_column, column).cell

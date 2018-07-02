@@ -1,18 +1,15 @@
 tr
+  td = master.id
   td
     div id="master_title_#{master.id}"
       = master.name
-    = form_for [:admin, master], html: { class: "col s12 hidden" }, remote: true do |f|
-      .row
-        .input-field.input-group.col.s6
-          = f.label :name, "Мастер"
-          = f.text_field :name
-          span.suffix
-            = f.button class: "btn btn-floating waves-effect waves-light green" do
-              i.material-icons done
-  td.right
-    = link_to admin_master_path(master), method: :delete, data: { confirm: "Вы уверены что хотите удалить котел #{master.name}?"}, remote: true do
-      i.material-icons delete
-  td.right
-    = link_to '', class: 'edit_master', data: { master_id: master.id } do
-      i.material-icons edit
+    = form_for [:admin, master], html: { class: "smart-form", style: 'display: none;' }, remote: true do |f|
+      = f.text_field :name, style: 'width: 80%'
+      = f.button class: 'btn btn-xs btn-default ml5' do
+        i.fa.fa-save
+  td = master.created_at.strftime("%d.%m.%Y")
+  td
+    = link_to '', class: 'edit_master mr10 btn btn-xs btn-default', data: { master_id: master.id } do
+      i.fa.fa-pencil
+    = link_to admin_master_path(master), class: 'btn btn-xs btn-danger', method: :delete, data: { confirm: "Вы уверены что хотите удалить котел #{master.name}?"}, remote: true do
+      i.fa.fa-trash

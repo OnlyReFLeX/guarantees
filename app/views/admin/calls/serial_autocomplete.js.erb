@@ -1,7 +1,0 @@
-var instance = M.Autocomplete.getInstance(document.querySelector("#call_serial_code"));
-
-instance.updateData({
-  <% Warranty.where('serial ILIKE ?', "%#{params[:autocomplete]}%").limit(6).pluck(:serial).each do |serial| %>
-    "<%= serial %>": null,
-  <% end %>
-});

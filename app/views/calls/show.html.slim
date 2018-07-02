@@ -1,66 +1,102 @@
-.row
-  h2
-    | Вызов № #{@called.id}
-    - if current_user.admin?
-      = link_to edit_admin_call_path(@called) do
-        i.material-icons edit
-  table.striped
-    tr
-      th Имя: #{@called.username}
-    tr
-      th Котел: #{@called.product_model&.name}
-    tr
-      th Телефон: #{@called.phone}
-    tr
-      th Адрес: #{link_to @called.adress, "https://yandex.ru/maps/?text=#{@called.adress}", target: '_blank'}
-    tr
-      th Неисправность: #{@called.error}
-    tr
-      th Дата звонка клиента: #{@called.call_date.strftime("%d.%m.%Y")}
-    tr
-      th Дата создание записи: #{@called.created_at.strftime("%d.%m.%Y %H:%M")}
-    tr
-      th Мастер: #{@called.master&.name}
-    tr
-      th Гарантийный: #{@called.guarantee  ? 'Да' : 'Нет'}
-    - if @called.guarantee?
-      tr
-        th Серия: #{@called.warranty ? (link_to @called.warranty.serial, warranty_path(@called.warranty)) : 'Гарантийный котел был удален из гарантийных'}
-    tr
-      th Регистратор вызова: #{@called.user.username}
-    tr
-      th Комментарий: #{@called.comment}
-    tr
-      th
-        |  Статус:
-        = link_to 'Ожидает', call_expect_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger red', method: :put, disabled: @called.status == 'expect'
-        = link_to 'В процессе', call_in_progress_admin_call_path(@called), class: 'waves-effect waves-light btn modal-trigger orange', method: :put, disabled: @called.status == 'in_progress'
-        = link_to 'Выполнен', '#modal_success', class: 'waves-effect waves-light btn modal-trigger green', disabled: @called.status == 'success'
-        = link_to 'Отменен', '#modal_canceled', class: 'waves-effect waves-light btn modal-trigger grey', disabled: @called.status == 'canceled'
-    - if comment_status(@called)
-      tr
-        th Комментарий к статусу: #{comment_status(@called)}
-    - if current_user.admin?
-      tr
-        th.right
-          = link_to admin_call_path(@called), method: :delete, data: { confirm: "Вы уверены что хотите удалить вызов #{@called.username}?"} do
-            i.material-icons delete
-- if current_user.admin?
-  #modal_success.modal
-    = form_for [:admin, @called] do |f|
-      .modal-content
-        h4 Вызов выполнен
-        = f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?"
-        = f.text_area :infosuccess, class: 'materialize-textarea'
-        = f.hidden_field :status, value: 'success'
-      .modal-footer
-        = f.submit 'Сохранить', class: "btn green"
-  #modal_canceled.modal
-    = form_for [:admin, @called] do |f|
-      .modal-content
-        h4 Вызов отменен
-        = f.label :whycanceled, "Не хотите рассказать почему пришлось отменить вызов?"
-        = f.text_area :whycanceled, class: "materialize-textarea"
-        = f.hidden_field :status, value: 'canceled'
-      .modal-footer
-        = f.submit 'Сохранить', class: "btn red"
+#wid-id-0.jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable
+  header.ui-sortable-handle
+    span.widget-icon
+      i.fa.fa-phone
+    h2
+      | Вызов #
+      = @call.id
+    .jarviswidget-ctrls
+      = link_to edit_admin_call_path(@call), class: 'button-icon' do
+        i.fa.fa-cog
+      = link_to admin_call_path(@call), class: 'button-icon', method: :delete, data: { confirm: "Вы уверены что хотите удалить вызов #{@call.username}?"} do
+        i.fa.fa-trash
+  div
+    .widget-body
+      table#user.table.table-bordered.table-striped[style="clear: both"]
+        tbody
+          tr
+            td style="width:15%;" Имя
+            td = @call.username
+          tr
+            td Котел
+            td = @call.product_model.full_name
+          tr
+            td Телефон
+            td = @call.phone
+          tr
+            td Адрес
+            td = link_to @call.adress, "https://yandex.ru/maps/?text=#{@call.adress}", target: '_blank'
+          tr
+            td Неисправность
+            td = @call.error
+          tr
+            td Дата звонка клиента
+            td = @call.call_date.strftime("%d.%m.%Y")
+          tr
+            td Дата создание записи
+            td = @call.created_at.strftime("%d.%m.%Y %H:%M")
+          tr
+            td Мастер
+            td = @call.master&.name
+          tr
+            td Гарантийный
+            td = t(@call.guarantee)
+          - if @call.guarantee?
+            tr
+              td Серия
+              td = @call.warranty ? (link_to @call.warranty.serial, warranty_path(@call.warranty)) : 'Гарантийный котел был удален'
+          tr
+            td Регистратор вызова
+            td = @call.user.username
+          tr
+            td Комментарий
+            td = @call.comment
+          tr
+            td Статус
+            td
+              span class="label label-#{@call.status}" = t(@call.status)
+          - if comment_status(@call)
+            tr
+              td Комментарий к статусу
+              td = comment_status(@call)
+          tr
+            td Сменить статус
+            td.buttons
+              = link_to 'Ожидает', call_expect_admin_call_path(@call), class: "btn btn-danger", method: :put if @call.status != 'expect'
+              = link_to 'В процессе', call_in_progress_admin_call_path(@call), class: 'btn btn-warning', method: :put if @call.status != 'in_progress'
+              = link_to 'Выполнен', '#modal_success', data: { toggle: :modal }, class: 'btn btn-success' if @call.status != 'success'
+              = link_to 'Отменен', '#modal_canceled', data: { toggle: :modal }, class: 'btn bg-color-blueLight txt-color-white' if @call.status != 'canceled'
+
+#modal_success.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" ×
+        h4.modal-title Подтвердите выполнение вызова
+      = form_for [:admin, @call] do |f|
+        .modal-body
+          .row
+            .col-md-12
+              = f.label :infosuccess, "Вам есть что сказать о выполнение вызова ?"
+              = f.text_area :infosuccess, class: 'form-control', rows: 5
+              = f.hidden_field :status, value: 'success'
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Отменить
+          = f.submit 'Сохранить', class: "btn btn-primary"
+
+#modal_canceled.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" ×
+        h4.modal-title Подтвердите отмену вызова
+      = form_for [:admin, @call] do |f|
+        .modal-body
+          .row
+            .col-md-12
+            = f.label :whycanceled, "Не хотите рассказать почему пришлось отменить вызов?"
+            = f.text_area :whycanceled, class: "form-control", rows: 5
+            = f.hidden_field :status, value: 'canceled'
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Отменить
+          = f.submit 'Сохранить', class: "btn btn-danger"

@@ -26,7 +26,6 @@ class Admin::BoilersController < Admin::AdminController
 
   def destroy
     @boiler.destroy
-    redirect_to action: 'new'
   end
 
   private
@@ -36,7 +35,7 @@ class Admin::BoilersController < Admin::AdminController
   end
 
   def boilers_all
-    @boilers = Boiler.order(:name).paginate(:per_page => 10, :page => params[:page])
+    @boilers = Boiler.order(created_at: :desc).paginate(per_page: 10, page: params[:page])
   end
 
   def boiler_params

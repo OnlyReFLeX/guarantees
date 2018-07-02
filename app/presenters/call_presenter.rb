@@ -1,13 +1,21 @@
 class CallPresenter < DatatablePresenter
   presents :call
-  delegate :id, :call_date, :username, :phone, :adress, :product_model, :error, :master, :created_at, :status, :guarantee, to: :call
+  delegate :id, :call_date, :username, :phone, :adress, :product_model, :error, :master, :created_at, :guarantee, to: :call
 
   def name
     link_to username, call_path(call)
   end
 
+  def status
+    build_html do
+      span class: "label label-#{call.status}" do
+        I18n.t(call.status)
+      end
+    end
+  end
+
   def row_data
-    [id, human_datetime(call_date, '%Y-%m-%d'), name, phone, adress, product_model&.name, error, master&.name, human_datetime(created_at), status, guarantee]
+    [id, human_datetime(call_date, '%Y-%m-%d'), name, phone, adress, product_model&.name, error, master&.name, human_datetime(created_at), status, I18n.t(guarantee)]
   end
 
   class << self
@@ -18,7 +26,7 @@ class CallPresenter < DatatablePresenter
             field: :id,
             type: 'text',
             klass: 'form-control search-input-text',
-            data: { column: 0 }
+            data: { column: 0 },
           }
         },
         { title: 'Дата вызова', orderable: true,

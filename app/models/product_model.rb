@@ -3,4 +3,8 @@ class ProductModel < ApplicationRecord
   belongs_to :boiler
   has_many :calls
   has_many :warranties
+
+  def full_name
+    "#{boiler.name} #{name}"
+  end
 end

@@ -1,9 +1,13 @@
 var ready = function() {
-  if ($('#user_design').val() != undefined) {
+  function setSmartStyle() {
     $('body').attr('class', 'smart-style-' + $('#user_design').val())
   }
+
+  if ($('#user_design').val() != undefined) {
+    setSmartStyle();
+  }
   $('#user_design').change(function() {
-    $('body').attr('class', 'smart-style-' + $('#user_design').val())
+    setSmartStyle();
   })
 };
 

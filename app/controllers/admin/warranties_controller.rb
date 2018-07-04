@@ -29,6 +29,11 @@ class Admin::WarrantiesController < Admin::AdminController
     redirect_to warranties_path
   end
 
+  def fields_autocomplete
+    @warranty = Warranty.find_by('serial ILIKE ?', params[:serial])
+    render json: @warranty
+  end
+
   private
 
   def find_id

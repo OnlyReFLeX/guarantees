@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :new, :create, :destroy, :edit, :update]
-    resources :warranties, except: [:show, :index]
+    resources :warranties, except: [:show, :index] do
+      get :fields_autocomplete, on: :collection
+    end
     resources :calls, except: [:show, :index] do
       member do
         put :call_expect

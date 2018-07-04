@@ -1,6 +1,16 @@
 = form_for [:admin, @call], html: { class: 'smart-form call_form' } do |f|
   = render 'shared/errors', resource: @call
   section
+    = f.label :guarantee, "Гарантийный", class: 'label'
+    label.select
+      = f.select :guarantee, [['Нет', false],['Да', true]]
+      i
+  section
+    #hidden_div
+      = f.label :serial_code, "Серийный номер", class: 'label'
+      label.input
+        = f.text_field :serial_code
+  section
     = f.label :product_model_id, "Фирма", class: 'label'
     label
       = f.collection_select :product_model_id, ProductModel.order_by_boiler, :id, :full_name, { include_blank: true }, class: 'select2'
@@ -27,16 +37,6 @@
     = f.label :error, "Неисправность", class: 'label'
     label.input
       = f.text_field :error
-  section
-    = f.label :guarantee, "Гарантийный", class: 'label'
-    label.select
-      = f.select :guarantee, [['Нет', false],['Да', true]]
-      i
-  section
-    #hidden_div
-      = f.label :serial_code, "Серийный номер", class: 'label'
-      label.input
-        = f.text_field :serial_code
   section
     = f.label :comment, "Комментарий", class: 'label'
     label.textarea

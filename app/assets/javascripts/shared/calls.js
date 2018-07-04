@@ -1,5 +1,17 @@
 var ready = function() {
   if (document.querySelector('.call_form')) {
+
+    $('#call_serial_code').change(function() {
+      $.getJSON("/admin/warranties/fields_autocomplete?serial=" + $('#call_serial_code').val(), function(data) {
+        if (data != null) {
+          $('#call_product_model_id').val(data['product_model_id']).trigger('change')
+          $('#call_username').val(data['name'])
+          $('#call_adress').val(data['adress'])
+          $('#call_phone').val(data['phone'])
+        }
+      });
+    })
+
     $("#call_phone").mask("+7(999)999-99-99", {
       placeholder: "+7(___)___-__-__",
       clearIfNotMatch: true

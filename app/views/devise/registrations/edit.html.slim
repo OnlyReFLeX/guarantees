@@ -30,6 +30,10 @@
                     = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Подтверждение нового пароля'
               .row
                 section.col.col-6
+                  label.select
+                    = f.select :design, User::DESIGNS.invert
+                    i.fa.fa-key
+                section.col.col-6
                   label.input
                     i.icon-prepend.fa.fa-key
                     = f.password_field :current_password, autocomplete: "off", placeholder: 'Текущий пароль'

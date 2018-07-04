@@ -1,7 +1,11 @@
 class User < ApplicationRecord
+  DESIGNS = { 0 => 'Smart Default', 1 => 'Dark Elegance', 2 => 'Ultra Light',
+              3 => 'Google Skin', 4 => 'Pixel Smash', 6 => 'MaterialDesign' }.freeze
+
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable, :registerable
   validates :username, presence: true
+  validates :design, presence: true, inclusion: 0..6
   validate :validate_last_administrator, on: :update
 
   has_many :warranties

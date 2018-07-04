@@ -8,4 +8,8 @@ module ApplicationHelper
       false
     end
   end
+
+  def layout_style
+    user_signed_in? ? "smart-style-#{current_user.design}" : 'smart-style-0'
+  end
 end

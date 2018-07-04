@@ -1,11 +1,26 @@
-h2.new_user
-  | Забыли свой пароль?
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
-  = f.label :email, "Эл. Адрес"
-  br
-  = f.email_field :email, autofocus: true, class: "form-control"
-  br
-  .actions
-    = f.submit "Сбросить пароль", class: "btn btn-primary"
-    = render "devise/shared/links"
+css:
+  body {
+    background-image: url(#{asset_path 'admin_background.jpg'})
+  }
+  #main {
+    margin-left: 0px;
+  }
+
+.center style="margin: auto;width: 20%;padding: 10px;"
+  .well.no-padding
+    = render 'shared/errors', resource: resource
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'smart-form client-form' }) do |f|
+      header.text-center Забыли свой пароль?
+      fieldset
+        section
+          label.label E-mail
+          label.input
+            i.icon-append.fa.fa-user
+            = f.email_field :email, autofocus: true, autocomplete: "email"
+            b.tooltip.tooltip-top-right
+              | Пожалуйста введите email
+      footer
+        .col-md-6.mt15
+          = render "devise/shared/links"
+        .col-md-6
+          = f.button "Сбросить пароль", class: "btn btn-primary"

@@ -1,17 +1,35 @@
-.reset_password
-  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-    h3.new_user
-      | Изменение пароля
-    = devise_error_messages!
-    = f.hidden_field :reset_password_token
-    - if @minimum_password_length
-      em
-        | (минимум 
-        = @minimum_password_length
-        |  символов)
-      br
-    = f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control", placeholder: 'Новый пароль'
-    = f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: 'Подтверждение пароля'
-    .actions
-      = f.submit "Поменять пароль", class: "btn btn-primary"
-      = render "devise/shared/links"
+css:
+  body {
+    background-image: url(#{asset_path 'admin_background.jpg'})
+  }
+  #main {
+    margin-left: 0px;
+  }
+.center style="margin: auto;width: 20%;padding: 10px;"
+  .well.no-padding
+    = render 'shared/errors', resource: resource
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'smart-form client-form' }) do |f|
+      = f.hidden_field :reset_password_token
+      header.text-center Изменение пароля
+      fieldset
+        section
+          label.label Новый пароль (минимум #{@minimum_password_length} символов)
+          label.input
+            i.icon-append.fa.fa-lock
+            = f.password_field :password, autocomplete: "off"
+            b.tooltip.tooltip-top-right
+              i.fa.fa-lock.txt-color-teal
+              | Введите новый пароль
+        section
+          label.label Подтверждение пароля
+          label.input
+            i.icon-append.fa.fa-lock
+            = f.password_field :password_confirmation, autocomplete: "off"
+            b.tooltip.tooltip-top-right
+              i.fa.fa-lock.txt-color-teal
+              | Подтвердите новый пароль
+      footer
+        .col-md-6.mt15
+          = render "devise/shared/links"
+        .col-md-6
+          = f.submit "Поменять пароль", class: "btn btn-primary"

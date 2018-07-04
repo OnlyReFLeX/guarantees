@@ -1,11 +1,5 @@
 <% if @product_model.errors.present? %>
-  $.smallBox({
-    title : "Ошибка",
-    content : "<i class='fa fa-times'></i> <i><%= @product_model.errors.full_messages.join('<br>') %></i>",
-    color : "#C46A69",
-    iconSmall : "fa fa-times fa-2x fadeInRight animated",
-    timeout : 4000
-  });
+  <%= render 'shared/js_errors', resource: @product_model %>
 <% else %>
   $('#table_body_boiler_<%= @product_model.boiler.id %>').append('<%= j render 'admin/product_models/product_model', product_model: @product_model %>');
   $("#product_model_name_<%= @product_model.boiler.id %>").val('');

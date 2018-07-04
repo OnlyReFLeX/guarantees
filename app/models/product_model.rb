@@ -4,6 +4,8 @@ class ProductModel < ApplicationRecord
   has_many :calls
   has_many :warranties
 
+  scope :order_by_boiler, -> { includes(:boiler).order('boilers.name') }
+
   def full_name
     "#{boiler.name} #{name}"
   end

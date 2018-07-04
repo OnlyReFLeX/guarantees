@@ -3,7 +3,7 @@
   section
     = f.label :product_model_id, "Фирма", class: 'label'
     label
-      = f.collection_select :product_model_id, ProductModel.order(:name), :id, :name, { include_blank: true }, class: 'select2'
+      = f.collection_select :product_model_id, ProductModel.order_by_boiler, :id, :full_name, { include_blank: true }, class: 'select2'
   section
     = f.label :name, "Фамилия Имя владельца", class: 'label'
     label.input

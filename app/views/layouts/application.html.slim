@@ -4,7 +4,6 @@ html
     title EURODOM
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
-    script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"
     = javascript_include_tag 'application'
   body class="#{layout_style}"
     - if user_signed_in?

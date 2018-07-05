@@ -15,7 +15,7 @@ class Warranty < ApplicationRecord
   belongs_to :master, optional: true
   belongs_to :user
 
-  pg_search_scope :search_by, against: %i[id name phone adress comment], using: { tsearch: { prefix: true } },
+  pg_search_scope :search_by, against: %i[id name phone adress comment serial], using: { tsearch: { prefix: true } },
                               associated_against: { product_model: :name, master: :name }
 
   def self.pg_search(query)

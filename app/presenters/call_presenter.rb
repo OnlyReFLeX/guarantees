@@ -69,7 +69,7 @@ class CallPresenter < DatatablePresenter
             data: { column: 5 }
           }
         },
-        { title: 'Ошибка', orderable: true,
+        { title: 'Неисправность', orderable: true,
           filter: {
             field: :error,
             type: 'text',

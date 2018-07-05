@@ -67,11 +67,14 @@
                 tr
                   th ID
                   th Дата создания
+                  th Статус
               tbody
                 - @calls.each do |call|
                   tr
                     td = link_to "##{call.id}", call_path(call)
                     td = call.created_at.strftime("%d.%m.%Y")
+                    td
+                      span class="label label-#{call.status}" = t(call.status)
             .container
               = will_paginate @calls, renderer: 'BootstrapPaginationHelper::LinkRenderer'
           - else

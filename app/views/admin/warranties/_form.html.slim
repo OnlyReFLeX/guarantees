@@ -39,6 +39,10 @@
       label.input
         = f.text_field :datefirststart, class: 'datepicker', autocomplete: "off"
   section
+    = f.label :warranty_until, "Гарантия действует до", class: 'label'
+    label.input
+      = f.text_field :warranty_until, class: 'datepicker', autocomplete: "off"
+  section
     = f.label :comment, "Комментарий"
     label.textarea
       = f.text_area :comment

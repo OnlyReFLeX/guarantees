@@ -14,7 +14,7 @@ class Admin::CallsController < Admin::AdminController
     if @call.save
       redirect_to calls_path
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -25,7 +25,7 @@ class Admin::CallsController < Admin::AdminController
     if @call.update(call_params)
       redirect_to call_path
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
@@ -55,7 +55,8 @@ class Admin::CallsController < Admin::AdminController
   private
 
   def call_params
-    params.require(:call).permit(:product_model_id, :username, :phone, :adress, :call_date, :status, :master_id, :error, :guarantee, :serial_code, :whycanceled, :infosuccess, :comment)
+    params.require(:call).permit(:product_model_id, :username, :phone, :adress, :call_date, :status, :master_id, :error,
+                                 :guarantee, :serial_code, :whycanceled, :infosuccess, :comment)
   end
 
   def find_id
@@ -64,13 +65,5 @@ class Admin::CallsController < Admin::AdminController
 
   def boilers_all
     @boilers = Boiler.all
-  end
-
-  def sort_column
-    Call.column_names.include?(params[:sort]) ? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %W[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 end

@@ -9,7 +9,7 @@ class Admin::WarrantiesController < Admin::AdminController
     if @warranty.save
       redirect_to warranties_path
     else
-      render action: 'new'
+      render :new
     end
   end
 
@@ -20,7 +20,7 @@ class Admin::WarrantiesController < Admin::AdminController
     if @warranty.update(warranty_params)
       redirect_to warranties_path
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
@@ -41,6 +41,7 @@ class Admin::WarrantiesController < Admin::AdminController
   end
 
   def warranty_params
-    params.require(:warranty).permit(:product_model_id, :name, :phone, :adress, :serial, :datefirststart, :master_id, :datebuyed, :started, :comment)
+    params.require(:warranty).permit(:product_model_id, :name, :phone, :adress, :serial, :datefirststart, :master_id,
+                                     :datebuyed, :started, :comment, :warranty_until)
   end
 end

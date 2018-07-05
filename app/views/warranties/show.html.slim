@@ -17,7 +17,7 @@
           table#warranty.table-hover.table.table-bordered.table-striped[style="clear: both"]
             tbody
               tr
-                td style="width:20%;" Клиент
+                td style="width:25%;" Клиент
                 td = @warranty.name
               tr
                 td Котел
@@ -50,6 +50,14 @@
               tr
                 td Регистратор гарантии
                 td = @warranty.user.username
+                tr
+                  td Гарантия
+                  td
+                    span class="label label-#{@warranty.warranty_have?}" = t("warranty.#{@warranty.warranty_have?}")
+              - if @warranty.warranty_until
+                tr
+                  td Гарантия действует до
+                  td = @warranty.warranty_until&.strftime("%d.%m.%Y")
               tr
                 td Комментарий
                 td = @warranty.comment

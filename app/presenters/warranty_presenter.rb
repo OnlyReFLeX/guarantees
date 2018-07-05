@@ -6,8 +6,16 @@ class WarrantyPresenter < DatatablePresenter
     link_to name, warranty_path(warranty)
   end
 
+  def warranty_until
+    build_html do
+      span class: "label label-#{@warranty.warranty_have?.to_s}" do
+        I18n.t("warranty.#{@warranty.warranty_have?.to_s}")
+      end
+    end
+  end
+
   def row_data
-    [id, human_datetime(datebuyed, '%Y-%m-%d'), username, product_model&.name, adress, master&.name, I18n.t(started), human_datetime(datefirststart, '%Y-%m-%d'), human_datetime(created_at), ]
+    [id, human_datetime(datebuyed, '%Y-%m-%d'), username, product_model&.name, adress, master&.name, I18n.t(started), human_datetime(datefirststart, '%Y-%m-%d'), human_datetime(created_at), warranty_until]
   end
 
   class << self
@@ -86,16 +94,30 @@ class WarrantyPresenter < DatatablePresenter
             klass: 'form-control search-input-text',
             data: { column: 8 }
           }
+        },
+        { title: 'Гарантия', orderable: true,
+          filter: {
+            field: :warranty_until,
+            options: warranty_until_options_for_select,
+            type: 'select',
+            klass: 'select2 search-input-text',
+            style: 'width: 100%',
+            data: { column: 9 }
+          }
         }
       ]
     end
 
     def sort_columns
-      ['warranties.id', 'warranties.datebuyed', 'warranties.name', 'product_models.name', 'warranties.adress', 'masters.name', 'warranties.started', 'warranties.datefirststart', 'warranties.created_at']
+      ['warranties.id', 'warranties.datebuyed', 'warranties.name', 'product_models.name', 'warranties.adress', 'masters.name', 'warranties.started', 'warranties.datefirststart', 'warranties.created_at', 'warranties.warranty_until']
     end
 
     def start_options_for_select
       [['Не выбрано', ''], ['Да', true], ['Нет', false]]
+    end
+
+    def warranty_until_options_for_select
+      [['Не выбрано', ''], ['Действует', 'enabled'], ['Истекла', 'disabled'], ['Отсутствует', 'empty']]
     end
   end
 end

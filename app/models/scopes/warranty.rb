@@ -42,6 +42,17 @@ module Scopes
       scope :serials, lambda { |term|
         where('serial ILIKE ?', "%#{term}%").limit(6).pluck(:serial)
       }
+
+      scope :by_warranty_until, lambda { |warranty|
+        case warranty
+        when 'empty'
+          where(warranty_until: nil)
+        when 'enabled'
+          where('warranty_until > ?', Time.current)
+        when 'disabled'
+          where('warranty_until < ?', Time.current)
+        end
+      }
     end
   end
 end

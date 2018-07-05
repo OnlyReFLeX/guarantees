@@ -22,6 +22,13 @@ class Warranty < ApplicationRecord
     query.blank? ? [] : search_by(query)
   end
 
+  def warranty_have?
+    return 'empty' unless warranty_until
+    warranty_until > Time.current
+  end
+
+  private
+
   def clear_master_and_start
     return if started?
     self.master = nil

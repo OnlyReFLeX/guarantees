@@ -9,7 +9,7 @@
     #hidden_div
       = f.label :serial_code, "Серийный номер", class: 'label'
       label.input
-        = f.text_field :serial_code
+        = f.text_field :serial_code, autocomplete: "off"
   section
     = f.label :product_model_id, "Фирма", class: 'label'
     label
@@ -25,11 +25,11 @@
   section
     = f.label :phone, "Телефон", class: 'label'
     label.input
-      = f.text_field :phone
+      = f.text_field :phone, autocomplete: "off"
   section
     = f.label :call_date, "Дата звонка", class: 'label'
     label.input
-      = f.text_field :call_date, class: 'datepicker'
+      = f.text_field :call_date, class: 'datepicker', autocomplete: "off"
   section
     = f.label :master_id, "Мастер", class: 'label'
     = f.collection_select :master_id, Master.order(:name), :id , :name, { include_blank: true }, class: 'select2'

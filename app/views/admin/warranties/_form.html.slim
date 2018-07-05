@@ -15,7 +15,7 @@
   section
     = f.label :phone, "Телефон", class: 'label'
     label.input
-      = f.text_field :phone
+      = f.text_field :phone, autocomplete: "off"
   section
     = f.label :serial, "Серийный номер котла", class: 'label'
     label.input
@@ -23,7 +23,7 @@
   section
     = f.label :datebuyed, "Дата покупки котла", class: 'label'
     label.input
-      = f.text_field :datebuyed, class: 'datepicker'
+      = f.text_field :datebuyed, class: 'datepicker', autocomplete: "off"
   section
     = f.label :started, "Был ли первый запуск котла", class: 'label'
     label.select
@@ -37,7 +37,7 @@
     section
       = f.label :datefirststart, "Дата первого запуска котла"
       label.input
-        = f.text_field :datefirststart, class: 'datepicker'
+        = f.text_field :datefirststart, class: 'datepicker', autocomplete: "off"
   section
     = f.label :comment, "Комментарий"
     label.textarea

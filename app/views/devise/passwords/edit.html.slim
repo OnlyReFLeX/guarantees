@@ -5,7 +5,7 @@ css:
   #main {
     margin-left: 0px;
   }
-.center style="margin: auto;width: 20%;padding: 10px;"
+.center style="margin: auto;width: 400px;padding: 10px;"
   .well.no-padding
     = render 'shared/errors', resource: resource
     = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'smart-form client-form' }) do |f|

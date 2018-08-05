@@ -25,7 +25,8 @@
             td = @call.phone
           tr
             td Адрес
-            td = link_to @call.adress, "https://yandex.ru/maps/?text=#{@call.adress}", target: '_blank'
+            td
+              span.ymaps-geolink = @call.adress
           tr
             td Неисправность
             td = @call.error

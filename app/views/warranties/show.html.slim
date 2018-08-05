@@ -27,7 +27,8 @@
                 td = @warranty.phone
               tr
                 td Адрес
-                td = link_to @warranty.adress, "https://yandex.ru/maps/?text=#{@warranty.adress}", target: '_blank'
+                td
+                  span.ymaps-geolink = @warranty.adress
               tr
                 td Дата покупки
                 td = @warranty.datebuyed.strftime("%d.%m.%Y")

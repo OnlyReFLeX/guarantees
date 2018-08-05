@@ -12,3 +12,7 @@
 //
 //= require cabinet/application
 //= require_tree ./shared
+
+ymaps.ready(function(){
+  ymaps.modules.require('Geolink')
+});
